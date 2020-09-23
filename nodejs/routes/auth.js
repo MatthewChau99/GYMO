@@ -5,7 +5,14 @@ const router = express.Router();
 const AuthController = require('../controlllers/AuthController');
 
 
-router.post('/login', AuthController.login);
+router.post('/login', async(req, res) => {
+    const login = validate(req.body);
+    if (!login.error) {
+        return res.status(200).send("Login Successful!");
+    } else {
+        return res.status(400).send("Login Unsuccessful!")
+    }
+});
 
 //router.post('/register', AuthController.register);
 router.post('/register', async (req, res) => {
