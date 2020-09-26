@@ -61,7 +61,7 @@ UserDetails.propTypes = {
 
 UserDetails.defaultProps = {
   userDetails: {
-    name: "Xinman Zhang",
+    name: "Xinman",
     avatar: require("./../../images/avatars/0.jpg"),
     jobTitle: "Product Owner",
     performanceReportTitle: "Workload",

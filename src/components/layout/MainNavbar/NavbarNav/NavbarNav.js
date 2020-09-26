@@ -7,8 +7,8 @@ import AddPost from "./AddPost";
 
 export default () => (
   <Nav navbar className="border-left flex-row">
+    <AddPost />
     <Notifications />
     <UserActions />
-    <AddPost />
   </Nav>
 );

@@ -50,7 +50,7 @@ export default class UserActions extends React.Component {
           </DropdownItem>
           <DropdownItem tag={Link} to="add-new-post">
             {/* <i className="material-icons">&#xE2C7;</i> Add A New Post */}
-            <i className="material-icons">post_add</i> Add A New Post
+            <i className="material-icons">post_add</i> Add New Post
           </DropdownItem>
           <DropdownItem tag={Link} to="transaction-history">
             <i className="material-icons">&#xE896;</i> Transactions

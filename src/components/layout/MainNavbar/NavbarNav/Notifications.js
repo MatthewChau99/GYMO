@@ -25,6 +25,7 @@ export default class Notifications extends React.Component {
           className="nav-link-icon text-center"
           onClick={this.toggleNotifications}
         >
+          {/* change number of badges */}
           <div className="nav-link-icon__wrapper">
             <i className="material-icons">&#xE7F4;</i>
             <Badge pill theme="danger">
