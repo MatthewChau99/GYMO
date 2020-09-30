@@ -1,31 +1,35 @@
-const {User, validate} = require('../models/User');
+const User = require('../models/User');
+const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 
 const register = (req, res, next) => {
-    bcrypt.hash(req.body.password, 10, function (err, hashedPass) {
+    bcrypt.hash(req.body.password, 10, async function (err, hashedPass) {
         if (err) {
             res.json({
                 error: err.toString()
             })
         }
-        let user = new User({
-            name: req.body.name,
-            email: req.body.email,
-            phone: req.body.phone,
-            password: hashedPass
-        });
-        user.save()
-            .then(user => {
-                res.json({
-                    message: 'User Added Successfully!'
-                })
-            })
-            .catch(error => {
-                res.json({message: 'An error occurred!'})
-            })
-    });
+        const {error} = validateUser(req.body);
+        if (error) {
+            return res.status(400).send(error.details[0].message);
+        }
+        // Check if this user already exists
+        let user = await User.findOne({email: req.body.email});
+        if (user) {
+            return res.status(400).send('That user already exisits!');
+        } else {
+            let user = new User({
+                name: req.body.name,
+                email: req.body.email,
+                phone: req.body.phone,
+                password: hashedPass
+            });
+            await user.save();
+            res.send(user);
+        }
+    })
 };
 
 const login = (req, res, next) => {
@@ -63,6 +67,17 @@ const login = (req, res, next) => {
         })
 };
 
-module.exports = {
-    register, login
-};
+function validateUser(user) {
+    const schema = Joi.object({
+        name: Joi.string().min(3).max(50).required(),
+        email: Joi.string().min(5).max(255).required().email(),
+        phone: Joi.string().min(5).max(255),
+        password: Joi.string().min(5).max(1024).required()
+    });
+    console.log(schema.validate(user));
+    return schema.validate(user);
+}
+
+module.exports.register = register;
+module.exports.login = login;
+module.exports.validate = validateUser;
