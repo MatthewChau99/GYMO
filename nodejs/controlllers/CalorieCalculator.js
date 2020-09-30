@@ -1,14 +1,14 @@
 const Food = require('../models/Food');
 
-const calorieCalculator = (req, res, next) => {
-    let total = 0;
+const calorieCalculator = async (req, res, next) => {
+    let total = 1850;
     let foods = req.body;
     for (x in foods) {
-        total += Food.findOne({name: x}).then(
+        Food.findOne({name: x}).then(
             food => {
                 if (food) {
                     let calorie = food['caloriesPer100g'];
-                    return foods[x] * calorie;
+                    total += foods[x] * calorie;
                 }
             }
         )
@@ -25,10 +25,6 @@ const uploadFood = (req, res, next) => {
     food.save();
     res.send(food);
 };
-// function calculateCalories() {
-//     let totalCalories = 0;
-//
-// }
 
 module.exports.calorieCalculator = calorieCalculator;
 module.exports.uploadFood = uploadFood;

@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="807edd2c-9216-4bcb-9bea-f963c6b6ba2d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../nodejs/controlllers/CalorieCalculator.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../nodejs/routes/food.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../nodejs/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../nodejs/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodejs/controlllers/AuthController.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodejs/controlllers/AuthController.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodejs/models/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodejs/models/User.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodejs/routes/auth.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodejs/routes/auth.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodejs/routes/posts.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodejs/routes/posts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../nodejs/server.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodejs/server.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../nodejs/controlllers/CalorieCalculator.js" beforeDir="false" afterPath="$PROJECT_DIR$/../nodejs/controlllers/CalorieCalculator.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +12,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/routes.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="168">
@@ -40,7 +34,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor" />
         </entry>
@@ -84,11 +78,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="576000" />
+    <option name="totallyTimeSpent" value="1131000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -109,5 +102,21 @@
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="7" column="7" selection-start-line="7" selection-start-column="7" selection-end-line="7" selection-end-column="7" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+            <element signature="e#148#196#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
