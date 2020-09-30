@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect } from "react-router-dom";
 
 // Layout Types
-import { DefaultLayout } from "./layouts";
+import { DefaultLayout, UserLayout } from "./layouts";
 
 // Route Views
 import BlogOverview from "./views/BlogOverview";
@@ -12,6 +12,9 @@ import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
 import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
+import Login from "./views/Login";
+import Sign from "./views/Sign";
+import CalorieCalculator from "./views/CalorieCalculator";
 
 export default [
   {
@@ -54,5 +57,20 @@ export default [
     path: "/blog-posts",
     layout: DefaultLayout,
     component: BlogPosts
+  },
+  {
+    path: "/login-in",
+    layout: UserLayout,
+    component: Login
+  },
+  {
+    path: "/sign-up",
+    layout: UserLayout,
+    component: Sign
+  },
+  {
+    path: "/calorie-calculator",
+    layout:DefaultLayout,
+    component: CalorieCalculator
   }
 ];

@@ -1,0 +1,103 @@
+.container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    cursor: pointer;
+    font-size: 14px;
+    color: red;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark_span {
+    position: absolute;
+    top: 4px !important;
+    left: 0;
+    height: 16px;
+    width: 16px;
+    background-color: #fff;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .container:hover input ~ .checkmark_span {
+    background-color: #fff;
+    border: 1px solid #4b0f6d;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .container input:checked ~ .checkmark_span {
+    background-color: #4b0f6d;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  .checkmark_span:after {
+    content: "";
+    position: relative;
+    display: none;
+  }
+  
+  /* Show the checkmark when checked */
+  .container input:checked ~ .checkmark_span:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .container .checkmark_span:after {
+    left: 4px;
+    top: 1px;
+    width: 3px;
+    height: 7px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  
+  .item-renderer > span {
+    margin-left: 2rem;
+  }
+  .multi-select {
+    --rmsc-h: 32px!important;
+    display: inline-block;
+  }
+  .dropdown-content {
+    position: absolute;
+    top: 100%;
+    border-radius: 4px;
+    width: 350px!important;
+  }
+  .optionLabel {
+    font-size: 14px;
+  }
+  .select-panel > div 
+  {
+      position: relative;
+      width: 60%;
+      top: 5px;
+      left: 10px;
+      border: none;
+      height:32px;
+      margin-bottom: 8px;
+  }
+  .select-panel input[type="search"] {
+      padding-left: 0.5rem;
+      border-radius: 5px;
+      border: 1px solid #ddd;
+      width: 214px;
+      height:32px;
+    }
