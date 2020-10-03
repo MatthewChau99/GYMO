@@ -1,7 +1,137 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6c806a70-83c3-4070-bb62-29973196918a" name="Default Changelist" comment="" />
+    <list default="true" id="6c806a70-83c3-4070-bb62-29973196918a" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../react/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../react/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/App.test.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/quill.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/assets/range-date-picker.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/add-new-post/Editor.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/add-new-post/SidebarActions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/add-new-post/SidebarCategories.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/blog/Discussions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/blog/NewDraft.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/blog/UsersByDevice.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/blog/UsersOverview.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/calorie-calculator/App.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/calorie-calculator/App.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/calorie-calculator/CalorieSearch.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/common/CountryReports.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/common/PageTitle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/common/RangeDatePicker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/common/SmallStats.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/common/TopReferrals.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/ButtonGroups.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/Checkboxes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/Colors.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/CompleteFormExample.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/CustomFileUpload.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/CustomSelect.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/DropdownInputGroups.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/FormValidation.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/Forms.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/InputGroups.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/NormalButtons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/NormalOutlineButtons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/ProgressBars.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/RadioButtons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/SeamlessInputGroups.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/Sliders.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/SmallButtons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/SmallOutlineButtons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/components-overview/ToggleButtons.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainFooter.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/MainNavbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/NavbarNav/AddPost.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/NavbarNav/LogIn.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/NavbarNav/NavbarNav.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/NavbarNav/Notifications.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/NavbarNav/UserActions.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/NavbarSearch.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainNavbar/NavbarToggle.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainSidebar/MainSidebar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainSidebar/SidebarMainNavbar.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainSidebar/SidebarNavItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainSidebar/SidebarNavItems.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/layout/MainSidebar/SidebarSearch.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/login/login.component.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/login/signup.component.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/user-profile-lite/UserAccountDetails.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/components/user-profile-lite/UserDetails.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/data/sidebar-nav-items.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/flux/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/flux/dispatcher.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/flux/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/flux/store.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/avatars/0.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/avatars/1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/avatars/2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/avatars/3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/10.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/11.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/12.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/13.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/14.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/15.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/16.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/2.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/3.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/4.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/5.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/6.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/7.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/8.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/content-management/9.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/file-manager/document-preview-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/flags/flag-au.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/flags/flag-jp.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/flags/flag-uk.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/flags/flag-us.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/no-product-image.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/product-basics.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/product-order-1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/product-order-2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/product-order-3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/product-shoes.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/product-sportswear.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/sales-overview/product-sweaters.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-danger.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-info.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-java.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-royal-blue.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-salmon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-secondary.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-success.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo-warning.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/shards-dashboards-logo.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/user-profile/team-thumb-1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/user-profile/team-thumb-2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/user-profile/team-thumb-3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/images/user-profile/up-user-details-background.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/layouts/Default.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/layouts/UserLayout.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/layouts/UserLayout.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/layouts/index.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/routes.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/serviceWorker.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/shards-dashboard/styles/shards-dashboards.1.1.0.min.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/utils/chart.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/AddNewPost.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/BlogOverview.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/BlogPosts.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/CalorieCalculator.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/ComponentsOverview.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/Errors.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/Login.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/Sign.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/Tables.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/views/UserProfileLite.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/withTracker.js" beforeDir="false" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -12,7 +142,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../react/src/routes.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -27,13 +169,18 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
+      <pane id="ProjectPane" />
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
-              <item name="nodejs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Scratches and Consoles" type="1a2a3e82:ScratchProjectViewPane$MyProjectNode" />
+              <item name="nodejs" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/EMORY/Academics/Fall_2020/CS370/GYMO/nodejs" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="nodejs" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/EMORY/Academics/Fall_2020/CS370/GYMO/nodejs" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="models" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -43,10 +190,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="editor.config.ad.shown" value="true" />
     <property name="javascript.nodejs.core.library.configured.version" value="8.11.3" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="node.js.path.for.package.tslint" value="project" />
-    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -81,12 +227,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="753000" />
+    <option name="totallyTimeSpent" value="1429000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24947146" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="npm" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
@@ -100,7 +246,7 @@
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.32923833" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.38083538" />
+      <window_info anchor="bottom" id="Terminal" order="10" weight="0.38083538" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -131,6 +277,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="264">
           <caret line="11" column="3" lean-forward="true" selection-start-line="11" selection-start-column="3" selection-end-line="11" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../react/src/routes.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
