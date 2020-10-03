@@ -1,20 +1,18 @@
 const Food = require('../models/Food');
 
 const calorieCalculator = async (req, res, next) => {
-    let total = 1850;
+    let total = 0;
     let foods = req.body;
     for (x in foods) {
-        Food.findOne({name: x}).then(
-            food => {
-                if (food) {
-                    let calorie = food['caloriesPer100g'];
-                    total += foods[x] * calorie;
-                }
-            }
-        )
+        const food = await Food.findOne({name: x}, {
+            name: 1,
+            caloriesPer100g: 1
+        });
+        total += foods[x] * food['caloriesPer100g'];
     }
-    // console.log(totalCalories);
-    res.status(200).send("Total calories is " + total);
+    res.json({
+        'message': 'Total calories is ' + total
+    });
 };
 
 const uploadFood = (req, res, next) => {
