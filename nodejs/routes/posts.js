@@ -1,5 +1,5 @@
 const express = require('express');
-const router = express.Router;
+const router = express.Router();
 //const Post = require('../models/Posts');
 
 //get all the posts
@@ -24,7 +24,7 @@ router.get('/', async (req, res) => {
 //         res.json(savedPost);
 //    } catch(err) {
 //        res.json({message: err});
-//    }   
+//    }
 // });
 
 // //get a specific post
