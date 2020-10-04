@@ -2,7 +2,7 @@ const Food = require('../models/Food');
 
 const calorieCalculator = async (req, res, next) => {
     let foods = req.body;
-    let total = 0;git
+    let total = 0;
     for (x in foods) {
         const food = await Food.findOne({name: x}, {
             name: 1,

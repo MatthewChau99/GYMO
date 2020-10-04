@@ -2,9 +2,8 @@ const User = require('../models/User');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 
-const register = (req, res, next) => {
+const register = async (req, res, next) => {
     bcrypt.hash(req.body.password, 10, async function (err, hashedPass) {
         if (err) {
             res.json({
@@ -15,6 +14,7 @@ const register = (req, res, next) => {
         if (error) {
             return res.status(400).send(error.details[0].message);
         }
+
         // Check if this user already exists
         let user = await User.findOne({email: req.body.email});
         if (user) {
@@ -48,7 +48,6 @@ const login = (req, res, next) => {
                         });
                     }
                     if (result) {
-                        //let token = jwt.sign({name: user.name}, 'verySecretValue', {expiresIn: '1h'});
                         let token = jwt.sign({email: user.email}, 'verySecretValue', {expiresIn: '1h'});
                         res.json({
                             message: 'Login Successful!',
@@ -78,6 +77,6 @@ function validateUser(user) {
     return schema.validate(user);
 }
 
-module.exports.register = register;
-module.exports.login = login;
-module.exports.validate = validateUser;
+module.exports = {
+    register, login
+};
