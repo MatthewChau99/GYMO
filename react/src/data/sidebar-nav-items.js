@@ -19,7 +19,7 @@ export default function() {
     {
       title: "Calorie Calculator",
       htmlBefore: '<i class="material-icons">&#xea5f;</i>',
-      to: "/components-overview",
+      to: "/calorie-calculator",
     },
     {
       title: "Shopping",
