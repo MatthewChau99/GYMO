@@ -64,7 +64,7 @@ export default class SignUp extends Component {
         })
         .catch(function (error) {
             // Materialize.toast(error.response.data.message, 4000);
-            console.log(error);
+            console.log(error.response.data.message);
         });
 
         this.setState({signUpBtnClicked: false});
