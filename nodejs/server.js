@@ -18,6 +18,7 @@ db.once('open', () => {
     console.log('Database Connection Established!');
 });
 
+const app = express();
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
