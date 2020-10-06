@@ -49,7 +49,7 @@ export default class SignUp extends Component {
         const self=this;
         axios({
             method: 'post',
-            url: '/register',
+            url: '/account/register',
             data: {
                 name: self.state.name,
                 phone: self.state.phone,

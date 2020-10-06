@@ -30,7 +30,7 @@ app.listen(PORT, () => {
 });
 
 app.use('/account', AuthRoute);
-app.use('/', postsRoute);
-app.use('/', foodRoute);
+app.use('/posts', postsRoute);
+app.use('/food', foodRoute);
 
 
