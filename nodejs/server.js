@@ -29,7 +29,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-app.use('/', AuthRoute);
+app.use('/account', AuthRoute);
 app.use('/', postsRoute);
 app.use('/', foodRoute);
 
