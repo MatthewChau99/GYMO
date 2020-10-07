@@ -38,7 +38,8 @@ export default class SignUp extends Component {
         this.setState({repeated: event.target.value});
     }
 
-    async register() {
+    async register(event) {
+        event.preventDefault();
         if(!this.state.signUpBtnClicked){
             this.setState({signUpBtnClicked: true});
         }
@@ -58,13 +59,14 @@ export default class SignUp extends Component {
             }
         })
         .then(function (response) {
-            self.setState({success:true});
-            // self.props.history.push('/signup?success');
-            window.location.replace("/success");
+            if (response.status === 200) {
+                self.setState({success: true});
+                window.location.href = 'blog-overview';
+            }
         })
         .catch(function (error) {
             // Materialize.toast(error.response.data.message, 4000);
-            console.log(error.response.data.message);
+            console.log(error);
         });
 
         this.setState({signUpBtnClicked: false});
@@ -105,7 +107,7 @@ export default class SignUp extends Component {
                            onChange={(event) => this.updateRepeated(event)}/>
                 </div>
 
-                <button type="submit" onClick={() => this.register()} className="btn btn-primary btn-block">Sign Up</button>
+                <button type="submit" onClick={(event) => this.register(event)} className="btn btn-primary btn-block">Sign Up</button>
                 <p className="forgot-password text-right">
                     Already registered <a href="#">sign in?</a>
                 </p>

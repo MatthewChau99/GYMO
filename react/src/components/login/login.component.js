@@ -49,7 +49,6 @@ export default class Login extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
             <form>
                 <h3>Sign In</h3>

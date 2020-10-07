@@ -12,13 +12,13 @@ const register = async (req, res, next) => {
         }
         const {error} = validateUser(req.body);
         if (error) {
-            return res.status(400).send(error.details[0].message);
+            res.status(400).send(error.details[0].message);
         }
 
         // Check if this user already exists
         let user = await User.findOne({email: req.body.email});
         if (user) {
-            return res.status(400).send('That user already exists!');
+            res.status(400).send('That user already exists!');
         } else {
             let user = new User({
                 name: req.body.name,
