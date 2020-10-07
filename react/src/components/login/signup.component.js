@@ -59,8 +59,8 @@ export default class SignUp extends Component {
         })
         .then(function (response) {
             self.setState({success:true});
-            self.props.history.push('/signup?success');
-            // window.location.replace("/success");
+            // self.props.history.push('/signup?success');
+            window.location.replace("/success");
         })
         .catch(function (error) {
             // Materialize.toast(error.response.data.message, 4000);

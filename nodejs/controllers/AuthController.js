@@ -27,7 +27,7 @@ const register = async (req, res, next) => {
                 password: hashedPass
             });
             await user.save();
-            res.send(user);
+            res.status(200).send(user);
         }
     })
 };
@@ -44,23 +44,21 @@ const login = (req, res, next) => {
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (err) {
                         res.json({
-                            error: err
+                            error: err,
+                            login: 0
                         });
                     }
                     if (result) {
                         let token = jwt.sign({email: user.email}, 'verySecretValue', {expiresIn: '1h'});
-                        res.json({
-                            message: 'Login Successful!',
-                        });
+                        res.status(200).json({message: 'login success', login: 1});
                     } else {
-                        res.json({
-                            message: 'Password incorrect!'
-                        });
+                        res.status(401).json({message: 'Password incorrect!', login: 0});
                     }
                 })
             } else {
-                res.json({
-                    message: 'No user found!'
+                res.status(401).json({
+                    message: 'No user found!',
+                    login: -1
                 });
             }
         })
