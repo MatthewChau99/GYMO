@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {PropTypes} from "react";
 import ReactQuill from "react-quill";
 import {Card, CardBody, Form, FormInput} from "shards-react";
 
@@ -8,18 +9,16 @@ import "../../assets/quill.css";
 export default class Editor extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            postTitle: "",
-            postContent: ""
-        };
+        this.updatePostTitle = this.updatePostTitle.bind(this);
+        this.updatePostContent = this.updatePostContent.bind(this);
     }
 
     updatePostTitle(event) {
-        this.setState({postTitle: event.target.value});
+        this.props.updatePostTitle(event);
     }
 
-    updatePostContent(event) {
-        this.setState({postContent: event.target.value});
+    updatePostContent(value) {
+        this.props.updatePostContent(value);
     }
 
     render() {
@@ -27,8 +26,10 @@ export default class Editor extends Component {
             <Card small className="mb-3">
                 <CardBody>
                     <Form className="add-new-post">
-                        <FormInput size="lg" className="mb-3" placeholder="Your Post Title"/>
-                        <ReactQuill className="add-new-post__editor mb-1"/>
+                        <FormInput onChange={(event) => this.updatePostTitle(event)}
+                                   size="lg" className="mb-3" placeholder="Your Post Title"/>
+                        <ReactQuill onChange={this.updatePostContent}
+                                    className="add-new-post__editor mb-1"/>
                     </Form>
                 </CardBody>
             </Card>

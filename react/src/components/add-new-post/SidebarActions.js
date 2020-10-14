@@ -1,7 +1,6 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React, {Component} from "react";
-import editor from "Editor";
 import PropTypes from "prop-types";
 import {
     Card,
@@ -13,12 +12,13 @@ import {
 } from "shards-react";
 import axios from "axios";
 
-export default class SidebarActions extends Component {
+export default class SidebarActions extends Component{
     constructor(props) {
         super(props);
+        this.uploadPost = this.uploadPost.bind(this);
         this.state = {
-            postTitle: editor.state.postTitle,
-            postContent: editor.state.postContent,
+            postTitle: "",
+            postContent: "",
             postCategory: "",
             draftState: 0,
             visibility: "",
@@ -29,36 +29,27 @@ export default class SidebarActions extends Component {
         };
     }
 
+    // updatePostCategory(event) {
+    //     this.setState({postCategory: event.target.value});
+    // }
+    //
+    // updateDraftState(event) {
+    //     this.setState({draftState: event.target.value});
+    // }
+    //
+    // updateVisibility(event) {
+    //     this.setState({visibility: event.target.value});
+    // }
+    //
+    // handleParentData(formModel) {
+    //     this.setState({...formModel});
+    // }
 
-    updatePostCategory(event) {
-        this.setState({postCategory: event.target.value});
+    uploadPost(event) {
+        this.props.uploadPost(event);
     }
 
-    updateDraftState(event) {
-        this.setState({draftState: event.target.value});
-    }
 
-    updateVisibility(event) {
-        this.setState({visibility: event.target.value});
-    }
-
-    async uploadPost(event) {
-        event.preventDefault();
-        axios({
-            method: 'post',
-            url: '/submitPost',
-            data: {
-                title: this.state.postTitle,
-                content: this.state.postContent,
-                userID: this.state.userID
-            }.then(function (response) {
-                if (response.status === 200) {
-                    self.setState({success: true});
-                    window.location.href = 'blog-overview';
-                }
-            })
-        })
-    }
 
     render() {
         return (
@@ -73,7 +64,7 @@ export default class SidebarActions extends Component {
                             <span className="d-flex mb-2">
                                 <i className="material-icons mr-1">flag</i>
                                 <strong className="mr-1">Status:</strong> Draft{" "}
-                                    <a className="ml-auto" href="#">Edit</a>
+                                <a className="ml-auto" href="#">Edit</a>
                             </span>
                             <span className="d-flex mb-2">
                                 <i className="material-icons mr-1">visibility</i>
@@ -84,13 +75,11 @@ export default class SidebarActions extends Component {
                             <span className="d-flex mb-2">
                                 <i className="material-icons mr-1">calendar_today</i>
                                 <strong className="mr-1">Schedule:</strong> Now{" "}
-                                    <a className="ml-auto" href="#">
-                                  Edit
-                                </a>
+                                <a className="ml-auto" href="#">Edit</a>
                             </span>
                             <span className="d-flex">
-                            <i className="material-icons mr-1">score</i>
-                            <strong className="mr-1">Readability:</strong>{" "}
+                                <i className="material-icons mr-1">score</i>
+                                <strong className="mr-1">Readability:</strong>{" "}
                                 <strong className="text-warning">Ok</strong>
                             </span>
                         </ListGroupItem>

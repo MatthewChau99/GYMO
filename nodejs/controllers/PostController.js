@@ -4,25 +4,24 @@ const UserController = require('./UserController');
 const uploadPost = async (req, res) => {
     const post = new Post({
         title: req.body.title,
-        description: req.body.description,
+        content: req.body.content,
         userID: req.body.userID
     });
     try {
         const savedPost = await post.save();
-        console.log(req.body.userID + "  " + savedPost._id);
         await UserController.addPostToUser(req.body.userID, savedPost._id);
-        res.json(savedPost);
+        res.status(200).json(savedPost);
     } catch (err) {
-        res.json({message: err});
+        res.status(404).json({message: "FUCK"});
     }
 };
 
 const getPost = async (req, res) => {
     try {
         const post = await Post.findById(req.params.postID);
-        res.json(post);
+        res.status(200).json(post);
     } catch (err) {
-        res.json({message: "No post found!"});
+        res.status(404).json({message: "No post found!"});
     }
 };
 
@@ -32,9 +31,9 @@ const deletePost = async (req, res) => {
         console.log(post.userID);
         await UserController.deletePostFromUser(post.userID, post._id);
         const removedPost = await Post.remove({_id: req.params.postID});
-        res.json(removedPost);
+        res.status(200).json(removedPost);
     } catch (err) {
-        res.json({message: err});
+        res.status(404).json({message: err});
     }
 };
 
@@ -44,12 +43,12 @@ const updatePost = async (req, res) => {
         const updatedPost = await Post.updateOne({_id: req.params.postID}, {
             $set: {
                 title: req.body.title,
-                description: req.body.description
+                content: req.body.content
             }
         });
-        res.json(updatedPost);
+        res.status(200).json(updatedPost);
     } catch (err) {
-        res.json({message: err});
+        res.status(404).json({message: err});
     }
 };
 
