@@ -13,7 +13,8 @@ export default class SignUp extends Component {
             formErrors: {Email: '', Password: ''},
             emailValid: false,
             passwordValid: false,
-            signUpBtnClicked: false
+            signUpBtnClicked: false,
+            success: false
         };
         // this.resend = this.resend.bind(this);
     }
