@@ -28,4 +28,6 @@ const AddNewPost = () => (
   </Container>
 );
 
+}
+
 export default AddNewPost;
