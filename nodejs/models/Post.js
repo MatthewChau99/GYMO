@@ -6,7 +6,7 @@ const PostSchema = mongoose.Schema({
     title: {
         type: String
     },
-    description: {
+    content: {
         type: String
     },
     date: {
