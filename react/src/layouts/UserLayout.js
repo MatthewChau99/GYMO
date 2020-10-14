@@ -8,7 +8,6 @@ const UserLayout = ({ children }) => (
       <div className="container">
         <Link className="navbar-brand" to={"/login-in"}>
           Gymo
-        
         </Link>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto">

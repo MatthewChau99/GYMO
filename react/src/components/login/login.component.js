@@ -24,7 +24,7 @@ export default class Login extends Component {
         const self = this;
         axios({
             method: 'post',
-            url: '/login',
+            url: '/account/login',
             data: {
                 email: this.state.email,
                 password: this.state.password

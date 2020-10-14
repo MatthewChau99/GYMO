@@ -6,7 +6,7 @@ const AuthRoute = require('./routes/auth');
 const postsRoute = require('./routes/posts');
 const foodRoute = require('./routes/food');
 
-mongoose.connect('mongodb://localhost:27017/testdb', {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect('mongodb://127.0.0.1:27017/testdb', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
 db.on('error', (err) => {
@@ -30,7 +30,7 @@ app.listen(PORT, () => {
 });
 
 app.use('/account', AuthRoute);
-app.use('/', postsRoute);
-app.use('/', foodRoute);
+app.use('/posts', postsRoute);
+app.use('/food', foodRoute);
 
 
