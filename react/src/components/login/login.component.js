@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Link} from "react-router-dom";
+import {BrowserRouter, Link} from "react-router-dom";
 import {Button} from "shards-react";
 import axios from "axios";
 
@@ -9,6 +9,9 @@ export default class Login extends Component {
         this.state = {
             email: "",
             password: "",
+            wrongPw: 0,
+            noUser: 0,
+            returnPage: "",
         }
     }
 
@@ -20,7 +23,8 @@ export default class Login extends Component {
         this.setState({password: event.target.value});
     }
 
-    login() {
+    login(event) {
+        event.preventDefault();
         const self = this;
         axios({
             method: 'post',
@@ -29,15 +33,18 @@ export default class Login extends Component {
                 email: this.state.email,
                 password: this.state.password
             }
-        }).then(function (response) {
-            console.log(response.data.message);
-            // if (self.state.returnPage) {
-            //     self.props.history.push(self.state.returnPage);
-            //     return;
-            // }
+        }).then( (response) => {
+            if (response.data['login'] === 1) { // Login successful
+                this.setState({returnPage: 'blog-overview'});
+            } else if (response.data['login'] === 0) {  // Password incorrect
+                this.setState({returnPage: 'login'});
+            } else {        // User doesn't exist
+                this.setState({returnPage: 'login'});
+            }
+            window.location.href = this.state.returnPage
         })
             .catch(function (error) {
-                console.log(error.response.data.message);
+                console.log(error);
             });
     }
 
@@ -79,12 +86,11 @@ export default class Login extends Component {
                         </label>
                     </div>
                 </div>
-
                 <Button
                     type="submit"
                     className="btn btn-primary btn-block"
-                    tag={Link} to="blog-posts"
-                    onClick={() => this.login()}
+                    onClick={(event) => this.login(event)}
+
                 >
                     Submit
                 </Button>
@@ -92,6 +98,7 @@ export default class Login extends Component {
                     Forgot <a href="#">password?</a>
                 </p>
             </form>
+
         );
     }
 }
