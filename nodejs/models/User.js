@@ -25,7 +25,10 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
         maxlength: 1024
-    }
+    },
+    followers: [],
+    follows: [],
+    posts: []
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);

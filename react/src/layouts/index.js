@@ -1,3 +1,4 @@
 import DefaultLayout from "./Default";
+import UserLayout from "./UserLayout";
 
-export { DefaultLayout };
+export { DefaultLayout, UserLayout };

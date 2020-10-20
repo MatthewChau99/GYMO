@@ -9,7 +9,7 @@ import "./shards-dashboard/styles/shards-dashboards.1.1.0.min.css";
 
 export default () => (
   <Router basename={process.env.REACT_APP_BASENAME || ""}>
-    <div>
+    <div style={{ height: "100%" }}>
       {routes.map((route, index) => {
         return (
           <Route
