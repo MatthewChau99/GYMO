@@ -1,6 +1,5 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import axios from "axios";
 import {
     Card,
     CardHeader,
@@ -15,64 +14,59 @@ import {
     FormTextarea,
     Button
 } from "shards-react";
-
+import axios from "axios";
 
 export default class UserAccountDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            firstName: "",
-            lastName: "",
-            //phone: "",
-            email: "",
-            password: "",
-            address: "",
-            city: "",
-            state: "",
-            zip: 0,
-            description: ""
+            updatedName: "",
+            updatedPhone: "",
+            updatedPassword: "",
         };
-        // this.resend = this.resend.bind(this);
     }
 
-    updateFirstName(event) {
-        this.setState({firstName: event.target.value});
+    updateName(event) {
+        this.setState({updatedName: event.target.value});
     }
 
-    updateLastName(event) {
-        this.setState({lastName: event.target.value});
-    }
-
-    //updatePhone(event) {
-    //    this.setState({phone: event.target.value});
-    //}
-
-    updateEmail(event) {
-        this.setState({email: event.target.value});
+    updatePhone(event) {
+        this.setState({updatedPhone: event.target.value});
     }
 
     updatePassword(event) {
-        this.setState({password: event.target.value});
+        this.setState({updatedPassword: event.target.value});
     }
 
-    updateCity(event) {
-        this.setState({city: event.target.value});
+    updateAccountInfo(event) {
+        event.preventDefault();
+        axios({
+            method: 'post',
+            url: '/account/login',
+            data: {
+                email: this.state.email,
+                password: this.state.password
+            }
+        }).then( (response) => {
+            if (response.data['login'] === 1) { // Login successful
+                this.setState({returnPage: 'blog-overview'});
+            } else if (response.data['login'] === 0) {  // Password incorrect
+                this.setState({returnPage: 'login'});
+            } else {        // User doesn't exist
+                this.setState({returnPage: 'login'});
+            }
+            window.location.href = this.state.returnPage
+        })
+            .catch(function (error) {
+                console.log(error);
+            });
     }
-
-    //updateState(event) {
-    //  this.setState({state: event.target.value});
-    //}
-
-    updateZip(event) {
-        this.setState({zip: event.target.value});
-    }
-
 
     render() {
         return (
             <Card small className="mb-4">
                 <CardHeader className="border-bottom">
-                    <h6 className="m-0">{title}</h6>
+                    <h6 className="m-0">Account Details</h6>
                 </CardHeader>
                 <ListGroup flush>
                     <ListGroupItem className="p-3">
@@ -82,22 +76,23 @@ export default class UserAccountDetails extends Component {
                                     <Row form>
                                         {/* First Name */}
                                         <Col md="6" className="form-group">
-                                            <label htmlFor="feFirstName">First Name</label>
+                                            <label htmlFor="feName">Name</label>
                                             <FormInput
-                                                id="feFirstName"
-                                                placeholder="First Name"
-                                                value={this.state.firstName}
-                                                onChange={(event) => this.updateFirstName(event)}
+                                                id="feName"
+                                                placeholder="Name"
+                                                value="Xinman"
+                                                onChange={(event) => this.updateName(event)}
                                             />
                                         </Col>
                                         {/* Last Name */}
                                         <Col md="6" className="form-group">
-                                            <label htmlFor="feLastName">Last Name</label>
+                                            <label htmlFor="fePhone">Phone</label>
                                             <FormInput
-                                                id="feLastName"
-                                                placeholder="Last Name"
-                                                value={this.state.lastName}
-                                                onChange={(event) => this.updateLastName(event)}
+                                                id="fePhone"
+                                                placeholder="Phone"
+                                                value="Zhang"
+                                                onChange={(event) => this.updatePhone(event)
+                                                }
                                             />
                                         </Col>
                                     </Row>
@@ -109,8 +104,9 @@ export default class UserAccountDetails extends Component {
                                                 type="email"
                                                 id="feEmail"
                                                 placeholder="Email Address"
-                                                value={this.state.email}
-                                                onChange={(event) => this.updateEmail(event)}
+                                                value="aaa@example.com"
+                                                onChange={() => {
+                                                }}
                                                 autoComplete="email"
                                             />
                                         </Col>
@@ -121,8 +117,9 @@ export default class UserAccountDetails extends Component {
                                                 type="password"
                                                 id="fePassword"
                                                 placeholder="Password"
-                                                value={this.state.password}
+                                                value="EX@MPL#P@$$w0RD"
                                                 onChange={(event) => this.updatePassword(event)}
+
                                                 autoComplete="current-password"
                                             />
                                         </Col>
@@ -132,8 +129,9 @@ export default class UserAccountDetails extends Component {
                                         <FormInput
                                             id="feAddress"
                                             placeholder="Address"
-                                            value={this.state.address}
-                                            onChange={(event) => this.updateAddress(event)}
+                                            value="1234 Main St."
+                                            onChange={() => {
+                                            }}
                                         />
                                     </FormGroup>
                                     <Row form>
@@ -143,8 +141,8 @@ export default class UserAccountDetails extends Component {
                                             <FormInput
                                                 id="feCity"
                                                 placeholder="City"
-                                                value={this.state.city}
-                                                onChange={(event) => this.updateCity(event)}
+                                                onChange={() => {
+                                                }}
                                             />
                                         </Col>
                                         {/* State */}
@@ -161,8 +159,8 @@ export default class UserAccountDetails extends Component {
                                             <FormInput
                                                 id="feZipCode"
                                                 placeholder="Zip Code"
-                                                value={this.state.zip}
-                                                onChange={(event) => this.updateZip(event)}
+                                                onChange={() => {
+                                                }}
                                             />
                                         </Col>
                                     </Row>
@@ -179,7 +177,6 @@ export default class UserAccountDetails extends Component {
                         </Row>
                     </ListGroupItem>
                 </ListGroup>
-            </Card>
-        );
+            </Card>);
     }
 }
