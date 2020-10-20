@@ -52,6 +52,20 @@ const deleteFollowFromUser = async (userID, followID) => {
 
 };
 
+const updateUserInfo = async (email, name, phone, password) => {
+    const user = await User.findAndModify({
+        query: {
+            email: email
+        },
+        update: {
+            name: name,
+            phone: phone,
+            password: password
+        }
+    })
+};
+
+
 module.exports = {
     addPostToUser, deletePostFromUser, addFollowerToUser, deleteFollowerFromUser, addFollowToUser, deleteFollowFromUser
 };
