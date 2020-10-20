@@ -25,7 +25,6 @@ export default class Login extends Component {
 
     login(event) {
         event.preventDefault();
-        const self = this;
         axios({
             method: 'post',
             url: '/account/login',
@@ -33,7 +32,7 @@ export default class Login extends Component {
                 email: this.state.email,
                 password: this.state.password
             }
-        }).then( (response) => {
+        }).then((response) => {
             if (response.data['login'] === 1) { // Login successful
                 this.setState({returnPage: 'blog-overview'});
             } else if (response.data['login'] === 0) {  // Password incorrect
@@ -90,7 +89,6 @@ export default class Login extends Component {
                     type="submit"
                     className="btn btn-primary btn-block"
                     onClick={(event) => this.login(event)}
-
                 >
                     Submit
                 </Button>

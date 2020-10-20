@@ -20,6 +20,7 @@ export default class UserAccountDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            email: "mmchau@emory.edu",
             updatedName: "",
             updatedPhone: "",
             updatedPassword: "",
@@ -34,6 +35,10 @@ export default class UserAccountDetails extends Component {
         this.setState({updatedPhone: event.target.value});
     }
 
+    updateEmail(event) {
+        this.setState({email: event.target.value});
+    }
+
     updatePassword(event) {
         this.setState({updatedPassword: event.target.value});
     }
@@ -41,25 +46,19 @@ export default class UserAccountDetails extends Component {
     updateAccountInfo(event) {
         event.preventDefault();
         axios({
-            method: 'post',
-            url: '/account/login',
+            method: 'patch',
+            url: '/account/updateInfo',
             data: {
                 email: this.state.email,
-                password: this.state.password
+                name: this.state.updatedName,
+                phone: this.state.updatedPhone,
+                password: this.state.updatedPassword
             }
-        }).then( (response) => {
-            if (response.data['login'] === 1) { // Login successful
-                this.setState({returnPage: 'blog-overview'});
-            } else if (response.data['login'] === 0) {  // Password incorrect
-                this.setState({returnPage: 'login'});
-            } else {        // User doesn't exist
-                this.setState({returnPage: 'login'});
-            }
-            window.location.href = this.state.returnPage
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+        }).then( () => {
+            window.location.href = 'user-profile-lite'
+        }).catch(function (error) {
+            console.log(error);
+        });
     }
 
     render() {
@@ -80,7 +79,6 @@ export default class UserAccountDetails extends Component {
                                             <FormInput
                                                 id="feName"
                                                 placeholder="Name"
-                                                value="Xinman"
                                                 onChange={(event) => this.updateName(event)}
                                             />
                                         </Col>
@@ -90,7 +88,6 @@ export default class UserAccountDetails extends Component {
                                             <FormInput
                                                 id="fePhone"
                                                 placeholder="Phone"
-                                                value="Zhang"
                                                 onChange={(event) => this.updatePhone(event)
                                                 }
                                             />
@@ -104,10 +101,9 @@ export default class UserAccountDetails extends Component {
                                                 type="email"
                                                 id="feEmail"
                                                 placeholder="Email Address"
-                                                value="aaa@example.com"
-                                                onChange={() => {
-                                                }}
+                                                value={this.state.email}
                                                 autoComplete="email"
+                                                onChange={(event) => this.updateEmail(event)}
                                             />
                                         </Col>
                                         {/* Password */}
@@ -117,9 +113,8 @@ export default class UserAccountDetails extends Component {
                                                 type="password"
                                                 id="fePassword"
                                                 placeholder="Password"
-                                                value="EX@MPL#P@$$w0RD"
+                                                value="123456"
                                                 onChange={(event) => this.updatePassword(event)}
-
                                                 autoComplete="current-password"
                                             />
                                         </Col>
@@ -171,7 +166,9 @@ export default class UserAccountDetails extends Component {
                                             <FormTextarea id="feDescription" rows="5"/>
                                         </Col>
                                     </Row>
-                                    <Button theme="accent">Update Account</Button>
+                                    <Button type="submit"
+                                            theme="accent"
+                                            onClick={(event) => this.updateAccountInfo(event)}>Update Account</Button>
                                 </Form>
                             </Col>
                         </Row>

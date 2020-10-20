@@ -44,7 +44,7 @@ const addFollowToUser = async (userID, followID) => {
 };
 
 const deleteFollowFromUser = async (userID, followID) => {
-    const user = await User.findByIdAndUpdate(userID, {
+    await User.findByIdAndUpdate(userID, {
         '$pull': {
             'follows': followID
         }
@@ -52,20 +52,27 @@ const deleteFollowFromUser = async (userID, followID) => {
 
 };
 
-const updateUserInfo = async (email, name, phone, password) => {
-    const user = await User.findAndModify({
-        query: {
-            email: email
+const updateUserInfo = async (req, res) => {
+    await User.findOneAndUpdate(
+        {
+            "email": req.body.email
         },
-        update: {
-            name: name,
-            phone: phone,
-            password: password
+        {
+            "name": req.body.name,
+            "phone": req.body.phone,
+            "password": req.body.password
         }
-    })
+    );
+    res.status(200).send({"message": "Update successful!"});
 };
 
 
 module.exports = {
-    addPostToUser, deletePostFromUser, addFollowerToUser, deleteFollowerFromUser, addFollowToUser, deleteFollowFromUser
+    addPostToUser,
+    deletePostFromUser,
+    addFollowerToUser,
+    deleteFollowerFromUser,
+    addFollowToUser,
+    deleteFollowFromUser,
+    updateUserInfo
 };
