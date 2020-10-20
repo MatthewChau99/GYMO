@@ -20,7 +20,7 @@ export default class AddNewPost extends Component {
             visibility: "",
             propTypes: {titles: PropTypes.string},
             defaultProps: {title: "Actions"},
-            userID: "5f86af62492ee63826825ca0"
+            userID: "5f870bc676520ab4c60ba64f"
         };
         this.updatePostTitle = this.updatePostTitle.bind(this);
         this.updatePostContent = this.updatePostContent.bind(this);

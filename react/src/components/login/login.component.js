@@ -11,6 +11,7 @@ export default class Login extends Component {
             password: "",
             wrongPw: 0,
             noUser: 0,
+            isLoggedIn: false,
             returnPage: "",
         }
     }
@@ -35,6 +36,7 @@ export default class Login extends Component {
             }
         }).then( (response) => {
             if (response.data['login'] === 1) { // Login successful
+                this.setState({isLoggedIn: true});
                 this.setState({returnPage: 'blog-overview'});
             } else if (response.data['login'] === 0) {  // Password incorrect
                 this.setState({returnPage: 'login'});
@@ -73,7 +75,6 @@ export default class Login extends Component {
                         onChange={(event) => this.updatePassword(event)}
                     />
                 </div>
-
                 <div className="form-group">
                     <div className="custom-control custom-checkbox">
                         <input

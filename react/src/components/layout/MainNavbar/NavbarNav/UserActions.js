@@ -27,6 +27,10 @@ export default class UserActions extends React.Component {
     });
   }
 
+  myChangeHandler = (event) => {
+    this.setState({username: event.target.value});
+  }
+
   render() {
     return (
       <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
@@ -36,10 +40,10 @@ export default class UserActions extends React.Component {
             src={require("./../../../../images/avatars/0.jpg")}
             alt="User Avatar"
           />{" "}
-          <span className="d-none d-md-inline-block">Xinman Zhang</span>
+          <span className="d-none d-md-inline-block">User Name</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-          <DropdownItem tag={Link} to="user-profile">
+          <DropdownItem tag={Link} to="user-profile-lite">
             <i className="material-icons">&#xE7FD;</i> Edit Profile
           </DropdownItem>
           {/* <DropdownItem tag={Link} to="edit-user-profile">

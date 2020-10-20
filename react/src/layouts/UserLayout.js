@@ -12,7 +12,7 @@ const UserLayout = ({ children }) => (
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul className="navbar-nav ml-auto">
             <li className="nav-item">
-              <Link className="nav-link" to={"/login-in"}>
+              <Link className="nav-link" to={"/login"}>
                 Login
               </Link>
             </li>
