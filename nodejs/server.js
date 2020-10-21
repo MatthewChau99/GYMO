@@ -5,6 +5,9 @@ const bodyParser = require('body-parser');
 const AuthRoute = require('./routes/auth');
 const postsRoute = require('./routes/posts');
 const foodRoute = require('./routes/food');
+const picRoute = require('./routes/pic');
+const flash = require('connect-flash');
+const session = require('express-session');
 
 mongoose.connect('mongodb://localhost:27017/testdb', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -32,5 +35,19 @@ app.listen(PORT, () => {
 app.use('/account', AuthRoute);
 app.use('/posts', postsRoute);
 app.use('/food', foodRoute);
+app.use('/pic',picRoute);
 
 
+// Express Session Middleware
+app.use(session({
+    secret: 'keyboard cat',
+    resave: true,
+    saveUninitialized: true
+  }));
+
+// Express Messages Middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next) {
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+});
