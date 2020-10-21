@@ -3,7 +3,7 @@ const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const register = async (req, res, next) => {
+const register = async (req, res) => {
     bcrypt.hash(req.body.password, 10, async function (err, hashedPass) {
         if (err) {
             res.json({

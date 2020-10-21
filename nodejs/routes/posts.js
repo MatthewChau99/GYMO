@@ -6,7 +6,9 @@ const PostController = require('../controllers/PostController');
 router.post('/submitPost', PostController.uploadPost);
 
 //get a specific post
-router.get('/:postID', PostController.getPost);
+router.get('/getAllPosts', PostController.getAllPosts);
+router.get('/:postID', PostController.getPostById);
+
 
 //delete a specific post
 router.delete('/:postID', PostController.deletePost);
