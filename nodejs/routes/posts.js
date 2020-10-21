@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
         res.json(savedPost);
    } catch(err) {
        res.json({message: err});
-   }   
+   }
 });
 
 //get a specific post

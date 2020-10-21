@@ -121,6 +121,8 @@ Temporary Items
 .idea/**/tasks.xml
 .idea/**/dictionaries
 .idea/**/shelf
+nodejs/.idea/workspace.xml
+react/.idea/workspace.xml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
