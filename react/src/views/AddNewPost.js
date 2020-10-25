@@ -43,7 +43,8 @@ export default class AddNewPost extends Component {
             data: {
                 title: this.state.postTitle,
                 content: this.state.postContent,
-                userID: this.state.userID
+                userID: this.state.userID,
+
             }
         }).then(function (response) {
             if (response.status === 200) {
@@ -54,6 +55,21 @@ export default class AddNewPost extends Component {
             // Materialize.toast(error.response.data.message, 4000);
             console.log(error);
         });
+    }
+
+    async uploadImg(event) {
+        event.preventDefault();
+        axios({
+            method: 'post',
+            url: '/pic/postPic',
+            data: {
+                name: "img",
+                desc: "img",
+                img: {
+
+                }
+            }
+        })
     }
 
 
