@@ -2,9 +2,8 @@ const User = require('../models/User');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const mongoose = require('mongoose');
 
-const register = (req, res, next) => {
+const register = async (req, res) => {
     bcrypt.hash(req.body.password, 10, async function (err, hashedPass) {
         if (err) {
             res.json({
@@ -13,12 +12,13 @@ const register = (req, res, next) => {
         }
         const {error} = validateUser(req.body);
         if (error) {
-            return res.status(400).send(error.details[0].message);
+            res.status(400).send(error.details[0].message);
         }
+
         // Check if this user already exists
         let user = await User.findOne({email: req.body.email});
         if (user) {
-            return res.status(400).send('That user already exists!');
+            res.status(400).send('That user already exists!');
         } else {
             let user = new User({
                 name: req.body.name,
@@ -27,7 +27,7 @@ const register = (req, res, next) => {
                 password: hashedPass
             });
             await user.save();
-            res.send(user);
+            res.status(200).send(user);
         }
     })
 };
@@ -44,24 +44,21 @@ const login = (req, res, next) => {
                 bcrypt.compare(password, user.password, function (err, result) {
                     if (err) {
                         res.json({
-                            error: err
+                            error: err,
+                            login: 0
                         });
                     }
                     if (result) {
-                        //let token = jwt.sign({name: user.name}, 'verySecretValue', {expiresIn: '1h'});
                         let token = jwt.sign({email: user.email}, 'verySecretValue', {expiresIn: '1h'});
-                        res.json({
-                            message: 'Login Successful!',
-                        });
+                        res.status(200).json({message: 'login success', login: 1});
                     } else {
-                        res.json({
-                            message: 'Password incorrect!'
-                        });
+                        res.status(401).json({message: 'Password incorrect!', login: 0});
                     }
                 })
             } else {
-                res.json({
-                    message: 'No user found!'
+                res.status(401).json({
+                    message: 'No user found!',
+                    login: -1
                 });
             }
         })
@@ -78,6 +75,6 @@ function validateUser(user) {
     return schema.validate(user);
 }
 
-module.exports.register = register;
-module.exports.login = login;
-module.exports.validate = validateUser;
+module.exports = {
+    register, login
+};

@@ -61,7 +61,7 @@ export default [
     component: BlogPosts
   },
   {
-    path: "/login-in",
+    path: "/login",
     layout: UserLayout,
     component: Login
   },
