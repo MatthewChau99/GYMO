@@ -52,7 +52,6 @@ export default class AddNewPost extends Component {
                 window.location.href = 'blog-overview';
             }
         }).catch(function (error) {
-            // Materialize.toast(error.response.data.message, 4000);
             console.log(error);
         });
     }

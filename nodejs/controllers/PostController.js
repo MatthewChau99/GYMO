@@ -7,7 +7,7 @@ const uploadPost = async (req, res) => {
         title: req.body.title,
         content: req.body.content,
         userID: req.body.userID,
-        pictureId: req.body.pictureId
+        pictureID: req.body.pictureID
     });
     try {
         const savedPost = await post.save();
@@ -24,7 +24,6 @@ const getAllPosts = async (req, res) => {
         let returnPosts = [];
 
         for (let i = 0; i < Math.min(posts.length, 4); i++) {
-
             let user = await User.findById(posts[i].userID).lean();
             if (user) {
                 let returnPost = {
@@ -32,6 +31,7 @@ const getAllPosts = async (req, res) => {
                     content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                     userID: posts[i].userID,
                     userName: user.name,
+                    pictureID: posts[i].pictureID,
                     date: new Date(posts[i].date).toISOString().substring(0, 10)
                 };
                 returnPosts.push(returnPost);
