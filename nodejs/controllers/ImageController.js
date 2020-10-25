@@ -30,7 +30,7 @@ const postPic = (req, res, next) => {
         name: req.body.name,
         desc: req.body.desc,
         img: {
-            data: fs.readFileSync(path.join(req.body.filename)),
+            data: fs.readFileSync(req.body.filename),
             contentType: 'image/png'
         }
     };
