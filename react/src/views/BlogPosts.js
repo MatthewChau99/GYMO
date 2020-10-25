@@ -1,6 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from "react";
+import { Link } from "react-router-dom";
 import {
   Container,
   Row,
@@ -9,7 +10,8 @@ import {
   CardBody,
   CardFooter,
   Badge,
-  Button
+  Button,
+  NavLink
 } from "shards-react";
 
 import PageTitle from "../components/common/PageTitle";
@@ -193,7 +195,7 @@ class BlogPosts extends React.Component {
         <Row>
           {PostsListOne.map((post, idx) => (
             <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
-              <Card small className="card-post card-post--1">
+              <Card small className="card-post card-post--1" >
                 <div
                   className="card-post__image"
                   style={{ backgroundImage: `url(${post.backgroundImage})` }}
@@ -214,14 +216,15 @@ class BlogPosts extends React.Component {
                     </a>
                   </div>
                 </div>
-                <CardBody>
+                <CardBody tag={Link} to="blog-details">
                   <h5 className="card-title">
                     <a href="#" className="text-fiord-blue">
                       {post.title}
                     </a>
                   </h5>
-                  <p className="card-text d-inline-block mb-3">{post.body}</p>
+                  <p className="card-text text-muted d-inline-block mb-3">{post.body}</p>
                   <span className="text-muted">{post.date}</span>
+
                 </CardBody>
               </Card>
             </Col>
@@ -253,13 +256,13 @@ class BlogPosts extends React.Component {
                     </a>
                   </div>
                 </div>
-                <CardBody>
+                <CardBody tag={Link} to="blog-details">
                   <h5 className="card-title">
                     <a className="text-fiord-blue" href="#">
                       {post.title}
                     </a>
                   </h5>
-                  <p className="card-text d-inline-block mb-3">{post.body}</p>
+                  <p className="card-text text-muted d-inline-block mb-3">{post.body}</p>
                   <span className="text-muted">{post.date}</span>
                 </CardBody>
               </Card>

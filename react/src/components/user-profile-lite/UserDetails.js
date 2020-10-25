@@ -63,12 +63,12 @@ UserDetails.defaultProps = {
   userDetails: {
     name: "Xinman",
     avatar: require("./../../images/avatars/0.jpg"),
-    jobTitle: "Product Owner",
-    performanceReportTitle: "Workload",
+    jobTitle: "Follow 120 | Follower 55",
+    performanceReportTitle: "Achievements",
     performanceReportValue: 74,
     metaTitle: "Description",
     metaValue:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?"
+      "Let's work out together!"
   }
 };
 

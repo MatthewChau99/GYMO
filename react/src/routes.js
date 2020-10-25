@@ -14,13 +14,16 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Login from "./views/Login";
 import Sign from "./views/Sign";
+import CalorieCalculator from "./views/CalorieCalculator";
+import BlogDetails from "./views/BlogDetails";
+
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-overview" />
+    component: () => <Redirect to="/blog-posts" />
   },
   {
     path: "/blog-overview",
@@ -66,5 +69,15 @@ export default [
     path: "/sign-up",
     layout: UserLayout,
     component: Sign
+  },
+  {
+    path: "/calorie-calculator",
+    layout:DefaultLayout,
+    component: CalorieCalculator
+  },
+  {
+    path: "/blog-details",
+    layout:DefaultLayout,
+    component: BlogDetails
   },
 ];
