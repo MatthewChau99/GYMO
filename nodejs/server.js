@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const AuthRoute = require('./routes/auth');
 const postsRoute = require('./routes/posts');
 const foodRoute = require('./routes/food');
+const picRoute = require('./routes/pic');
 
 mongoose.connect('mongodb://localhost:27017/testdb', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -32,5 +33,6 @@ app.listen(PORT, () => {
 app.use('/account', AuthRoute);
 app.use('/posts', postsRoute);
 app.use('/food', foodRoute);
+app.use('/pic', picRoute);
 
 

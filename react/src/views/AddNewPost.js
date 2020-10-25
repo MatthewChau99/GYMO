@@ -36,6 +36,7 @@ export default class AddNewPost extends Component {
     }
 
     async uploadPost(event) {
+        const picId = await this.uploadImg(event);
         event.preventDefault();
         axios({
             method: 'post',
@@ -44,11 +45,10 @@ export default class AddNewPost extends Component {
                 title: this.state.postTitle,
                 content: this.state.postContent,
                 userID: this.state.userID,
-
+                pictureId: picId
             }
         }).then(function (response) {
             if (response.status === 200) {
-                console.log("Yes");
                 window.location.href = 'blog-overview';
             }
         }).catch(function (error) {
@@ -65,10 +65,12 @@ export default class AddNewPost extends Component {
             data: {
                 name: "img",
                 desc: "img",
-                img: {
-
-                }
+                filename: "public/1.jpg"
             }
+        }).then( function(response) {
+            return response['imgId'];
+        }).catch(function(error) {
+            console.log(error);
         })
     }
 

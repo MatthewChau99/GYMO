@@ -44,6 +44,7 @@ const postPic = (req, res, next) => {
             item.save();
             res.status(200).json({
                 message: 'Image upload successful',
+                imgId: item['_id']
             });
         }
     });

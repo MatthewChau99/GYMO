@@ -6,7 +6,8 @@ const uploadPost = async (req, res) => {
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
-        userID: req.body.userID
+        userID: req.body.userID,
+        pictureId: req.body.pictureId
     });
     try {
         const savedPost = await post.save();
