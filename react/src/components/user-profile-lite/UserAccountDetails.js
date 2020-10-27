@@ -20,7 +20,11 @@ export default class UserAccountDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
+<<<<<<< HEAD
             email: "xinman@hello.edu",
+=======
+            email: "mmchau@emory.edu",
+>>>>>>> 957a4ed201938550a902444e3af03d6979a71769
             updatedName: "",
             updatedPhone: "",
             updatedPassword: "",
