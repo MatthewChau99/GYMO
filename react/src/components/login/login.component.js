@@ -43,10 +43,9 @@ export default class Login extends Component {
                 this.setState({returnPage: 'login'});
             }
             window.location.href = this.state.returnPage
-        })
-            .catch(function (error) {
-                console.log(error);
-            });
+        }).catch(function (error) {
+            console.log(error)
+        });
     }
 
     render() {

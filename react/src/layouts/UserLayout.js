@@ -6,7 +6,7 @@ const UserLayout = ({ children }) => (
   <div className="App">
     <nav className="navbar navbar-expand-lg navbar-light fixed-top">
       <div className="container">
-        <Link className="navbar-brand" to={"/login-in"}>
+        <Link className="navbar-brand" to={"/blog-overview"}>
           Gymo
         </Link>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo02">

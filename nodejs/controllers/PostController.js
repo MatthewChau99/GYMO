@@ -1,11 +1,13 @@
 const Post = require('../models/Post');
+const User = require('../models/User');
 const UserController = require('./UserController');
 
 const uploadPost = async (req, res) => {
     const post = new Post({
         title: req.body.title,
         content: req.body.content,
-        userID: req.body.userID
+        userID: req.body.userID,
+        pictureID: req.body.pictureID
     });
     try {
         const savedPost = await post.save();
@@ -16,12 +18,39 @@ const uploadPost = async (req, res) => {
     }
 };
 
-const getPost = async (req, res) => {
+const getAllPosts = async (req, res) => {
+    try {
+        let posts = await Post.find({}).sort({date: -1});
+        let returnPosts = [];
+
+        for (let i = 0; i < Math.min(posts.length, 4); i++) {
+            let user = await User.findById(posts[i].userID).lean();
+            if (user) {
+                let returnPost = {
+                    title: posts[i].title,
+                    content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                    userID: posts[i].userID,
+                    userName: user.name,
+                    pictureID: posts[i].pictureID,
+                    date: new Date(posts[i].date).toISOString().substring(0, 10)
+                };
+                returnPosts.push(returnPost);
+            }
+        }
+        console.log(returnPosts);
+        res.status(200).json({posts: returnPosts});
+
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+};
+
+const getPostById = async (req, res) => {
     try {
         const post = await Post.findById(req.params.postID);
         res.status(200).json(post);
     } catch (err) {
-        res.status(404).json({message: "No post found!"});
+        res.status(404).json({message: "Interesting!"});
     }
 };
 
@@ -53,5 +82,5 @@ const updatePost = async (req, res) => {
 };
 
 module.exports = {
-    uploadPost, getPost, deletePost, updatePost
+    uploadPost, getPostById, getAllPosts, deletePost, updatePost
 };

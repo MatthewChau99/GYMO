@@ -117,7 +117,6 @@ export default class UserAccountDetails extends Component {
                                                 type="password"
                                                 id="fePassword"
                                                 placeholder="Password"
-                                                value="123456"
                                                 onChange={(event) => this.updatePassword(event)}
                                                 autoComplete="current-password"
                                             />

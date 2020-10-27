@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express.Router();
 const mongoose = require('mongoose');
 
 const PostSchema = mongoose.Schema({
@@ -16,6 +14,10 @@ const PostSchema = mongoose.Schema({
     userID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
+    },
+    pictureID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pic'
     }
 });
 

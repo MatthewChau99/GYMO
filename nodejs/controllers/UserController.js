@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const Post = require('../models/Post');
+const bcrypt = require('bcryptjs');
+
 
 const addPostToUser = async (userID, postID) => {
     await User.findByIdAndUpdate(userID, {
@@ -53,17 +55,28 @@ const deleteFollowFromUser = async (userID, followID) => {
 };
 
 const updateUserInfo = async (req, res) => {
-    await User.findOneAndUpdate(
-        {
-            "email": req.body.email
-        },
-        {
-            "name": req.body.name,
-            "phone": req.body.phone,
-            "password": req.body.password
+    bcrypt.hash(req.body.password, 10, async function (err, hashedPass) {
+        if (err) {
+            res.json({
+                error: err.toString()
+            })
         }
-    );
-    res.status(200).send({"message": "Update successful!"});
+        let user = await User.findOneAndUpdate(
+            {
+                "email": req.body.email
+            },
+            {
+                "name": req.body.name,
+                "phone": req.body.phone,
+                "password": hashedPass
+            }
+        );
+        if (user) {
+            res.status(200).send({"message": "Update successful!"});
+        } else {
+            res.status(400).send({"message": "Update unsuccessful!"});
+        }
+    })
 };
 
 
