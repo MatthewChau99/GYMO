@@ -28,7 +28,12 @@ const userSchema = new Schema({
     },
     followers: [],
     follows: [],
-    posts: []
+    posts: [],
+    intro: "",
+    pictureID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Pic'
+    }
 }, {timestamps: true});
 
 const User = mongoose.model('User', userSchema);

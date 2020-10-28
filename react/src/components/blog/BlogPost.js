@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default class BlogPost extends Component {
     constructor(props) {
@@ -104,7 +105,7 @@ export default class BlogPost extends Component {
                                     </a>
                                 </div>
                             </div>
-                            <CardBody>
+                            <CardBody tag={Link} to="blog-details">
                                 <h5 className="card-title">
                                     <a href="#" className="text-fiord-blue">
                                         {post.title}
@@ -119,7 +120,7 @@ export default class BlogPost extends Component {
 
 
             ))
-            
+
         );
     }
 };

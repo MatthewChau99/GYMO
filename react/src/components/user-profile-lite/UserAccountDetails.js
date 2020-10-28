@@ -1,29 +1,32 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
 import {
+    Button,
     Card,
     CardHeader,
-    ListGroup,
-    ListGroupItem,
-    Row,
     Col,
     Form,
     FormGroup,
     FormInput,
     FormSelect,
     FormTextarea,
-    Button
+    ListGroup,
+    ListGroupItem,
+    Row
 } from "shards-react";
 import axios from "axios";
+import store from "../../states/store";
+
 
 export default class UserAccountDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "xinman@hello.edu",
+            user: store.getState().user,
+            email: store.getState().user.email,
             updatedName: "",
             updatedPhone: "",
             updatedPassword: "",
+            updatedIntro: "",
         };
     }
 
@@ -43,6 +46,10 @@ export default class UserAccountDetails extends Component {
         this.setState({updatedPassword: event.target.value});
     }
 
+    updateIntro(event) {
+        this.setState({updatedIntro: event.target.value});
+    }
+
     updateAccountInfo(event) {
         event.preventDefault();
         axios({
@@ -52,9 +59,10 @@ export default class UserAccountDetails extends Component {
                 email: this.state.email,
                 name: this.state.updatedName,
                 phone: this.state.updatedPhone,
-                password: this.state.updatedPassword
+                // password: this.state.updatedPassword
+                intro: this.state.updatedIntro
             }
-        }).then( () => {
+        }).then(() => {
             window.location.href = 'user-profile-lite'
         }).catch(function (error) {
             console.log(error);
@@ -79,6 +87,7 @@ export default class UserAccountDetails extends Component {
                                             <FormInput
                                                 id="feName"
                                                 placeholder="Name"
+                                                value={this.state.user.name}
                                                 onChange={(event) => this.updateName(event)}
                                             />
                                         </Col>
@@ -88,6 +97,7 @@ export default class UserAccountDetails extends Component {
                                             <FormInput
                                                 id="fePhone"
                                                 placeholder="Phone"
+                                                value={this.state.user.phone}
                                                 onChange={(event) => this.updatePhone(event)
                                                 }
                                             />
@@ -113,8 +123,8 @@ export default class UserAccountDetails extends Component {
                                                 type="password"
                                                 id="fePassword"
                                                 placeholder="Password"
-                                                value="123456"
-                                                onChange={(event) => this.updatePassword(event)}
+                                                value={this.state.user.password}
+                                                // onChange={(event) => this.updatePassword(event)}
                                                 autoComplete="current-password"
                                             />
                                         </Col>

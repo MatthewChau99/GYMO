@@ -4,12 +4,16 @@ import {Container, Row, Col} from "shards-react";
 import PageTitle from "../components/common/PageTitle";
 import Editor from "../components/add-new-post/Editor";
 import SidebarActions from "../components/add-new-post/SidebarActions";
+import AuthError from "../views/AuthError";
 import SidebarCategories from "../components/add-new-post/SidebarCategories";
 import PropTypes from "prop-types";
 import axios from "axios";
+import store from "../states/store";
+import {connect} from "react-redux";
 
 
-export default class AddNewPost extends Component {
+
+class AddNewPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -64,7 +68,7 @@ export default class AddNewPost extends Component {
             data: {
                 name: "img",
                 desc: "img",
-                filename: "public/1.jpg"
+                filename: "public/1.jpg"            //currently hardcoded
             }
         }).then( function(response) {
             return response['imgId'];
@@ -73,27 +77,39 @@ export default class AddNewPost extends Component {
         })
     }
 
-
     render() {
-        return (
-            <Container fluid className="main-content-container px-4 pb-4">
-                {/* Page Header */}
-                <Row noGutters className="page-header py-4">
-                    <PageTitle sm="4" title="Add New Post" subtitle="Blog Posts" className="text-sm-left"/>
-                </Row>
-                <Row>
-                    {/* Editor */}
-                    <Col lg="9" md="12">
-                        <Editor updatePostContent={this.updatePostContent} updatePostTitle={this.updatePostTitle}/>
-                    </Col>
+        if (store.getState().loginStatus) {
+            return (
+                <Container fluid className="main-content-container px-4 pb-4">
+                    {/* Page Header */}
+                    <Row noGutters className="page-header py-4">
+                        <PageTitle sm="4" title="Add New Post" subtitle="Blog Posts" className="text-sm-left"/>
+                    </Row>
+                    <Row>
+                        {/* Editor */}
+                        <Col lg="9" md="12">
+                            <Editor updatePostContent={this.updatePostContent} updatePostTitle={this.updatePostTitle}/>
+                        </Col>
 
-                    {/* Sidebar Widgets */}
-                    <Col lg="3" md="12">
-                        <SidebarActions uploadPost={this.uploadPost}/>
-                        <SidebarCategories/>
-                    </Col>
-                </Row>
-            </Container>
-        );
+                        {/* Sidebar Widgets */}
+                        <Col lg="3" md="12">
+                            <SidebarActions uploadPost={this.uploadPost}/>
+                            <SidebarCategories/>
+                        </Col>
+                    </Row>
+                </Container>
+            );
+        } else {
+            return (<AuthError/>);
+        }
+
     }
 }
+
+const mapStateToProps = state => ({
+    state
+});
+
+export default connect(
+    mapStateToProps,
+)(AddNewPost);
