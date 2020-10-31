@@ -6,8 +6,9 @@ const AuthRoute = require('./routes/auth');
 const postsRoute = require('./routes/posts');
 const foodRoute = require('./routes/food');
 const picRoute = require('./routes/pic');
-const flash = require('connect-flash');
-const session = require('express-session');
+const path = require('path');
+
+
 
 mongoose.connect('mongodb://localhost:27017/testdb', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
@@ -21,6 +22,8 @@ db.once('open', () => {
 });
 
 const app = express();
+app.set("view engine", "react");
+app.set("views", path.join(__dirname, "../react/src/views"));
 
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
@@ -35,19 +38,19 @@ app.listen(PORT, () => {
 app.use('/account', AuthRoute);
 app.use('/posts', postsRoute);
 app.use('/food', foodRoute);
-app.use('/pic',picRoute);
+app.use('/pic', picRoute);
 
 
-// Express Session Middleware
-app.use(session({
-    secret: 'keyboard cat',
-    resave: true,
-    saveUninitialized: true
-  }));
+// // Express Session Middleware
+// app.use(session({
+//     secret: 'keyboard cat',
+//     resave: true,
+//     saveUninitialized: true
+//   }));
 
-// Express Messages Middleware
-app.use(require('connect-flash')());
-app.use(function (req, res, next) {
-  res.locals.messages = require('express-messages')(req, res);
-  next();
-});
+// // Express Messages Middleware
+// app.use(require('connect-flash')());
+// app.use(function (req, res, next) {
+//   res.locals.messages = require('express-messages')(req, res);
+//   next();
+// });
