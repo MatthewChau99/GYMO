@@ -38,7 +38,6 @@ class BlogDetail extends Component {
                         body: post.content,
                         date: post.date
                     };
-                    console.log(newPost.backgroundImage);
                     this.setState({
                         PostsListOne: this.state.PostsListOne.concat(newPost)
                     });
@@ -92,7 +91,6 @@ class BlogDetail extends Component {
                         badge = "sharing"
                         title = {post.title}
                         text = {post.body}
-                        badge = "sharing"
                         days = {post.date}
                         lnum = "2"
                         cnum = "2"

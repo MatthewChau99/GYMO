@@ -33,6 +33,14 @@ const userSchema = new Schema({
     pictureID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pic'
+    },
+    bodyData: {
+        type: Object,
+        required: false,
+        default: {
+            "weight": 50,
+            "height": 100
+        }
     }
 }, {timestamps: true});
 

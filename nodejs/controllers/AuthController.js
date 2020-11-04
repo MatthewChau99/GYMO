@@ -24,7 +24,13 @@ const register = async (req, res) => {
                 email: req.body.email,
                 phone: req.body.phone,
                 password: hashedPass,
-                // intro: req.body.intro,
+                intro: "",
+                bodyData: {
+                    "default": {
+                        "weight": 50,
+                        "height": 100
+                    }
+                }
                 // pictureID: req.body.pictureID
             });
             await user.save();

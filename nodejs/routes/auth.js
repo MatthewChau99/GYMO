@@ -9,4 +9,6 @@ router.post('/register', AuthController.register);
 
 router.patch('/updateInfo', UserController.updateUserInfo);
 
+router.patch('/addBodyData', UserController.addBodyData);
+
 module.exports = router;

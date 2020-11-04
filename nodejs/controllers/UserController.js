@@ -51,7 +51,6 @@ const deleteFollowFromUser = async (userID, followID) => {
             'follows': followID
         }
     });
-
 };
 
 const updateUserInfo = async (req, res) => {
@@ -78,6 +77,45 @@ const updateUserInfo = async (req, res) => {
     })
 };
 
+const addBodyData = async (req, res) => {
+    const weight = req.body.weight;
+    const height = req.body.height;
+
+    let today = new Date();
+    const dd = String(today.getDate()).padStart(2, '0');
+    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    const yyyy = today.getFullYear();
+
+    today = mm + '/' + dd + '/' + yyyy;
+
+    const data = {
+        'date': today,
+        'data': {
+            'weight': weight,
+            'height': height
+        }
+    };
+
+    const user = User.findById(req.body.userID);
+    if (user) {
+        let bodyData = user.bodyData;
+        await User.findByIdAndUpdate(req.body.userID, {
+            '$set': {
+                'bodyData[today]': data
+            }
+        });
+        res.status(200).send({"message": "Update successful!"});
+        // if (today in bodyData) {
+        //
+        // } else {
+        //
+        // }
+    } else {
+        res.status(404).send({"message": "User not found!"});
+    }
+
+};
+
 
 module.exports = {
     addPostToUser,
@@ -86,5 +124,6 @@ module.exports = {
     deleteFollowerFromUser,
     addFollowToUser,
     deleteFollowFromUser,
-    updateUserInfo
+    updateUserInfo,
+    addBodyData
 };
