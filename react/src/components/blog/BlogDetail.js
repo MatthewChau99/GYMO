@@ -35,14 +35,13 @@ class BlogDetail extends Component {
                         author: post.userName,
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
-                        body: post.content,
+                        body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                         date: post.date
                     };
                     console.log(newPost.backgroundImage);
                     this.setState({
                         PostsListOne: this.state.PostsListOne.concat(newPost)
                     });
-
                 }).catch(
                 function (error) {
                     console.error(error);
@@ -59,7 +58,7 @@ class BlogDetail extends Component {
                 postID: post.id,
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
-                body: post.content,
+                body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                 date: post.date
             };
             this.setState({
