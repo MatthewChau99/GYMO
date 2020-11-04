@@ -14,7 +14,7 @@ const uploadComment = async (req, res) => {
         await PostController.addCommentToPost(savedComment._id, req.body.postID);
         res.status(200).json(savedComment);
     } catch (err) {
-        res.status(404).json({message: "FUCK"});
+        res.status(404).json({message: "Some error occurred"});
     }
 };
 const getAllComments = async (req, res) => {
@@ -27,7 +27,7 @@ const getAllComments = async (req, res) => {
             if (post) {
                 let returnComment = {
                     //need postID or not?
-                    //postID: comments[i].postID,
+                    postID: comments[i].postID,
                     userID: comments[i].userID,
                     content: comments[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                     date: new Date(comments[i].date).toISOString().substring(0, 10)

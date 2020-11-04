@@ -51,7 +51,6 @@ const deleteFollowFromUser = async (userID, followID) => {
             'follows': followID
         }
     });
-
 };
 
 const updateUserInfo = async (req, res) => {

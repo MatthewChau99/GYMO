@@ -113,6 +113,7 @@ const removeLikeFromPost = async (userID, postID) => {
         }
     });
 };
+
 module.exports = {
     uploadPost, getPostById, getAllPosts, deletePost, updatePost, addCommentToPost, removeCommentFromPost, addLikeToPost, removeLikeFromPost
 };

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const PostController = require('../controllers/PostController');
+const CommentController = require('../controllers/CommentController');
 
 //submit a post
 router.post('/submitPost', PostController.uploadPost);
@@ -17,9 +18,12 @@ router.delete('/:postID', PostController.deletePost);
 router.patch('/:postID', PostController.updatePost);
 
 //submit a comment
-router.post('/:postID/comment',CommentController.uploadComment);
+router.post('/:postID/comment', CommentController.uploadComment);
+
 //load all comment for a post
-router.get('/:postID/comment',CommentController.getAllComments);
+router.get('/:postID/comment', CommentController.getAllComments);
+
 //delete a comment
-router.delete('/:postID/:commentID',CommentController.deleteComment);
+router.delete('/:postID/:commentID', CommentController.deleteComment);
+
 module.exports = router;
