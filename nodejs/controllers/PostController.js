@@ -25,8 +25,6 @@ const getAllPosts = async (req, res) => {
 
         for (let i = 0; i < Math.min(posts.length, 12); i++) {
             let user = await User.findById(posts[i].userID).lean();
-            console.log(i);
-            console.log(user);
             if (user) {
                 let returnPost = {
                     title: posts[i].title,

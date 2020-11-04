@@ -68,7 +68,6 @@ const updateUserInfo = async (req, res) => {
             {
                 "name": req.body.name,
                 "phone": req.body.phone,
-                "password": hashedPass
             }
         );
         if (user) {

@@ -15,23 +15,26 @@ import {
 } from "shards-react";
 import axios from "axios";
 import store from "../../states/store";
+import {withRouter} from "react-router-dom";
 
 
-export default class UserAccountDetails extends Component {
+class UserAccountDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             user: store.getState().user,
+            name: store.getState().user.name,
             email: store.getState().user.email,
-            updatedName: "",
-            updatedPhone: "",
-            updatedPassword: "",
-            updatedIntro: "",
+            updatedName: store.getState().user.name,
+            updatedPhone: store.getState().user.phone,
+            updatedPassword: store.getState().user.password,
+            updatedIntro: store.getState().user.intro,
         };
     }
 
     updateName(event) {
         this.setState({updatedName: event.target.value});
+        console.log(this.state.updatedName);
     }
 
     updatePhone(event) {
@@ -40,6 +43,7 @@ export default class UserAccountDetails extends Component {
 
     updateEmail(event) {
         this.setState({email: event.target.value});
+        console.log(this.state.email);
     }
 
     updatePassword(event) {
@@ -63,7 +67,7 @@ export default class UserAccountDetails extends Component {
                 intro: this.state.updatedIntro
             }
         }).then(() => {
-            window.location.href = 'user-profile-lite'
+            this.props.history.push('blog-posts');
         }).catch(function (error) {
             console.log(error);
         });
@@ -85,9 +89,10 @@ export default class UserAccountDetails extends Component {
                                         <Col md="6" className="form-group">
                                             <label htmlFor="feName">Name</label>
                                             <FormInput
+                                                type="name"
                                                 id="feName"
                                                 placeholder="Name"
-                                                value={this.state.user.name}
+                                                value={this.state.updatedName}
                                                 onChange={(event) => this.updateName(event)}
                                             />
                                         </Col>
@@ -95,9 +100,10 @@ export default class UserAccountDetails extends Component {
                                         <Col md="6" className="form-group">
                                             <label htmlFor="fePhone">Phone</label>
                                             <FormInput
+                                                type="phone"
                                                 id="fePhone"
                                                 placeholder="Phone"
-                                                value={this.state.user.phone}
+                                                value={this.state.updatedPhone}
                                                 onChange={(event) => this.updatePhone(event)
                                                 }
                                             />
@@ -187,3 +193,5 @@ export default class UserAccountDetails extends Component {
             </Card>);
     }
 }
+
+export default withRouter(UserAccountDetails);
