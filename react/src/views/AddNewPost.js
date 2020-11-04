@@ -24,11 +24,12 @@ class AddNewPost extends Component {
             visibility: "",
             propTypes: {titles: PropTypes.string},
             defaultProps: {title: "Actions"},
-            userID: "5f870bc676520ab4c60ba64f"
+            userID: store.getState().userID
         };
         this.updatePostTitle = this.updatePostTitle.bind(this);
         this.updatePostContent = this.updatePostContent.bind(this);
         this.uploadPost = this.uploadPost.bind(this);
+        console.log(this.state.userID);
     }
 
     updatePostTitle(event) {
@@ -40,6 +41,7 @@ class AddNewPost extends Component {
     }
 
     async uploadPost(event) {
+
         const picId = await this.uploadImg(event);
         event.preventDefault();
         axios({
@@ -53,7 +55,7 @@ class AddNewPost extends Component {
             }
         }).then(function (response) {
             if (response.status === 200) {
-                window.location.href = 'blog-overview';
+                this.props.history.push('blog-posts');
             }
         }).catch(function (error) {
             console.log(error);

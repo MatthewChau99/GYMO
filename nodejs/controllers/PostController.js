@@ -14,7 +14,7 @@ const uploadPost = async (req, res) => {
         await UserController.addPostToUser(req.body.userID, savedPost._id);
         res.status(200).json(savedPost);
     } catch (err) {
-        res.status(404).json({message: "FUCK"});
+        res.status(404).json({message: "Some error occurred"});
     }
 };
 
@@ -25,6 +25,8 @@ const getAllPosts = async (req, res) => {
 
         for (let i = 0; i < Math.min(posts.length, 12); i++) {
             let user = await User.findById(posts[i].userID).lean();
+            console.log(i);
+            console.log(user);
             if (user) {
                 let returnPost = {
                     title: posts[i].title,
@@ -37,7 +39,7 @@ const getAllPosts = async (req, res) => {
                 returnPosts.push(returnPost);
             }
         }
-        console.log(returnPosts);
+        // console.log(returnPosts);
         res.status(200).json({posts: returnPosts});
 
     } catch (err) {
@@ -81,6 +83,36 @@ const updatePost = async (req, res) => {
     }
 };
 
+const addCommentToPost = async (commentID, postID) => {
+    await Post.findByIdAndUpdate(postID, {
+        '$addToSet': {
+            'comments': commentID
+        }
+    });
+};
+const removeCommentFromPost = async (commentID, postID) => {
+    await Post.findByIdAndUpdate(postID, {
+        '$pull': {
+            'comments': commentID
+        }
+    });
+};
+const addLikeToPost = async (userID, postID) => {
+    await Post.findByIdAndUpdate(postID, {
+        '$addToSet': {
+            'likes': userID
+        }
+    });
+};
+
+const removeLikeFromPost = async (userID, postID) => {
+    await Post.findByIdAndUpdate(postID, {
+        '$pull': {
+            'likes': userID
+        }
+    });
+};
+
 module.exports = {
-    uploadPost, getPostById, getAllPosts, deletePost, updatePost
+    uploadPost, getPostById, getAllPosts, deletePost, updatePost, addCommentToPost, removeCommentFromPost, addLikeToPost, removeLikeFromPost
 };

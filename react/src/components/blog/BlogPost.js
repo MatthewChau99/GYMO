@@ -34,7 +34,6 @@ export default class BlogPost extends Component {
                         body: post.content,
                         date: post.date
                     };
-                    console.log(newPost.backgroundImage);
                     this.setState({
                         PostsListOne: this.state.PostsListOne.concat(newPost)
                     });
@@ -57,7 +56,6 @@ export default class BlogPost extends Component {
                 body: post.content,
                 date: post.date
             };
-            console.log(newPost.backgroundImage);
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
             });
