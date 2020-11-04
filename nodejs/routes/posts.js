@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+<<<<<<< HEAD
 const Post = require('../models/Posts');
 
 //get all the posts
@@ -11,32 +12,20 @@ router.get('/', async (req, res) => {
         res.json({message: err});
     }
 });
+=======
+const PostController = require('../controllers/PostController');
+>>>>>>> 03aa0f98538517a223bc31bfc74722ee62cd2efb
 
 //submit a post
-router.post('/', async (req, res) => {
-   const post = new Post({
-       title: req.body.title,
-       description: req.body.description
-   });
-   try{
-        const savedPost = await post.save();
-        res.json(savedPost);
-   } catch(err) {
-       res.json({message: err});
-   }
-});
+router.post('/submitPost', PostController.uploadPost);
 
 //get a specific post
-router.get('/:postID', async (req, res) => {
-    try{
-        const post = await Post.findById(req.params.postID);
-        res.json(post);
-    } catch(err){
-        res.json({message: err});
-    }
-});
+router.get('/getAllPosts', PostController.getAllPosts);
+router.get('/:postID', PostController.getPostById);
+
 
 //delete a specific post
+<<<<<<< HEAD
 router.delete('/:postID', async (req, res) => {
     try{
          const removedPost = await Post.remove({_id: req.params.postID});
@@ -45,16 +34,11 @@ router.delete('/:postID', async (req, res) => {
         res.json({message:err});
     }
 });
+=======
+router.delete('/:postID', PostController.deletePost);
+>>>>>>> 03aa0f98538517a223bc31bfc74722ee62cd2efb
 
 //update a specific post
-router.patch('/:postID', async(req, res) => {
-    try{
-    const updatedPost = await Post.updateOne({_id: req.params.postID}, {$set: {title: req.body.title,
-    description:req.body.description}});
-    res.json(updatedPost);
-    } catch(err){
-        res.json({message: err});
-    }
-});
+router.patch('/:postID', PostController.updatePost);
 
 module.exports = router;
