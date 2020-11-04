@@ -23,16 +23,18 @@ class UserAccountDetails extends Component {
         super(props);
         this.state = {
             user: store.getState().user,
+            name: store.getState().user.name,
             email: store.getState().user.email,
-            updatedName: "",
-            updatedPhone: "",
-            updatedPassword: "",
-            updatedIntro: "",
+            updatedName: store.getState().user.name,
+            updatedPhone: store.getState().user.phone,
+            updatedPassword: store.getState().user.password,
+            updatedIntro: store.getState().user.intro,
         };
     }
 
     updateName(event) {
         this.setState({updatedName: event.target.value});
+        console.log(this.state.updatedName);
     }
 
     updatePhone(event) {
@@ -41,6 +43,7 @@ class UserAccountDetails extends Component {
 
     updateEmail(event) {
         this.setState({email: event.target.value});
+        console.log(this.state.email);
     }
 
     updatePassword(event) {
@@ -86,9 +89,10 @@ class UserAccountDetails extends Component {
                                         <Col md="6" className="form-group">
                                             <label htmlFor="feName">Name</label>
                                             <FormInput
+                                                type="name"
                                                 id="feName"
                                                 placeholder="Name"
-                                                value={this.state.user.name}
+                                                value={this.state.updatedName}
                                                 onChange={(event) => this.updateName(event)}
                                             />
                                         </Col>
@@ -96,9 +100,10 @@ class UserAccountDetails extends Component {
                                         <Col md="6" className="form-group">
                                             <label htmlFor="fePhone">Phone</label>
                                             <FormInput
+                                                type="phone"
                                                 id="fePhone"
                                                 placeholder="Phone"
-                                                value={this.state.user.phone}
+                                                value={this.state.updatedPhone}
                                                 onChange={(event) => this.updatePhone(event)
                                                 }
                                             />
