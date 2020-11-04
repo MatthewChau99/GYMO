@@ -83,6 +83,21 @@ const updatePost = async (req, res) => {
     }
 };
 
+const addCommentToPost = async (commentID, postID) => {
+    await Post.findByIdAndUpdate(postID, {
+        $addToSet: {
+            'comments': commentID
+        }
+    });
+};
+const removeCommentFromPost = async (commentID, postID) => {
+    await Post.findByIdAndUpdate(postID, {
+        '$pull': {
+            'comments': commentID
+        }
+    });
+};
+
 const addLikeToPost = async (userID, postID) => {
     await Post.findByIdAndUpdate(postID, {
         '$addToSet': {
@@ -99,5 +114,5 @@ const removeLikeFromPost = async (userID, postID) => {
     });
 };
 module.exports = {
-    uploadPost, getPostById, getAllPosts, deletePost, updatePost, addLikeToPost, removeLikeFromPost
+    uploadPost, getPostById, getAllPosts, deletePost, updatePost, addCommentToPost, removeCommentFromPost, addLikeToPost, removeLikeFromPost
 };
