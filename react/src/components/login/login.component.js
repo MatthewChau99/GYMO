@@ -1,9 +1,11 @@
 import React, {Component} from "react";
-import {BrowserRouter, Link} from "react-router-dom";
+import {BrowserRouter, Link, withRouter} from "react-router-dom";
 import {Button} from "shards-react";
 import axios from "axios";
+import {connect} from "react-redux";
+import {LoginAction} from "../../states/actions";
 
-export default class Login extends Component {
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,8 +13,13 @@ export default class Login extends Component {
             password: "",
             wrongPw: 0,
             noUser: 0,
+            isLoggedIn: false,
             returnPage: "",
         }
+    }
+
+    updateLogin(user) {
+        this.props.loginState(user);
     }
 
     updateEmail(event) {
@@ -33,14 +40,17 @@ export default class Login extends Component {
                 password: this.state.password
             }
         }).then((response) => {
-            if (response.data['login'] === 1) { // Login successful
+            if (response.data['login'] === 1) {                     // Login successful
+                this.setState({isLoggedIn: true});
                 this.setState({returnPage: 'blog-overview'});
-            } else if (response.data['login'] === 0) {  // Password incorrect
+                this.updateLogin(response.data['user']);
+            } else if (response.data['login'] === 0) {              // Password incorrect
                 this.setState({returnPage: 'login'});
-            } else {        // User doesn't exist
+            } else {                                                // User doesn't exist
                 this.setState({returnPage: 'login'});
             }
-            window.location.href = this.state.returnPage
+            this.props.history.push(this.state.returnPage);
+            // window.location.href = this.state.returnPage
         }).catch(function (error) {
             console.log(error)
         });
@@ -71,7 +81,6 @@ export default class Login extends Component {
                         onChange={(event) => this.updatePassword(event)}
                     />
                 </div>
-
                 <div className="form-group">
                     <div className="custom-control custom-checkbox">
                         <input
@@ -99,3 +108,20 @@ export default class Login extends Component {
         );
     }
 }
+
+const mapStateToProps = state => {
+    return{
+        state
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginState: (user) => dispatch(LoginAction(user))
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withRouter(Login));

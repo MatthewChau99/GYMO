@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default class BlogPost extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ export default class BlogPost extends Component {
             picFilePath: "",
             hasPic: 0
         };
-        this.getPosts(4);
+        this.getPosts(12);
     }
 
     async getPic(post) {
@@ -66,7 +67,7 @@ export default class BlogPost extends Component {
 
     async getPosts(limit) {
         axios.get('/posts/getAllPosts',
-            {params: {limit: 4}}
+            {params: {limit: 12}}
         ).then(async (response) => {
             const posts = response.data["posts"];
             for (let i = 0; i < posts.length; i++) {
@@ -81,43 +82,45 @@ export default class BlogPost extends Component {
     render() {
         const {PostsListOne} = this.state;
         return (
-            PostsListOne.map((post, idx) => (
-                <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
-                    <Card small className="card-post card-post--1">
-                        <div
-                            className="card-post__image"
-                            style={{backgroundImage: `${post.backgroundImage}`}}
-                        >
-                            <Badge
-                                pill
-                                className={`card-post__category bg-${post.categoryTheme}`}
+                PostsListOne.map((post, idx) => (
+                    <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+                        <Card small className="card-post card-post--1">
+                            <div
+                                className="card-post__image"
+                                style={{backgroundImage: `${post.backgroundImage}`}}
                             >
-                                {post.category}
-                            </Badge>
-                            <div className="card-post__author d-flex">
-                                <a
-                                    href="#"
-                                    className="card-post__author-avatar card-post__author-avatar--small"
-                                    style={{backgroundImage: `url('${post.authorAvatar}')`}}
+                                <Badge
+                                    pill
+                                    className={`card-post__category bg-${post.categoryTheme}`}
                                 >
-                                    Written by {post.author}
-                                </a>
+                                    {post.category}
+                                </Badge>
+                                <div className="card-post__author d-flex">
+                                    <a
+                                        href="#"
+                                        className="card-post__author-avatar card-post__author-avatar--small"
+                                        style={{backgroundImage: `url('${post.authorAvatar}')`}}
+                                    >
+                                        Written by {post.author}
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <CardBody>
-                            <h5 className="card-title">
-                                <a href="#" className="text-fiord-blue">
-                                    {post.title}
-                                </a>
-                            </h5>
-                            <span className="card-text d-inline-block mb-3">{post.body}</span>
-                            <span className="text-muted">{post.date}</span>
+                            <CardBody tag={Link} to="blog-details">
+                                <h5 className="card-title">
+                                    <a href="#" className="text-fiord-blue">
+                                        {post.title}
+                                    </a>
+                                </h5>
+                                <span className="card-text d-inline-block mb-3">{post.body}</span>
+                                <span className="text-muted">{post.date}</span>
 
-                        </CardBody>
-                    </Card>
+                            </CardBody>
+                        </Card>
+                    </Col>
 
-                </Col>
+
             ))
+
         );
     }
 };

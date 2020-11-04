@@ -1,7 +1,6 @@
 const User = require('../models/User');
 const Joi = require('joi');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 const register = async (req, res) => {
     bcrypt.hash(req.body.password, 10, async function (err, hashedPass) {
@@ -24,7 +23,9 @@ const register = async (req, res) => {
                 name: req.body.name,
                 email: req.body.email,
                 phone: req.body.phone,
-                password: hashedPass
+                password: hashedPass,
+                // intro: req.body.intro,
+                // pictureID: req.body.pictureID
             });
             await user.save();
             res.status(200).send(user);
@@ -33,7 +34,7 @@ const register = async (req, res) => {
     })
 };
 
-const login = (req, res, next) => {
+const login = (req, res) => {
     //let username = req.body.username;
     let email = req.body.email;
     let password = req.body.password;
@@ -50,8 +51,12 @@ const login = (req, res, next) => {
                         });
                     }
                     if (result) {
-                        let token = jwt.sign({email: user.email}, 'verySecretValue', {expiresIn: '1h'});
-                        res.status(200).json({message: 'login success', login: 1});
+                        // let token = jwt.sign({email: user.email}, 'verySecretValue', {expiresIn: '1h'});
+                        res.status(200).json({
+                            message: 'login success',
+                            login: 1,
+                            user: user
+                        });
                     } else {
                         res.status(401).json({message: 'Password incorrect!', login: 0});
                     }
