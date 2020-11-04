@@ -30,6 +30,7 @@ const getAllPosts = async (req, res) => {
                     title: posts[i].title,
                     content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                     userID: posts[i].userID,
+                    postID: posts[i]._id,
                     userName: user.name,
                     pictureID: posts[i].pictureID,
                     date: new Date(posts[i].date).toISOString().substring(0, 10)
@@ -47,8 +48,11 @@ const getAllPosts = async (req, res) => {
 
 const getPostById = async (req, res) => {
     try {
+        let returnPosts = [];
         const post = await Post.findById(req.params.postID);
-        res.status(200).json(post);
+        returnPosts.push(post);
+        console.log(returnPosts);
+        res.status(200).json({posts: returnPosts});
     } catch (err) {
         res.status(404).json({message: "Interesting!"});
     }
