@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
-import { Link , useLocation, withRouter} from "react-router-dom";
+import {useLocation, withRouter} from "react-router-dom";
 import TextBody from "../blog-posts/TextBody";
 
 function useQuery() {
@@ -19,8 +19,6 @@ class BlogDetail extends Component {
         };
         this.getPosts(this.state.postID);
     }
-
-
 
     async getPic(post) {
         if (post.pictureID) {
