@@ -29,13 +29,13 @@ export default class BlogPost extends Component {
                         backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
                         categoryTheme: "dark",
                         author: post.userName,
-                        postID: post.id,
+                        postID: post._id,
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
                         body: post.content,
-                        date: post.date
+                        date: post.date,
                     };
-                    console.log(newPost.backgroundImage);
+                    // console.log(newPost);
                     this.setState({
                         PostsListOne: this.state.PostsListOne.concat(newPost)
                     });
@@ -53,13 +53,13 @@ export default class BlogPost extends Component {
                 backgroundImage: `url(${this.state.picFilePath})`,
                 categoryTheme: "dark",
                 author: post.userName,
-                id: post.id,
+                postID: post.postID,
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
                 body: post.content,
-                date: post.date
+                date: post.date,
             };
-            console.log(newPost.backgroundImage);
+            // console.log(newPost);
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
             });
@@ -73,6 +73,7 @@ export default class BlogPost extends Component {
         ).then(async (response) => {
             const posts = response.data["posts"];
             for (let i = 0; i < posts.length; i++) {
+                console.log(posts[i]);
                 await this.getPic(posts[i]);
             }
         }).catch(function (error) {

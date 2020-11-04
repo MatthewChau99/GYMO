@@ -30,6 +30,7 @@ const getAllPosts = async (req, res) => {
                     title: posts[i].title,
                     content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                     userID: posts[i].userID,
+                    postID: posts[i]._id,
                     userName: user.name,
                     pictureID: posts[i].pictureID,
                     date: new Date(posts[i].date).toISOString().substring(0, 10)
