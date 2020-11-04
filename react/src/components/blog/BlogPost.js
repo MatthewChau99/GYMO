@@ -82,11 +82,6 @@ class BlogPost extends Component {
         })
     }
 
-    redirect(postID) {
-        this.props.history.push(`/blog-details?postID=${postID}`);
-    }
-
-
     render() {
         const {PostsListOne} = this.state;
         return (
