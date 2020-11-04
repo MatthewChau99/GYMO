@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
+import store from "../../states/store";
 import {Link, withRouter} from "react-router-dom";
 
 class BlogPost extends Component {
@@ -9,9 +10,10 @@ class BlogPost extends Component {
         this.state = {
             PostsListOne: [],
             picFilePath: "",
-            hasPic: 0
+            hasPic: 0,
         };
         this.getPosts(12);
+
     }
 
     async getPic(post) {
@@ -36,7 +38,6 @@ class BlogPost extends Component {
                         date: post.date,
                         userID: post.userID
                     };
-                    // console.log(newPost);
                     this.setState({
                         PostsListOne: this.state.PostsListOne.concat(newPost)
                     });

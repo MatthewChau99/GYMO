@@ -4,9 +4,6 @@ import axios from "axios";
 import {useLocation, withRouter} from "react-router-dom";
 import TextBody from "../blog-posts/TextBody";
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-}
 
 class BlogDetail extends Component {
     constructor(props) {

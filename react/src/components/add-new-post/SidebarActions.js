@@ -11,8 +11,10 @@ import {
     Button
 } from "shards-react";
 import axios from "axios";
+import {withRouter} from "react-router-dom";
 
-export default class SidebarActions extends Component{
+
+class SidebarActions extends Component{
     constructor(props) {
         super(props);
         this.uploadPost = this.uploadPost.bind(this);
@@ -47,9 +49,8 @@ export default class SidebarActions extends Component{
 
     uploadPost(event) {
         this.props.uploadPost(event);
+        this.props.history.push('blog-posts');
     }
-
-
 
     render() {
         return (
@@ -99,3 +100,5 @@ export default class SidebarActions extends Component{
 
     };
 }
+
+export default withRouter(SidebarActions);

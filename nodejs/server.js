@@ -9,7 +9,6 @@ const picRoute = require('./routes/pic');
 const path = require('path');
 
 
-
 mongoose.connect('mongodb://127.0.0.1:27017/testdb', {useNewUrlParser: true, useUnifiedTopology: true});
 const db = mongoose.connection;
 
@@ -22,7 +21,6 @@ db.once('open', () => {
 });
 
 const app = express();
-app.set("view engine", "react");
 app.set("views", path.join(__dirname, "../react/src/views"));
 
 app.use(morgan('dev'));
