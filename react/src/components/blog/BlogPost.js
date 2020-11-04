@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import store from "../../states/store";
 
 export default class BlogPost extends Component {
     constructor(props) {
@@ -9,9 +10,10 @@ export default class BlogPost extends Component {
         this.state = {
             PostsListOne: [],
             picFilePath: "",
-            hasPic: 0
+            hasPic: 0,
         };
         this.getPosts(12);
+
     }
 
     async getPic(post) {
@@ -54,7 +56,8 @@ export default class BlogPost extends Component {
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
                 body: post.content,
-                date: post.date
+                date: post.date,
+                userID: post.userID
             };
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
@@ -103,7 +106,7 @@ export default class BlogPost extends Component {
                                     </a>
                                 </div>
                             </div>
-                            <CardBody tag={Link} to="blog-details">
+                            <CardBody tag={Link} to="blog-details" userID={post.userID}>
                                 <h5 className="card-title">
                                     <a href="#" className="text-fiord-blue">
                                         {post.title}

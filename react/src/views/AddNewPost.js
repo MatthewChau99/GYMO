@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Container, Row, Col} from "shards-react";
-
+import {BrowserRouter, Link, withRouter} from "react-router-dom";
 import PageTitle from "../components/common/PageTitle";
 import Editor from "../components/add-new-post/Editor";
 import SidebarActions from "../components/add-new-post/SidebarActions";
@@ -10,7 +10,6 @@ import PropTypes from "prop-types";
 import axios from "axios";
 import store from "../states/store";
 import {connect} from "react-redux";
-
 
 
 class AddNewPost extends Component {
@@ -24,12 +23,12 @@ class AddNewPost extends Component {
             visibility: "",
             propTypes: {titles: PropTypes.string},
             defaultProps: {title: "Actions"},
-            userID: store.getState().userID
+            user: store.getState().user
         };
         this.updatePostTitle = this.updatePostTitle.bind(this);
         this.updatePostContent = this.updatePostContent.bind(this);
         this.uploadPost = this.uploadPost.bind(this);
-        console.log(this.state.userID);
+        console.log(this.state.user);
     }
 
     updatePostTitle(event) {
@@ -41,22 +40,20 @@ class AddNewPost extends Component {
     }
 
     async uploadPost(event) {
-
         const picId = await this.uploadImg(event);
         event.preventDefault();
+        console.log(this.state.user['_id']);
         axios({
             method: 'post',
             url: '/posts/submitPost',
             data: {
                 title: this.state.postTitle,
                 content: this.state.postContent,
-                userID: this.state.userID,
+                userID: this.state.user['_id'],
                 pictureId: picId
             }
         }).then(function (response) {
-            if (response.status === 200) {
-                this.props.history.push('blog-posts');
-            }
+            console.log(response.data);
         }).catch(function (error) {
             console.log(error);
         });
@@ -114,4 +111,4 @@ const mapStateToProps = state => ({
 
 export default connect(
     mapStateToProps,
-)(AddNewPost);
+)(withRouter(AddNewPost));
