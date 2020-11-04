@@ -7,9 +7,14 @@ const uploadPost = async (req, res) => {
         title: req.body.title,
         content: req.body.content,
         userID: req.body.userID,
-        pictureID: req.body.pictureID
+        pictureID: req.body.pictureID,
+        likes: req.body.likes,
+        likesNum: req.body.likesNum,
+        comments: req.body.comments
     });
     try {
+        console.log(post);
+        console.log(req.body.likesNum);
         const savedPost = await post.save();
         await UserController.addPostToUser(req.body.userID, savedPost._id);
         res.status(200).json(savedPost);
@@ -99,12 +104,13 @@ const removeCommentFromPost = async (commentID, postID) => {
         }
     });
 };
-const addLikeToPost = async (userID, postID) => {
-    await Post.findByIdAndUpdate(postID, {
+const addLikeToPost = async (req, res) => {
+    await Post.findByIdAndUpdate(req.body.postID, {
         '$addToSet': {
-            'likes': userID
+            'likes': req.body.userID
         }
     });
+    res.status(200).send("like added to post");
 };
 
 const removeLikeFromPost = async (userID, postID) => {

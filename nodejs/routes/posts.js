@@ -16,4 +16,6 @@ router.delete('/:postID', PostController.deletePost);
 //update a specific post
 router.patch('/:postID', PostController.updatePost);
 
+router.post('/addLike', PostController.addLikeToPost);
+
 module.exports = router;

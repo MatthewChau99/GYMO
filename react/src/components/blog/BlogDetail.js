@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
+import store from "../../states/store";
 import {useLocation, withRouter} from "react-router-dom";
 import TextBody from "../blog-posts/TextBody";
 
@@ -15,6 +16,7 @@ class BlogDetail extends Component {
             postID: this.props.location.state.postID
         };
         this.getPosts(this.state.postID);
+        this.addLike = this.addLike.bind(this);
     }
 
     async getPic(post) {
@@ -36,7 +38,8 @@ class BlogDetail extends Component {
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
                         body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
-                        date: post.date
+                        date: post.date,
+                        likesNum: post.likesNum
                     };
                     console.log(newPost.backgroundImage);
                     this.setState({
@@ -59,7 +62,8 @@ class BlogDetail extends Component {
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
                 body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
-                date: post.date
+                date: post.date,
+                likesNum: post.likesNum
             };
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
@@ -77,7 +81,22 @@ class BlogDetail extends Component {
                 await this.getPic(posts[i]);
             }
         }).catch(function (error) {
-            console.log(error)
+            console.log(error);
+        })
+    }
+
+    addLike() {
+        axios({
+            method: 'post',
+            url: '/posts/addLike',
+            data: {
+                postID: this.state.postID,
+                userID: store.getState()._id
+            }
+        }).then(() => {
+            console.log("added like");
+        }).catch( function(error) {
+            console.log(error);
         })
     }
 
@@ -93,8 +112,9 @@ class BlogDetail extends Component {
                         text = {post.body}
                         badge = "sharing"
                         days = {post.date}
-                        lnum = "2"
+                        lnum = {post.likesNum}
                         cnum = "2"
+                        addLike={this.addLike}
                     />
                     </Col>
             ))
