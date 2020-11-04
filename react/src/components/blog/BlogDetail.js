@@ -38,12 +38,9 @@ class BlogDetail extends Component {
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
                         body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
-<<<<<<< HEAD
                         date: post.date,
                         likesNum: post.likesNum
-=======
-                        date: post.date
->>>>>>> backend-mat2
+
                     };
                     console.log(newPost.backgroundImage);
                     this.setState({
@@ -66,12 +63,8 @@ class BlogDetail extends Component {
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
                 body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
-<<<<<<< HEAD
                 date: post.date,
                 likesNum: post.likesNum
-=======
-                date: post.date
->>>>>>> backend-mat2
             };
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)

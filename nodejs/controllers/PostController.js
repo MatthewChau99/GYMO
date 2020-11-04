@@ -92,11 +92,7 @@ const updatePost = async (req, res) => {
 
 const addCommentToPost = async (commentID, postID) => {
     await Post.findByIdAndUpdate(postID, {
-<<<<<<< HEAD
         '$addToSet': {
-=======
-        $addToSet: {
->>>>>>> backend-mat2
             'comments': commentID
         }
     });
