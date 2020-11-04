@@ -42,7 +42,6 @@ class AddNewPost extends Component {
     async uploadPost(event) {
         const picId = await this.uploadImg(event);
         event.preventDefault();
-        console.log(this.state.user['_id']);
         axios({
             method: 'post',
             url: '/posts/submitPost',

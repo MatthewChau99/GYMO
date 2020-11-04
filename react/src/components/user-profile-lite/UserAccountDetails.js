@@ -15,9 +15,10 @@ import {
 } from "shards-react";
 import axios from "axios";
 import store from "../../states/store";
+import {withRouter} from "react-router-dom";
 
 
-export default class UserAccountDetails extends Component {
+class UserAccountDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -63,7 +64,7 @@ export default class UserAccountDetails extends Component {
                 intro: this.state.updatedIntro
             }
         }).then(() => {
-            window.location.href = 'user-profile-lite'
+            this.props.history.push('blog-posts');
         }).catch(function (error) {
             console.log(error);
         });
@@ -187,3 +188,5 @@ export default class UserAccountDetails extends Component {
             </Card>);
     }
 }
+
+export default withRouter(UserAccountDetails);
