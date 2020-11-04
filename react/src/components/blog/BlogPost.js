@@ -1,17 +1,19 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import store from "../../states/store";
+import {Link, withRouter} from "react-router-dom";
 
-export default class BlogPost extends Component {
+class BlogPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
             PostsListOne: [],
             picFilePath: "",
-            hasPic: 0
+            hasPic: 0,
         };
         this.getPosts(12);
+
     }
 
     async getPic(post) {
@@ -29,12 +31,13 @@ export default class BlogPost extends Component {
                         backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
                         categoryTheme: "dark",
                         author: post.userName,
+                        postID: post.postID,
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
                         body: post.content,
-                        date: post.date
+                        date: post.date,
+                        userID: post.userID
                     };
-                    console.log(newPost.backgroundImage);
                     this.setState({
                         PostsListOne: this.state.PostsListOne.concat(newPost)
                     });
@@ -52,12 +55,13 @@ export default class BlogPost extends Component {
                 backgroundImage: `url(${this.state.picFilePath})`,
                 categoryTheme: "dark",
                 author: post.userName,
+                postID: post.postID,
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
                 body: post.content,
-                date: post.date
+                date: post.date,
+                userID: post.userID
             };
-            console.log(newPost.backgroundImage);
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
             });
@@ -71,6 +75,7 @@ export default class BlogPost extends Component {
         ).then(async (response) => {
             const posts = response.data["posts"];
             for (let i = 0; i < posts.length; i++) {
+                console.log(posts[i]);
                 await this.getPic(posts[i]);
             }
         }).catch(function (error) {
@@ -78,49 +83,58 @@ export default class BlogPost extends Component {
         })
     }
 
+    redirect(postID) {
+        this.props.history.push(`/blog-details?postID=${postID}`);
+    }
+
 
     render() {
         const {PostsListOne} = this.state;
         return (
-                PostsListOne.map((post, idx) => (
-                    <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
-                        <Card small className="card-post card-post--1">
-                            <div
-                                className="card-post__image"
-                                style={{backgroundImage: `${post.backgroundImage}`}}
+            PostsListOne.map((post, idx) => (
+                <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+                    <Card small className="card-post card-post--1">
+                        <div
+                            className="card-post__image"
+                            style={{backgroundImage: `${post.backgroundImage}`}}
+                        >
+                            <Badge
+                                pill
+                                className={`card-post__category bg-${post.categoryTheme}`}
                             >
-                                <Badge
-                                    pill
-                                    className={`card-post__category bg-${post.categoryTheme}`}
+                                {post.category}
+                            </Badge>
+                            <div className="card-post__author d-flex">
+                                <a
+                                    href="#"
+                                    className="card-post__author-avatar card-post__author-avatar--small"
+                                    style={{backgroundImage: `url('${post.authorAvatar}')`}}
                                 >
-                                    {post.category}
-                                </Badge>
-                                <div className="card-post__author d-flex">
-                                    <a
-                                        href="#"
-                                        className="card-post__author-avatar card-post__author-avatar--small"
-                                        style={{backgroundImage: `url('${post.authorAvatar}')`}}
-                                    >
-                                        Written by {post.author}
-                                    </a>
-                                </div>
+                                    Written by {post.author}
+                                </a>
                             </div>
-                            <CardBody tag={Link} to="blog-details">
-                                <h5 className="card-title">
-                                    <a href="#" className="text-fiord-blue">
-                                        {post.title}
-                                    </a>
-                                </h5>
-                                <span className="card-text d-inline-block mb-3">{post.body}</span>
-                                <span className="text-muted">{post.date}</span>
-
-                            </CardBody>
-                        </Card>
-                    </Col>
+                        </div>
+                        <CardBody tag={Link} to={{
+                            pathname: 'blog-details',
+                            search: `?postID=${post.postID}`,
+                            state: {postID: post.postID}
+                        }}>
+                            <h5 className="card-title">
+                                <a href="#" className="text-fiord-blue">
+                                    {post.title}
+                                </a>
+                            </h5>
+                            <span className="card-text d-inline-block mb-3">{post.body}</span>
+                            <span className="text-muted">{post.date}</span>
+                        </CardBody>
+                    </Card>
+                </Col>
 
 
             ))
 
         );
     }
-};
+}
+
+export default withRouter(BlogPost);

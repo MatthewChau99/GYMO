@@ -15,7 +15,7 @@ const uploadPost = async (req, res) => {
         await UserController.addPostToUser(req.body.userID, savedPost._id);
         res.status(200).json(savedPost);
     } catch (err) {
-        res.status(404).json({message: "FUCK"});
+        res.status(404).json({message: "Some error occurred"});
     }
 };
 
@@ -31,6 +31,7 @@ const getAllPosts = async (req, res) => {
                     title: posts[i].title,
                     content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                     userID: posts[i].userID,
+                    postID: posts[i]._id,
                     userName: user.name,
                     pictureID: posts[i].pictureID,
                     date: new Date(posts[i].date).toISOString().substring(0, 10),
@@ -39,7 +40,7 @@ const getAllPosts = async (req, res) => {
                 returnPosts.push(returnPost);
             }
         }
-        console.log(returnPosts);
+        // console.log(returnPosts);
         res.status(200).json({posts: returnPosts});
 
     } catch (err) {
@@ -49,8 +50,11 @@ const getAllPosts = async (req, res) => {
 
 const getPostById = async (req, res) => {
     try {
+        let returnPosts = [];
         const post = await Post.findById(req.params.postID);
-        res.status(200).json(post);
+        returnPosts.push(post);
+        console.log(returnPosts);
+        res.status(200).json({posts: returnPosts});
     } catch (err) {
         res.status(404).json({message: "Interesting!"});
     }
@@ -85,7 +89,7 @@ const updatePost = async (req, res) => {
 
 const addCommentToPost = async (commentID, postID) => {
     await Post.findByIdAndUpdate(postID, {
-        $addToSet: {
+        '$addToSet': {
             'comments': commentID
         }
     });
