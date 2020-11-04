@@ -47,8 +47,11 @@ const getAllPosts = async (req, res) => {
 
 const getPostById = async (req, res) => {
     try {
+        let returnPosts = [];
         const post = await Post.findById(req.params.postID);
-        res.status(200).json(post);
+        returnPosts.push(post);
+        console.log(returnPosts);
+        res.status(200).json({posts: returnPosts});
     } catch (err) {
         res.status(404).json({message: "Interesting!"});
     }

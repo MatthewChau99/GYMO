@@ -2,8 +2,9 @@ import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import TextBody from "../blog-posts/TextBody";
 
-export default class BlogPost extends Component {
+export default class BlogDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -11,7 +12,7 @@ export default class BlogPost extends Component {
             picFilePath: "",
             hasPic: 0
         };
-        this.getPosts(12);
+        this.getPosts();
     }
 
     async getPic(post) {
@@ -28,8 +29,8 @@ export default class BlogPost extends Component {
                     const newPost = {
                         backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
                         categoryTheme: "dark",
-                        author: post.userName,
                         postID: post.id,
+                        author: post.userName,
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
                         body: post.content,
@@ -53,7 +54,7 @@ export default class BlogPost extends Component {
                 backgroundImage: `url(${this.state.picFilePath})`,
                 categoryTheme: "dark",
                 author: post.userName,
-                id: post.id,
+                postID: post.id,
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
                 body: post.content,
@@ -64,12 +65,12 @@ export default class BlogPost extends Component {
                 PostsListOne: this.state.PostsListOne.concat(newPost)
             });
         }
-
     }
 
-    async getPosts(limit) {
-        axios.get('/posts/getAllPosts',
-            {params: {limit: 12}}
+    async getPosts() {
+        let post_id = "5f871d9ee7dc04b54fae567a";
+        axios.get(`/posts/${post_id}`,
+            {params: {postID: post_id}}
         ).then(async (response) => {
             const posts = response.data["posts"];
             for (let i = 0; i < posts.length; i++) {
@@ -85,42 +86,18 @@ export default class BlogPost extends Component {
         const {PostsListOne} = this.state;
         return (
                 PostsListOne.map((post, idx) => (
-                    <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
-                        <Card small className="card-post card-post--1">
-                            <div
-                                className="card-post__image"
-                                style={{backgroundImage: `${post.backgroundImage}`}}
-                            >
-                                <Badge
-                                    pill
-                                    className={`card-post__category bg-${post.categoryTheme}`}
-                                >
-                                    {post.category}
-                                </Badge>
-                                <div className="card-post__author d-flex">
-                                    <a
-                                        href="#"
-                                        className="card-post__author-avatar card-post__author-avatar--small"
-                                        style={{backgroundImage: `url('${post.authorAvatar}')`}}
-                                    >
-                                        Written by {post.author}
-                                    </a>
-                                </div>
-                            </div>
-                            <CardBody tag={Link} to={`blog-details?postID=${post.id}`}>
-                                <h5 className="card-title">
-                                    <a href="#" className="text-fiord-blue">
-                                        {post.title}
-                                    </a>
-                                </h5>
-                                <span className="card-text d-inline-block mb-3">{post.body}</span>
-                                <span className="text-muted">{post.date}</span>
-
-                            </CardBody>
-                        </Card>
+                    <Col lg="9" md="12">
+                    <TextBody 
+                        backgroundImage = "https://mdbootstrap.com/img/Others/documentation/1.jpg"
+                        badge = "sharing"
+                        title = {post.title}
+                        text = {post.body}
+                        badge = "sharing"
+                        days = {post.date}
+                        lnum = "2"
+                        cnum = "2"
+                    />
                     </Col>
-
-
             ))
 
         );
