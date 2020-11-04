@@ -98,7 +98,6 @@ class BlogDetail extends Component {
                     />
                     </Col>
             ))
-
         );
     }
 }
