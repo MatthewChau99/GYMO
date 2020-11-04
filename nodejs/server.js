@@ -22,7 +22,6 @@ db.once('open', () => {
 });
 
 const app = express();
-app.set("view engine", "react");
 app.set("views", path.join(__dirname, "../react/src/views"));
 
 app.use(morgan('dev'));
