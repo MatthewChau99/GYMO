@@ -29,11 +29,12 @@ export default class BlogPost extends Component {
                         backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
                         categoryTheme: "dark",
                         author: post.userName,
-                        postID: post._id,
+                        postID: post.postID,
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
                         body: post.content,
                         date: post.date,
+                        userID: post.userID
                     };
                     // console.log(newPost);
                     this.setState({
@@ -58,8 +59,8 @@ export default class BlogPost extends Component {
                 title: post.title,
                 body: post.content,
                 date: post.date,
+                userID: post.userID
             };
-            // console.log(newPost);
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
             });
