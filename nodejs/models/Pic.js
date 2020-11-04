@@ -7,7 +7,11 @@ const imageSchema = new mongoose.Schema({
         {
             data: Buffer,
             contentType: String
-        }
+        },
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 
