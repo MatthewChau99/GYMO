@@ -18,7 +18,12 @@ const PostSchema = mongoose.Schema({
     pictureID: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Pic'
-    }
+    },
+    likes: [],
+    likesNum: {
+        type: Number
+    },
+    comments: []
 });
 
 module.exports = mongoose.model('Post', PostSchema);
