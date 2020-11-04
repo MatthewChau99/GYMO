@@ -108,7 +108,7 @@ export default class BlogPost extends Component {
                                     </a>
                                 </div>
                             </div>
-                            <CardBody tag={Link} to={`blog-details?postID=${post.id}`}>
+                            <CardBody tag={Link} to={`blog-details?postID=${post.postID}`}>
                                 <h5 className="card-title">
                                     <a href="#" className="text-fiord-blue">
                                         {post.title}
