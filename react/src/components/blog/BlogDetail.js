@@ -1,19 +1,26 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link , useLocation, withRouter} from "react-router-dom";
 import TextBody from "../blog-posts/TextBody";
 
-export default class BlogDetail extends Component {
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
+class BlogDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
             PostsListOne: [],
             picFilePath: "",
-            hasPic: 0
+            hasPic: 0,
+            postID: this.props.location.state.postID
         };
-        this.getPosts();
+        this.getPosts(this.state.postID);
     }
+
+
 
     async getPic(post) {
         if (post.pictureID) {
@@ -60,15 +67,14 @@ export default class BlogDetail extends Component {
                 body: post.content,
                 date: post.date
             };
-            console.log(newPost.backgroundImage);
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
             });
         }
     }
 
-    async getPosts() {
-        let post_id = "5f871d9ee7dc04b54fae567a";
+    async getPosts(postID) {
+        let post_id = postID;
         axios.get(`/posts/${post_id}`,
             {params: {postID: post_id}}
         ).then(async (response) => {
@@ -81,13 +87,12 @@ export default class BlogDetail extends Component {
         })
     }
 
-
     render() {
         const {PostsListOne} = this.state;
         return (
                 PostsListOne.map((post, idx) => (
                     <Col lg="9" md="12">
-                    <TextBody 
+                    <TextBody
                         backgroundImage = "https://mdbootstrap.com/img/Others/documentation/1.jpg"
                         badge = "sharing"
                         title = {post.title}
@@ -102,4 +107,6 @@ export default class BlogDetail extends Component {
 
         );
     }
-};
+}
+
+export default withRouter(BlogDetail);

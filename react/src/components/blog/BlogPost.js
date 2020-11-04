@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 
-export default class BlogPost extends Component {
+class BlogPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -82,49 +82,58 @@ export default class BlogPost extends Component {
         })
     }
 
+    redirect(postID) {
+        this.props.history.push(`/blog-details?postID=${postID}`);
+    }
+
 
     render() {
         const {PostsListOne} = this.state;
         return (
-                PostsListOne.map((post, idx) => (
-                    <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
-                        <Card small className="card-post card-post--1">
-                            <div
-                                className="card-post__image"
-                                style={{backgroundImage: `${post.backgroundImage}`}}
+            PostsListOne.map((post, idx) => (
+                <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
+                    <Card small className="card-post card-post--1">
+                        <div
+                            className="card-post__image"
+                            style={{backgroundImage: `${post.backgroundImage}`}}
+                        >
+                            <Badge
+                                pill
+                                className={`card-post__category bg-${post.categoryTheme}`}
                             >
-                                <Badge
-                                    pill
-                                    className={`card-post__category bg-${post.categoryTheme}`}
+                                {post.category}
+                            </Badge>
+                            <div className="card-post__author d-flex">
+                                <a
+                                    href="#"
+                                    className="card-post__author-avatar card-post__author-avatar--small"
+                                    style={{backgroundImage: `url('${post.authorAvatar}')`}}
                                 >
-                                    {post.category}
-                                </Badge>
-                                <div className="card-post__author d-flex">
-                                    <a
-                                        href="#"
-                                        className="card-post__author-avatar card-post__author-avatar--small"
-                                        style={{backgroundImage: `url('${post.authorAvatar}')`}}
-                                    >
-                                        Written by {post.author}
-                                    </a>
-                                </div>
+                                    Written by {post.author}
+                                </a>
                             </div>
-                            <CardBody tag={Link} to={`blog-details?postID=${post.postID}`}>
-                                <h5 className="card-title">
-                                    <a href="#" className="text-fiord-blue">
-                                        {post.title}
-                                    </a>
-                                </h5>
-                                <span className="card-text d-inline-block mb-3">{post.body}</span>
-                                <span className="text-muted">{post.date}</span>
-
-                            </CardBody>
-                        </Card>
-                    </Col>
+                        </div>
+                        <CardBody tag={Link} to={{
+                            pathname: 'blog-details',
+                            search: `?postID=${post.postID}`,
+                            state: {postID: post.postID}
+                        }}>
+                            <h5 className="card-title">
+                                <a href="#" className="text-fiord-blue">
+                                    {post.title}
+                                </a>
+                            </h5>
+                            <span className="card-text d-inline-block mb-3">{post.body}</span>
+                            <span className="text-muted">{post.date}</span>
+                        </CardBody>
+                    </Card>
+                </Col>
 
 
             ))
 
         );
     }
-};
+}
+
+export default withRouter(BlogPost);
