@@ -16,7 +16,7 @@ const MainFooter = ({ contained, menuItems, copyright }) => (
             </NavItem>
           ))}
         </Nav>
-        <span className="copyright ml-auto my-auto mr-2">{copyright}</span>
+        {/* <span className="copyright ml-auto my-auto mr-2">{copyright}</span> */}
       </Row>
     </Container>
   </footer>
@@ -51,7 +51,7 @@ MainFooter.defaultProps = {
     },
     {
       title: "About",
-      to: "#"
+      to: "/about"
     },
     {
       title: "Products",

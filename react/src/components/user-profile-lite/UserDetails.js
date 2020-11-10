@@ -6,8 +6,9 @@ import {
   Button,
   ListGroup,
   ListGroupItem,
-  Progress
 } from "shards-react";
+import Followers from "./Followers";
+import Followings from "./Followings";
 
 const UserDetails = ({ userDetails }) => (
   <Card small className="mb-4 pt-3">
@@ -21,13 +22,13 @@ const UserDetails = ({ userDetails }) => (
         />
       </div>
       <h4 className="mb-0">{userDetails.name}</h4>
-      <span className="text-muted d-block mb-2">{userDetails.jobTitle}</span>
+      <span className="text-muted d-block mb-2"> <Followers /> : {userDetails.followers} | <Followings /> : {userDetails.following}</span>
       <Button pill outline size="sm" className="mb-2">
         <i className="material-icons mr-1">person_add</i> Follow
       </Button>
     </CardHeader>
     <ListGroup flush>
-      <ListGroupItem className="px-4">
+      {/* <ListGroupItem className="px-4">
         <div className="progress-wrapper">
           <strong className="text-muted d-block mb-2">
             {userDetails.performanceReportTitle}
@@ -41,7 +42,7 @@ const UserDetails = ({ userDetails }) => (
             </span>
           </Progress>
         </div>
-      </ListGroupItem>
+      </ListGroupItem> */}
       <ListGroupItem className="p-4">
         <strong className="text-muted d-block mb-2">
           {userDetails.metaTitle}
@@ -63,12 +64,13 @@ UserDetails.defaultProps = {
   userDetails: {
     name: "Xinman",
     avatar: require("./../../images/avatars/0.jpg"),
-    jobTitle: "Follow 120 | Follower 55",
-    performanceReportTitle: "Achievements",
+    followers: "7",
+    following: "7",
+    performanceReportTitle: "Workload",
     performanceReportValue: 74,
     metaTitle: "Description",
     metaValue:
-      "Let's work out together!"
+      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio eaque, quidem, commodi soluta qui quae minima obcaecati quod dolorum sint alias, possimus illum assumenda eligendi cumque?"
   }
 };
 

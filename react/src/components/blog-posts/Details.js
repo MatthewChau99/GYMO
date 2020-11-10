@@ -29,24 +29,11 @@ const Details = ({ title, postdate, tags }) => (
           <span className="d-flex mb-2">
             <i className="material-icons mr-1">menu</i>
             <strong className="mr-1">Tags:</strong>{" "}
-            {/* <Badge
-             pill
-              className={`card-post__category bg-${"info"}`}
-            >
-              {tags}
-            </Badge> */}
-            <Badge
-             pill
-              className={`card-post__category bg-${"dark"}`}
-            >
+
+            <Badge pill className={`card-post__category bg-${"dark"}`}>
               {tags}
             </Badge>
-            {/* <Badge
-             pill
-              className={`card-post__category bg-${"secondary"}`}
-            >
-              {tags}
-            </Badge> */}
+
           </span>
           
         </ListGroupItem>

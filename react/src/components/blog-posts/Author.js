@@ -27,7 +27,7 @@ const Author = ({ title, author, page, tpost, datestarted }) => (
                       className="card-post__author-avatar card-post__author-avatar--small"
                       style={{ backgroundImage: `url(${require("../../images/avatars/1.jpg")})` }}
                     >
-                      Written by {"Anna Kunis"}
+                      Written by {author}
                     </a>
                   </div>
           </span>

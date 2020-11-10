@@ -39,10 +39,11 @@ const TextBody = ({ backgroundImage, badge, title, text, days, lnum, cnum }) => 
           </Card.Text>
 
           {/* <Button variant="primary" >Go Back</Button> */}
-          
+          <br />
           <LikesAndComments lnum = {lnum} cnum = {cnum} />
         
       </CardBody>
+      <br />
       <Card.Footer className ="text-muted">{days}</Card.Footer>
 
     </Card>
