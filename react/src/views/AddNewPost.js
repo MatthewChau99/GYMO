@@ -49,7 +49,10 @@ class AddNewPost extends Component {
                 title: this.state.postTitle,
                 content: this.state.postContent,
                 userID: this.state.user['_id'],
-                pictureId: picId
+                pictureId: picId,
+                likes: [],
+                likesNum: 0,
+                comments: []
             }
         }).then(function (response) {
             console.log(response.data);

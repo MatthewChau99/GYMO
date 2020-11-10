@@ -34,7 +34,7 @@ class BlogPost extends Component {
                         postID: post.postID,
                         authorAvatar: require("../../images/avatars/1.jpg"),
                         title: post.title,
-                        body: post.content,
+                        body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                         date: post.date,
                         userID: post.userID
                     };
@@ -58,7 +58,7 @@ class BlogPost extends Component {
                 postID: post.postID,
                 authorAvatar: require("../../images/avatars/1.jpg"),
                 title: post.title,
-                body: post.content,
+                body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                 date: post.date,
                 userID: post.userID
             };
@@ -82,11 +82,6 @@ class BlogPost extends Component {
             console.log(error)
         })
     }
-
-    redirect(postID) {
-        this.props.history.push(`/blog-details?postID=${postID}`);
-    }
-
 
     render() {
         const {PostsListOne} = this.state;

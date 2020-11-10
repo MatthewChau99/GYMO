@@ -26,4 +26,7 @@ router.get('/:postID/comment', CommentController.getAllComments);
 //delete a comment
 router.delete('/:postID/:commentID', CommentController.deleteComment);
 
+//add a like to post
+router.post('/addLike', PostController.addLikeToPost);
+
 module.exports = router;

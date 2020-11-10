@@ -17,6 +17,7 @@ const uploadComment = async (req, res) => {
         res.status(404).json({message: "Some error occurred"});
     }
 };
+
 const getAllComments = async (req, res) => {
     try {
         let comments = await Comment.find({}).sort({date: -1});
@@ -54,6 +55,7 @@ const deleteComment = async (req, res) => {
         res.status(404).json({message: err});
     }
 };
+
 
 module.exports = {
     uploadComment, getAllComments, deleteComment
