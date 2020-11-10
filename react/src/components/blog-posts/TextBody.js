@@ -8,7 +8,8 @@ import "../../assets/quill.css";
 import LikesAndComments from "./LikesAndcomments";
 
 
-const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum}) => {
+
+const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLike}) => {
 
     return (
         <Card
@@ -40,7 +41,7 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum}) => {
 
                 {/* <Button variant="primary" >Go Back</Button> */}
 
-                <LikesAndComments lnum={lnum} cnum={cnum}/>
+                <LikesAndComments lnum={lnum} cnum={cnum} addLike={addLike}/>
 
             </CardBody>
             <Card.Footer className="text-muted">{days}</Card.Footer>

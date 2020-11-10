@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const CommentSchema = mongoose.Schema({
     postID: {
-        type:mongoose.Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: 'Post'
     },
     content: {
