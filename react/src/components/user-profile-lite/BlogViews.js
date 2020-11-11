@@ -109,20 +109,11 @@ class BlogViews extends Component {
                             >
                                 {post.category}
                             </Badge>
-                            <div className="card-post__author d-flex">
-                                <a
-                                    href="#"
-                                    className="card-post__author-avatar card-post__author-avatar--small"
-                                    style={{backgroundImage: `url('${post.authorAvatar}')`}}
-                                >
-                                    Written by {post.author}
-                                </a>
-                            </div>
                         </div>
                         <CardBody tag={Link} to={{
                             pathname: 'blog-details',
-                            search: `?userID=${post.userID}`,
-                            state: {userID: post.userID}
+                            search: `?postID=${post.postID}`,
+                            state: {postID: post.postID}
                         }}>
                             <h5 className="card-title">
                                 <a href="#" className="text-fiord-blue">

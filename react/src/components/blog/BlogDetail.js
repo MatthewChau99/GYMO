@@ -4,6 +4,7 @@ import axios from "axios";
 import store from "../../states/store";
 import {useLocation, withRouter} from "react-router-dom";
 import TextBody from "../blog-posts/TextBody";
+import LikesAndComments from "../blog-posts/LikesAndcomments";
 
 
 class BlogDetail extends Component {
@@ -96,7 +97,7 @@ class BlogDetail extends Component {
             }
         }).then(() => {
             console.log("added like");
-        }).catch( function(error) {
+        }).catch(function (error) {
             console.log(error);
         })
     }
@@ -104,8 +105,8 @@ class BlogDetail extends Component {
     render() {
         const {PostsListOne} = this.state;
         return (
-                PostsListOne.map((post, idx) => (
-                    <Col lg="9" md="12">
+            PostsListOne.map((post, idx) => (
+                <Col lg="9" md="12">
                     <TextBody
                         backgroundImage = "https://mdbootstrap.com/img/Others/documentation/1.jpg"
                         badge = "sharing"
@@ -116,7 +117,7 @@ class BlogDetail extends Component {
                         cnum = "2"
                         addLike={this.addLike}
                     />
-                    </Col>
+                </Col>
             ))
         );
     }
