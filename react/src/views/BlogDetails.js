@@ -1,9 +1,8 @@
 import React from "react";
-import {Container, Row, Col} from "shards-react";
+import {Col, Container, Row} from "shards-react";
 import {Link} from "react-router-dom";
 
 import PageTitle from "../components/common/PageTitle";
-import TextBody from "../components/blog-posts/TextBody";
 import Author from "../components/blog-posts/Author";
 import Details from "../components/blog-posts/Details";
 import Comments from "../components/blog-posts/Comments";
@@ -17,30 +16,26 @@ const BlogDetails = () => (
                 sm="4" title="Blog Detail"
                 subtitle="Blog Posts"
                 className="text-sm-left"
-                tag={Link} to="blog-posts"
-            />
+                tag={Link} to="blog-posts"/>
         </Row>
 
-    <Row>
-    <BlogDetail/>
+        <Row>
+            <BlogDetail/>
             {/* Sidebar Widgets */}
             <Col lg="3" md="12">
                 <Author
                     author="Anna Kunis"
                     page="user-profile-lite"
                     datestarted="Sep 2020"
-                    tpost="2"
-                />
+                    tpost="2"/>
                 <Details
                     postdate="21 Sep 2020"
-                    tags="Sharing"
-                />
-                <Comments
-
-                />
+                    tags="Sharing"/>
+                <Comments/>
             </Col>
         </Row>
     </Container>
+
 );
 
 export default BlogDetails;

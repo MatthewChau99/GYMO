@@ -1,8 +1,6 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
-// Layout Types
 import {DefaultLayout, UserLayout} from "./layouts";
-// Route Views
 import BlogDetails from "./views/BlogDetails";
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
@@ -13,6 +11,7 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Login from "./views/Login";
 import Sign from "./views/Sign";
+
 
 export default [
     {

@@ -1,15 +1,17 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from "react";
+import { Link } from "react-router-dom";
 import {
-    Container,
-    Row,
-    Col,
-    Card,
-    CardBody,
-    CardFooter,
-    Badge,
-    Button
+  Container,
+  Row,
+  Col,
+  Card,
+  CardBody,
+  CardFooter,
+  Badge,
+  Button,
+  NavLink
 } from "shards-react";
 import BlogPost from "../components/blog/BlogPost";
 

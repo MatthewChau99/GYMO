@@ -1,16 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
 import {
-    Card,
-    CardHeader,
-    CardBody,
-    ListGroup,
-    ListGroupItem,
     Button,
+    Card,
+    CardBody,
+    CardHeader,
+    FormCheckbox,
+    FormInput,
     InputGroup,
     InputGroupAddon,
-    FormCheckbox,
-    FormInput
+    ListGroup,
+    ListGroupItem
 } from "shards-react";
 
 const SidebarCategories = ({title}) => (
@@ -37,6 +37,7 @@ const SidebarCategories = ({title}) => (
                         Books
                     </FormCheckbox>
                 </ListGroupItem>
+
 
                 <ListGroupItem className="d-flex px-3">
                     <InputGroup className="ml-auto">
