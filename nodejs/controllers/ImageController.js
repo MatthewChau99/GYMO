@@ -29,6 +29,7 @@ const postPic = (req, res, next) => {
     const obj = {
         name: req.body.name,
         desc: req.body.desc,
+        filename: req.body.filename,
         img: {
             data: fs.readFileSync(path.join(req.body.filename)),
             contentType: 'image/png'
@@ -42,8 +43,10 @@ const postPic = (req, res, next) => {
             });
         } else {
             item.save();
+            console.log(item._id.valueOf());
             res.status(200).json({
                 message: 'Image upload successful',
+                avatarID: item._id.valueOf()
             });
         }
     });
