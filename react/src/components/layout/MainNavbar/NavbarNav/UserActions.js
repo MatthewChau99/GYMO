@@ -10,15 +10,16 @@ export default class UserActions extends React.Component {
 
         this.state = {
             user: store.getState().user,
-            userAvatar: require("../../../../cache/default.jpg"),
-            visible: false
+            userAvatar: '',
+            visible: false,
+            getPic: false
         };
 
-        this.getPic(this.state.user.pictureID);
         this.toggleUserActions = this.toggleUserActions.bind(this);
     }
 
     toggleUserActions() {
+
         this.setState({
             visible: !this.state.visible
         });
@@ -28,31 +29,27 @@ export default class UserActions extends React.Component {
         this.setState({username: event.target.value})
     };
 
-    getPic(picID) {
-        if (picID) {
-            axios.get(`/pic/${picID}`, {
-                params: {
-                    picID: picID
-                }
-            }).then(async (response) => {
-                this.setState({
-                    userAvatar: `data:image/png;base64, ${response.data}`
-                });
-            }).catch(
-                function (error) {
-                    console.error(error);
-                }
-            );
-        }
+    getPic() {
+        const self = this;
+        console.log(self.state.user.name[0]);
+        self.setState({
+            userAvatar: require("../../../../images/avatars/" + self.state.user.name[0].toUpperCase() + ".png"),
+            getPic: true
+        });
+        console.log(self.state.userAvatar);
     }
 
     render() {
+        if (!this.state.getPic) {
+            this.getPic();
+        }
         return (
             <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
                 <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
                     <img
                         className="user-avatar rounded-circle mr-2"
                         style={{width: 45, height: 45}}
+                        // src={`url('${this.state.userAvatar}')`}
                         src={this.state.userAvatar}
                         alt="User Avatar"
                     />{" "}

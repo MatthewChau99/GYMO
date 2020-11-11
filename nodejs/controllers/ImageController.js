@@ -16,11 +16,22 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage});
 
 const getPicById = (req, res) => {
+    // console.log(req.params.picID);
+    // const pic = Pic.findById(req.params.picID);
+    // if (pic) {
+    //     // console.log(pic);
+    //     res.contentType('json');
+    //     res.status(200).send(pic);
+    // } else {
+    //     res.status(403).json({message: "Error occurred when getting pic."});
+    // }
+
     Pic.find({}, (err, items) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('app', {items: items});
+            res.render('Default', {items: items});
+            // res.send(items);
         }
     });
 };
@@ -29,6 +40,7 @@ const postPic = (req, res, next) => {
     const obj = {
         name: req.body.name,
         desc: req.body.desc,
+        filename: req.body.filename,
         img: {
             data: fs.readFileSync(path.join(req.body.filename)),
             contentType: 'image/png'
@@ -42,8 +54,10 @@ const postPic = (req, res, next) => {
             });
         } else {
             item.save();
+            console.log(item._id.valueOf());
             res.status(200).json({
                 message: 'Image upload successful',
+                avatarID: item._id.valueOf()
             });
         }
     });

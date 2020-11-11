@@ -14,7 +14,8 @@ export default class SignUp extends Component {
             emailValid: false,
             passwordValid: false,
             signUpBtnClicked: false,
-            success: false
+            success: false,
+            avatarID: ""
         };
         // this.resend = this.resend.bind(this);
     }
@@ -39,6 +40,27 @@ export default class SignUp extends Component {
         this.setState({repeated: event.target.value});
     }
 
+    uploadAvatar(event) {
+        const self = this;
+        axios({
+            method: 'post',
+            url: 'pic/postPic',
+            data: {
+                name: this.state.name[0].toUpperCase(),
+                desc: 'Avatar',
+                filename: "images/avatars/" + this.state.name[0].toUpperCase() + ".png",
+            }
+        }).then(function(response) {
+            if (response.status === 200) {
+                self.setState({
+                    avatarID: response.data.avatarID
+                })
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+    }
+
     async register(event) {
         event.preventDefault();
         if(!this.state.signUpBtnClicked){
@@ -48,6 +70,8 @@ export default class SignUp extends Component {
             return;
         }
 
+        this.uploadAvatar(event);
+
         const self=this;
         axios({
             method: 'post',
@@ -56,7 +80,8 @@ export default class SignUp extends Component {
                 name: self.state.name,
                 phone: self.state.phone,
                 email: self.state.email,
-                password: self.state.password
+                password: self.state.password,
+                avatarID: self.state.avatarID
             }
         })
         .then(function (response) {
