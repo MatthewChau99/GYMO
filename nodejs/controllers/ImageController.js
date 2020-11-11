@@ -15,20 +15,22 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 
-const getPicById = (req, res, next) => {
-    Pic.findById(req.params.picID, function(err, doc) {
-        if (err) return next(err);
-        res.contentType(doc.img.contentType);
-        res.send(doc.img.data.toString('base64'));
+const getPicById = (req, res) => {
+    Pic.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.render('app', {items: items});
+        }
     });
 };
 
-const postPic = (req, res) => {
+const postPic = (req, res, next) => {
     const obj = {
         name: req.body.name,
         desc: req.body.desc,
         img: {
-            data: fs.readFileSync(req.body.filename),
+            data: fs.readFileSync(path.join(req.body.filename)),
             contentType: 'image/png'
         }
     };
@@ -42,26 +44,11 @@ const postPic = (req, res) => {
             item.save();
             res.status(200).json({
                 message: 'Image upload successful',
-                imgId: item['_id']
             });
         }
     });
 };
 
-function saveToCache(picID) {
-    let pic = Pic.findById(picID);
-    console.log(pic);
-    if (pic) {
-        fs.writeFile('cache/' + picID + '.jpg', pic.data.buffer, function(err) {
-            if (err) throw err;
-            console.log('saved image to cache!');
-        })
-    } else {
-        console.log('no picture');
-        return null;
-    }
-}
-
 module.exports = {
-    storage, upload, getPicById, postPic, saveToCache
+    storage, upload, getPicById, postPic
 };

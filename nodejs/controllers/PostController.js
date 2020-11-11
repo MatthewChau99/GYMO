@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 const UserController = require('./UserController');
 
 const uploadPost = async (req, res) => {
@@ -38,7 +39,8 @@ const getAllPosts = async (req, res) => {
                     postID: posts[i]._id,
                     userName: user.name,
                     pictureID: posts[i].pictureID,
-                    date: new Date(posts[i].date).toISOString().substring(0, 10)
+                    date: new Date(posts[i].date).toISOString().substring(0, 10),
+                    likes: posts[i].likes
                 };
                 returnPosts.push(returnPost);
             }
@@ -104,6 +106,7 @@ const removeCommentFromPost = async (commentID, postID) => {
         }
     });
 };
+
 
 const addLikeToPost = async (req, res) => {
     await Post.findByIdAndUpdate(req.body.postID, {

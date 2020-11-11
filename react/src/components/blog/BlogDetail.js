@@ -111,7 +111,6 @@ class BlogDetail extends Component {
                         badge = "sharing"
                         title = {post.title}
                         text = {post.body}
-                        badge = "sharing"
                         days = {post.date}
                         lnum = {post.likesNum}
                         cnum = "2"
