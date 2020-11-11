@@ -1,43 +1,86 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {
-    Card,
-    CardHeader,
-    Button,
-    ListGroup,
-    ListGroupItem,
-} from "shards-react";
+import {Button, Card, CardHeader, ListGroup, ListGroupItem, Progress} from "shards-react";
+import store from "../../states/store";
+import axios from "axios";
 import Followers from "./Followers";
 import Followings from "./Followings";
 
-const UserDetails = ({userDetails}) => (
-    <Card small className="mb-4 pt-3">
-        <CardHeader className="border-bottom text-center">
-            <div className="mb-3 mx-auto">
-                <img
-                    className="rounded-circle"
-                    src={userDetails.avatar}
-                    alt={userDetails.name}
-                    width="110"
-                />
-            </div>
-            <h4 className="mb-0">{userDetails.name}</h4>
-            <span
-                className="text-muted d-block mb-2"> <Followers/> : {userDetails.followers} | <Followings/> : {userDetails.following}</span>
-            <Button pill outline size="sm" className="mb-2">
-                <i className="material-icons mr-1">person_add</i> Follow
-            </Button>
-        </CardHeader>
-        <ListGroup flush>
-            <ListGroupItem className="p-4">
-                <strong className="text-muted d-block mb-2">
-                    {userDetails.metaTitle}
-                </strong>
-                <span>{userDetails.metaValue}</span>
-            </ListGroupItem>
-        </ListGroup>
-    </Card>
-);
+
+class UserDetails extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: store.getState().user,
+            userAvatar: require("../../cache/default.jpg")
+        };
+        this.getPic(this.state.user.pictureID);
+    }
+
+    getPic(picID) {
+        if (picID) {
+            axios.get(`/pic/${picID}`, {
+                params: {
+                    picID: picID
+                }
+            }).then(async (response) => {
+                this.setState({
+                    userAvatar: `data:image/png;base64, ${response.data}`
+                });
+            }).catch(
+                function (error) {
+                    console.error(error);
+                }
+            );
+        }
+    }
+
+    render() {
+        return (
+            <Card small className="mb-4 pt-3">
+                <CardHeader className="border-bottom text-center">
+                    <div className="mb-3 mx-auto">
+                        <img
+                            className="rounded-circle"
+                            src={this.state.userAvatar}
+                            alt={this.state.user.name}
+                            width="110"
+                        />
+                    </div>
+                    <h4 className="mb-0">{this.state.user.name}</h4>
+                    <span
+                        className="text-muted d-block mb-2"> <Followers/> : {this.state.user.followers} | <Followings/> : {this.state.user.follows}</span>
+                    <Button pill outline size="sm" className="mb-2">
+                        <i className="material-icons mr-1">person_add</i> Follow
+                    </Button>
+                </CardHeader>
+                <ListGroup flush>
+                    <ListGroupItem className="px-4">
+                        <div className="progress-wrapper">
+                            <strong className="text-muted d-block mb-2">
+                                {this.state.user.performanceReportTitle}
+                            </strong>
+                            <Progress
+                                className="progress-sm"
+                                value={this.state.user.performanceReportValue}
+                            >
+            <span className="progress-value">
+              {this.state.user.performanceReportValue}%
+            </span>
+                            </Progress>
+                        </div>
+                    </ListGroupItem>
+                    <ListGroupItem className="p-4">
+                        <strong className="text-muted d-block mb-2">
+                            Introduction
+                        </strong>
+                        <span>{this.state.user.intro}</span>
+                    </ListGroupItem>
+                </ListGroup>
+            </Card>
+        );
+    }
+}
 
 UserDetails.propTypes = {
     /**
@@ -46,12 +89,12 @@ UserDetails.propTypes = {
     userDetails: PropTypes.object
 };
 
+
 UserDetails.defaultProps = {
     userDetails: {
-        name: "Xinman",
+        name: "Mat",
         avatar: require("./../../images/avatars/0.jpg"),
-        followers: "7",
-        following: "7",
+        jobTitle: "Product Owner",
         performanceReportTitle: "Workload",
         performanceReportValue: 74,
         metaTitle: "Description",
