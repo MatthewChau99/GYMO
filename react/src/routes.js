@@ -13,7 +13,7 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Login from "./views/Login";
 import Sign from "./views/Sign";
-import CalorieCalculator from ""
+import CalorieCalculator from "./views/CalorieCalculator";
 
 export default [
     {
