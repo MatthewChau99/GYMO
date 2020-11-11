@@ -16,11 +16,22 @@ const storage = multer.diskStorage({
 const upload = multer({storage: storage});
 
 const getPicById = (req, res) => {
+    // console.log(req.params.picID);
+    // const pic = Pic.findById(req.params.picID);
+    // if (pic) {
+    //     // console.log(pic);
+    //     res.contentType('json');
+    //     res.status(200).send(pic);
+    // } else {
+    //     res.status(403).json({message: "Error occurred when getting pic."});
+    // }
+
     Pic.find({}, (err, items) => {
         if (err) {
             console.log(err);
         } else {
-            res.render('app', {items: items});
+            res.render('Default', {items: items});
+            // res.send(items);
         }
     });
 };

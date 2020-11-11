@@ -21,12 +21,12 @@ db.once('open', () => {
 });
 
 const app = express();
-app.set('view engine', 'jade');
-app.set("views", path.join(__dirname, "../react/src/views"));
-
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+
+// app.set("views", path.join(__dirname, "../react/src/layouts"));
+app.set('view engine', 'html');
 
 const PORT = process.env.PORT || 9000;
 

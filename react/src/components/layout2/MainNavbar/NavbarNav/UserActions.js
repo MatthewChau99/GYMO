@@ -10,6 +10,7 @@ import {
     NavLink
 } from "shards-react";
 import store from "../../../../states/store";
+import axios from "axios";
 
 export default class UserActions extends React.Component {
     constructor(props) {
@@ -18,10 +19,11 @@ export default class UserActions extends React.Component {
         this.state = {
             visible: false,
             user: store.getState().user,
-
+            userAvatar: ""
         };
 
         this.toggleUserActions = this.toggleUserActions.bind(this);
+        this.getPic();
     }
 
     toggleUserActions() {
@@ -31,7 +33,22 @@ export default class UserActions extends React.Component {
     }
 
     getPic() {
-        axios.get(`/pic/${this.state.user.`)
+        console.log("FUCK");
+        axios.get(`/pic/${this.state.user.pictureID}`, {
+            params: {
+                picID: this.state.user.pictureID
+            }
+        }).then(async (response) => {
+            if (response.status === 200) {
+                this.setState({
+                    userAvatar: response.data
+                })
+            }
+        }).catch(
+            function (error) {
+                console.error(error);
+            }
+        )
     }
 
     render() {
@@ -40,9 +57,9 @@ export default class UserActions extends React.Component {
                 <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
                     <img
                         className="user-avatar rounded-circle mr-2"
-                        src={`url("data:image/png;base64, ${this.state.user.}`}
+                        src={`url(${this.state.userAvatar}`}
                         alt="User Avatar"
-                    />{" "}
+                    />
                     <span className="d-none d-md-inline-block ">Xinman Zhang</span>
                 </DropdownToggle>
                 <Collapse tag={DropdownMenu} right small open={this.state.visible}>
