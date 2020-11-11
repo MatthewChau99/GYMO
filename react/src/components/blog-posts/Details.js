@@ -12,7 +12,6 @@ const Details = ({title, postdate, tags}) => (
         <CardBody className="p-0">
             <ListGroup flush>
                 <ListGroupItem className="p-3">
-
           <span className="d-flex mb-2">
             <i className="material-icons mr-1">event_available</i>
             <strong className="mr-1">Date Posted:</strong>{" "}
@@ -45,6 +44,7 @@ Details.propTypes = {
 
 Details.defaultProps = {
     title: "Other Details"
+
 };
 
 export default Details;

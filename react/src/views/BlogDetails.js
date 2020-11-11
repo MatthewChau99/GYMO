@@ -1,8 +1,9 @@
 import React from "react";
-import {Col, Container, Row} from "shards-react";
+import {Container, Row, Col} from "shards-react";
 import {Link} from "react-router-dom";
 
 import PageTitle from "../components/common/PageTitle";
+import TextBody from "../components/blog-posts/TextBody";
 import Author from "../components/blog-posts/Author";
 import Details from "../components/blog-posts/Details";
 import Comments from "../components/blog-posts/Comments";
@@ -17,7 +18,8 @@ const BlogDetails = () => (
                 sm="4" title="Blog Detail"
                 subtitle="Blog Posts"
                 className="text-sm-left"
-                tag={Link} to="blog-posts"/>
+                tag={Link} to="blog-posts"
+            />
         </Row>
 
         <Row>
@@ -36,6 +38,7 @@ const BlogDetails = () => (
             </Col>
         </Row>
     </Container>
+
 );
 
 export default BlogDetails;

@@ -1,51 +1,59 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {Card, CardBody, CardHeader, Form, FormInput, ListGroup, ListGroupItem} from "shards-react";
+import {
+  Card,
+  CardHeader,
+  CardBody,
+  ListGroup,
+  ListGroupItem,
+  Form, FormInput
 
-const Comments = ({title}) => (
-    <Card small className="mb-3">
-        <CardHeader className="border-bottom">
-            <h6 className="m-0">{title}</h6>
-        </CardHeader>
+} from "shards-react";
 
-        <CardBody className="p-0">
-            <ListGroup flush>
-                <ListGroupItem className="p-3">
+const Comments = ({ title }) => (
+  <Card small className="mb-3">
+    <CardHeader className="border-bottom">
+      <h6 className="m-0">{title}</h6>
+    </CardHeader>
 
+    <CardBody className="p-0">
+      <ListGroup flush>
+        <ListGroupItem className="p-3">
+          
           <span className="d-flex mb-2">
-
+            
             <strong className="mr-1">Ran Xu:</strong>{" "}
-              <strong className="text-dark">Thanks for sharing!</strong>{" "}
+            <strong className="text-dark">Thanks for sharing!</strong>{" "}
           </span>
-
-                    <span className="d-flex mb-2">
-
+          
+          <span className="d-flex mb-2">
+            
             <strong className="mr-1">X. Zhang:</strong>{" "}
-                        <strong className="text-dark">Nice to hear that!</strong>{" "}
+            <strong className="text-dark">Nice to hear that!</strong>{" "}
           </span>
-                    <Form>
-                        <FormInput placeholder="Comment Something!">
+          <Form>
+              <FormInput placeholder="Comment Something!">
 
-                        </FormInput>
-                    </Form>
+              </FormInput>
+          </Form>
+          
+        </ListGroupItem>
 
-                </ListGroupItem>
-
-            </ListGroup>
-        </CardBody>
-    </Card>
+      </ListGroup>
+    </CardBody>
+  </Card>
 );
 
 Comments.propTypes = {
-    /**
-     * The component's title.
-     */
-    title: PropTypes.string
+  /**
+   * The component's title.
+   */
+  title: PropTypes.string
 };
 
 Comments.defaultProps = {
-    title: "Comments"
-
+  title: "Comments"
+  
 };
 
 export default Comments;
