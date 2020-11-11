@@ -5,7 +5,7 @@ import { useState } from "react";
 import Food from "./Food"
 import axios from 'axios';
 
-const FoodItem = ({food, handleAddFood}) => {
+const FoodItem = ({food}) => {
   // static propTypes = {
   //   food: PropTypes.object.isRequired
   // };
@@ -56,7 +56,7 @@ const FoodItem = ({food, handleAddFood}) => {
         </div>
         <div>
         {isShowing ?
-          <Food food={sfood} handleAddFood={handleAddFood}/>
+          <Food food={sfood} />
         : null}
         </div>
       </div>

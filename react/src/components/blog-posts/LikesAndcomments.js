@@ -10,6 +10,7 @@ const LikesAndComments = ({ lnum, cnum, addLike }) => {
             {lnum}
             </Button>
 
+\
             <Button as = {ButtonGroup} variant="outline-dark" size="sm" >
             <i className="material-icons mr-1">chat_bubble_outline</i>
             {cnum}

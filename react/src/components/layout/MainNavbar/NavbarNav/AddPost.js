@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { 
-  Button, 
-  NavItem, 
+import {
+  Button,
+  NavItem,
   ListGroupItem,
   Dropdown,
   DropdownItem
@@ -27,22 +27,22 @@ export default class AddPost extends React.Component {
 
   render() {
     return (
-      <NavItem 
+      <NavItem
         //tag={Dropdown} caret toggle={this.toggleAddPost}
         // onClick={this.toggleAddPost}
       >
-        
-          {/* <Button 
-            theme="accent"  
+
+          {/* <Button
+            theme="accent"
             tag={Link} to="add-new-post" size="sm"
             className="nav-link-icon center"
           >
-          
+
           <i className="material-icons">post_add</i> New Post
-          
+
           </Button> */}
-        
-        <DropdownItem 
+
+        <DropdownItem
           tag={Link} to="add-new-post"
           className="nav-link-icon center"
         >

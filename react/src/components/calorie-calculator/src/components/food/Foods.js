@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 
 export class Foods extends Component {
   static propTypes = {
-    foods: PropTypes.array.isRequired,
-    handleAddFood: PropTypes.func.isRequired
+    foods: PropTypes.array.isRequired
   };
   render() {
     return (
       <div>
         {this.props.foods.map((food, index) => (
-          <FoodItem key={index} food={food} handleAddFood={this.props.handleAddFood}/>
+          <FoodItem key={index} food={food} />
         ))}
       </div>
     );

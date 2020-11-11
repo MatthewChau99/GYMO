@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
-const Food = ({ food, handleAddFood }) => {
+const Food = ({ food }) => {
 
   // useEffect(() => {
   //   getFood(food.food_name);
@@ -35,7 +35,7 @@ const Food = ({ food, handleAddFood }) => {
           <li>sodium: {nf_sodium}</li>
           <li>total fat: {nf_total_fat}</li>
           <li>saturated fat: {nf_saturated_fat}</li>
-          <button className='add-button' onClick={() => handleAddFood(food)}>
+          <button className='add-button'>
             Add
           </button>
         </ul>
