@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {Container, Row, Col} from "shards-react";
-import {BrowserRouter, Link, withRouter} from "react-router-dom";
+import {Col, Container, Row} from "shards-react";
+import {withRouter} from "react-router-dom";
 import PageTitle from "../components/common/PageTitle";
 import Editor from "../components/add-new-post/Editor";
 import SidebarActions from "../components/add-new-post/SidebarActions";

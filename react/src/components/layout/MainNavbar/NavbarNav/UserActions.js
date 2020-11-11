@@ -60,20 +60,14 @@ export default class UserActions extends React.Component {
                 </DropdownToggle>
                 <Collapse tag={DropdownMenu} right small open={this.state.visible}>
                     <DropdownItem tag={Link} to="user-profile-lite">
-                        <i className="material-icons">&#xE7FD;</i> Edit Profile
+                        <i className="material-icons">&#xE7FD;</i> Profile
                     </DropdownItem>
                     {/* <DropdownItem tag={Link} to="edit-user-profile">
             <i className="material-icons">&#xE8B8;</i> Edit Profile
           </DropdownItem> */}
-                    <DropdownItem tag={Link} to="components-overview">
-                        <i className="material-icons">&#xea5f;</i> Calorie Burned
-                    </DropdownItem>
                     <DropdownItem tag={Link} to="add-new-post">
                         {/* <i className="material-icons">&#xE2C7;</i> Add A New Post */}
                         <i className="material-icons">post_add</i> Add New Post
-                    </DropdownItem>
-                    <DropdownItem tag={Link} to="transaction-history">
-                        <i className="material-icons">&#xE896;</i> Transactions
                     </DropdownItem>
                     <DropdownItem divider/>
                     <DropdownItem tag={Link} to="/" className="text-danger">

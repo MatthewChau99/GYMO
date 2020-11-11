@@ -39,7 +39,7 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
                 </Card.Text>
 
                 {/* <Button variant="primary" >Go Back</Button> */}
-
+                <br/>
                 <LikesAndComments lnum={lnum} cnum={cnum} addLike={addLike}/>
 
             </CardBody>
