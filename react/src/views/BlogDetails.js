@@ -8,6 +8,8 @@ import Author from "../components/blog-posts/Author";
 import Details from "../components/blog-posts/Details";
 import Comments from "../components/blog-posts/Comments";
 import BlogDetail from "../components/blog/BlogDetail";
+import UserProfile from "../components/blog/UserProfile";
+
 
 const BlogDetails = () => (
     <Container fluid className="main-content-container px-4 pb-4">
@@ -22,7 +24,8 @@ const BlogDetails = () => (
         </Row>
 
     <Row>
-    <BlogDetail/>
+    <UserProfile/>
+
             {/* Sidebar Widgets */}
             <Col lg="3" md="12">
                 <Author
