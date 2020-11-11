@@ -27,9 +27,9 @@ export default function() {
       to: "/tables",
     },
     {
-      title: "User Profile",
+      title: "Personal Info",
       htmlBefore: '<i class="material-icons">person</i>',
-      to: "/user-profile-lite",
+      to: "/personal-info",
     },
     {
       title: "Setting",

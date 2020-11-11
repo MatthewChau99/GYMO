@@ -120,6 +120,7 @@ class BlogPost extends Component {
                                 </a>
                             </h5>
                             <span className="card-text d-inline-block mb-3">{post.body}</span>
+                            <br/>
                             <span className="text-muted">{post.date}</span>
                         </CardBody>
                     </Card>
