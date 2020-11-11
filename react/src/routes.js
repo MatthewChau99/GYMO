@@ -13,13 +13,14 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Login from "./views/Login";
 import Sign from "./views/Sign";
+import CalorieCalculator from ""
 
 export default [
     {
         path: "/",
         exact: true,
         layout: DefaultLayout,
-        component: () => <Redirect to="/blog-overview"/>
+        component: () => <Redirect to="/blog-posts" />
     },
     {
         path: "/blog-overview",
@@ -27,9 +28,9 @@ export default [
         component: BlogOverview
     },
     {
-        path: "/user-profile-lite",
+        path: "/personal-info",
         layout: DefaultLayout,
-        component: UserProfileLite
+        component: PersonalInfo
     },
     {
         path: "/add-new-post",
@@ -52,17 +53,12 @@ export default [
         component: Tables
     },
     {
-        path: "/blog-details",
-        layout: DefaultLayout,
-        component: BlogDetails
-    },
-    {
         path: "/blog-posts",
         layout: DefaultLayout,
         component: BlogPosts
     },
     {
-        path: "/login",
+        path: "/login-in",
         layout: UserLayout,
         component: Login
     },
@@ -71,4 +67,24 @@ export default [
         layout: UserLayout,
         component: Sign
     },
+    {
+        path: "/calorie-calculator",
+        layout:DefaultLayout,
+        component: CalorieCalculator
+    },
+    {
+        path: "/blog-details",
+        layout:DefaultLayout,
+        component: BlogDetails
+    },
+    {
+        path: "/user-profile",
+        layout: DefaultLayout,
+        component: UserProfile
+    },
+    {
+        path: "/about",
+        layout: DefaultLayout,
+        component: about
+    }
 ];
