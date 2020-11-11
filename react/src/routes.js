@@ -63,7 +63,7 @@ export default [
         component: BlogPosts
     },
     {
-        path: "/login-in",
+        path: "/login",
         layout: UserLayout,
         component: Login
     },
@@ -83,7 +83,7 @@ export default [
         component: BlogDetails
     },
     {
-        path: "/user-profile",
+        path: "/user-profile-lite",
         layout: DefaultLayout,
         component: UserProfile
     },
