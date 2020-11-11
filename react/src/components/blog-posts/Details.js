@@ -1,14 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    ListGroup,
-    ListGroupItem,
-    Button,
-    Badge
-} from "shards-react";
+import {Badge, Card, CardBody, CardHeader, ListGroup, ListGroupItem} from "shards-react";
 
 const Details = ({title, postdate, tags}) => (
     <Card small className="mb-3">
@@ -52,7 +44,6 @@ Details.propTypes = {
 
 Details.defaultProps = {
     title: "Other Details"
-
 };
 
 export default Details;

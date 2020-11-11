@@ -2,7 +2,6 @@ import React from "react";
 import { ButtonGroup, Button } from 'react-bootstrap';
 
 const LikesAndComments = ({ lnum, cnum, addLike }) => {
-
     return (
         <ButtonGroup >
 
@@ -11,6 +10,7 @@ const LikesAndComments = ({ lnum, cnum, addLike }) => {
             {lnum}
             </Button>
 
+\
             <Button as = {ButtonGroup} variant="outline-dark" size="sm" >
             <i className="material-icons mr-1">chat_bubble_outline</i>
             {cnum}

@@ -8,7 +8,7 @@ import Search from "../components/calorie-calculator/src/App"
 const CalorieCalculator = () => (
   <Container fluid className="main-content-container px-4 pb-4">
     <Row noGutters className="page-header py-4">
-      <PageTitle sm="4" title="Food Calorie Calculator" subtitle="Daily Calorie Tracker" className="text-sm-left" />
+      <PageTitle sm="4" title="Burned Calorie Overview" subtitle="Calorie Calculator" className="text-sm-left" />
     </Row>
 
     <Row>
