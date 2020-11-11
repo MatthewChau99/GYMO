@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 const UserController = require('./UserController');
 
 const uploadPost = async (req, res) => {
@@ -7,9 +8,14 @@ const uploadPost = async (req, res) => {
         title: req.body.title,
         content: req.body.content,
         userID: req.body.userID,
-        pictureID: req.body.pictureID
+        pictureID: req.body.pictureID,
+        likes: req.body.likes,
+        likesNum: req.body.likesNum,
+        comments: req.body.comments
     });
     try {
+        console.log(post);
+        console.log(req.body.likesNum);
         const savedPost = await post.save();
         await UserController.addPostToUser(req.body.userID, savedPost._id);
         res.status(200).json(savedPost);
@@ -30,9 +36,11 @@ const getAllPosts = async (req, res) => {
                     title: posts[i].title,
                     content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                     userID: posts[i].userID,
+                    postID: posts[i]._id,
                     userName: user.name,
                     pictureID: posts[i].pictureID,
-                    date: new Date(posts[i].date).toISOString().substring(0, 10)
+                    date: new Date(posts[i].date).toISOString().substring(0, 10),
+                    likes: posts[i].likes
                 };
                 returnPosts.push(returnPost);
             }
@@ -47,8 +55,11 @@ const getAllPosts = async (req, res) => {
 
 const getPostById = async (req, res) => {
     try {
+        let returnPosts = [];
         const post = await Post.findById(req.params.postID);
-        res.status(200).json(post);
+        returnPosts.push(post);
+        console.log(returnPosts);
+        res.status(200).json({posts: returnPosts});
     } catch (err) {
         res.status(404).json({message: "Interesting!"});
     }
@@ -95,22 +106,46 @@ const removeCommentFromPost = async (commentID, postID) => {
         }
     });
 };
-const addLikeToPost = async (userID, postID) => {
-    await Post.findByIdAndUpdate(postID, {
+
+
+const addLikeToPost = async (req, res) => {
+    await Post.findByIdAndUpdate(req.body.postID, {
         '$addToSet': {
-            'likes': userID
+            'likes': req.body.userID
+        },
+        '$inc': {
+            likesNum: 1
         }
     });
+    res.status(200).send("like added to post");
 };
 
 const removeLikeFromPost = async (userID, postID) => {
     await Post.findByIdAndUpdate(postID, {
         '$pull': {
             'likes': userID
+        },
+        '$inc': {
+            likesNum: -1
         }
     });
 };
 
+const getPostLikeNum = async(postID) => {
+    let post = await Post.findById(postID);
+    return post.likesNum;
+};
+
+
 module.exports = {
-    uploadPost, getPostById, getAllPosts, deletePost, updatePost, addCommentToPost, removeCommentFromPost, addLikeToPost, removeLikeFromPost
+    uploadPost,
+    getPostById,
+    getAllPosts,
+    deletePost,
+    updatePost,
+    addCommentToPost,
+    removeCommentFromPost,
+    addLikeToPost,
+    removeLikeFromPost,
+    getPostLikeNum
 };

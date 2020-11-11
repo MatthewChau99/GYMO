@@ -29,6 +29,7 @@ const register = async (req, res) => {
             });
             await user.save();
             res.status(200).send(user);
+            //req.flash('success','User Registration Succeed!');
         }
     })
 };
