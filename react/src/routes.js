@@ -1,7 +1,9 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
+// Layout Types
 import {DefaultLayout, UserLayout} from "./layouts";
 import BlogDetails from "./views/BlogDetails";
+// Route Views
 import BlogOverview from "./views/BlogOverview";
 import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
@@ -51,17 +53,12 @@ export default [
         component: Tables
     },
     {
-        path: "/blog-details",
-        layout: DefaultLayout,
-        component: BlogDetails
-    },
-    {
         path: "/blog-posts",
         layout: DefaultLayout,
         component: BlogPosts
     },
     {
-        path: "/login",
+        path: "/login-in",
         layout: UserLayout,
         component: Login
     },

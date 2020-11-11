@@ -12,13 +12,15 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 const App = () => {
   const [foods, setFoods] = useState([]);
-  const [food, setFood] = useState({});
+  const [foodList, setFoodList] = useState([]);
+  const [totalCalories, setTotalCalories] = useState(0);
   const [emptyFoods, setEmptyFoods] = useState(false);
   const [emptyName, setEmptyName] = useState('');
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
 
   const searchFoods = async text => {
+    clearFoods();
     const res = await axios.get(
       `https://trackapi.nutritionix.com/v2/search/instant?query=${text}`,
       {
@@ -43,37 +45,6 @@ const App = () => {
     setLoading(false);
   };
 
-  const getFood = async id => {
-    setFood({});
-    setLoading(false);
-    setAlert(null);
-    const myData = { query: id };
-
-    const encodeForm = data => {
-      return Object.keys(data)
-        .map(
-          key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key])
-        )
-        .join('&');
-    };
-
-    const res = await axios.post(
-      `https://trackapi.nutritionix.com/v2/natural/nutrients`,
-      encodeForm(myData),
-      {
-        headers: {
-          'x-app-id': 'ab1986a7',
-          'x-app-key': 'f5d97a4a96fe4fa38e6fdf5eeb64cbf7',
-          'x-remote-user-id': 0
-        }
-      }
-    );
-    console.log(res.data.foods[0]);
-
-    setLoading(false);
-    setFood(res.data.foods[0]);
-  };
-
   const clearFoods = () => {
     setFoods([]);
     setLoading(false);
@@ -85,21 +56,61 @@ const App = () => {
     setTimeout(() => setAlert(null), 7000);
   };
 
+  const handleAddFood = (food) => {
+    console.log(food)
+    setFoodList(foodList => [...foodList, food])
+    setTotalCalories(totalCalories+food.nf_calories)
+  }
+
+  const handleDeletFood = (food) => {
+    setFoodList(foodList.filter(item => item.food_name !== food.food_name))
+    setTotalCalories(totalCalories-food.nf_calories)
+  }
   return (
     <div>
       <main className='container'>
         <Alert alert={alert} emptyFoods={emptyFoods} emptyName={emptyName} />
-
+        <Search
+          searchFoods={searchFoods}
+          clearFoods={clearFoods}
+          setAlert={showAlert}
+        />
+        <div className='result-container'>
+          <div className='search-food'>
+            <Foods foods={foods} handleAddFood={handleAddFood}/>
+          </div>
+          <div>
+            <div className='title'>
+              FOOD LIST
+            </div>
+            <div className='foodlist-container'>
+              {foodList.map((fooditem, index) => (
+                <div className='fooditem-container'>
+                  <div>
+                    {fooditem.food_name}
+                  </div>
+                  <div>
+                  <div className='result-container'>
+                    {fooditem.nf_calories}
+                    <div className='space'></div>
+                    <button className='delete-button' onClick={() => handleDeletFood(fooditem)}>
+                      ×
+                    </button>
+                  </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className='fooditem-container'>
               <div>
-                <Search
-                  searchFoods={searchFoods}
-                  clearFoods={clearFoods}
-                  setAlert={showAlert}
-                />
-                <Foods foods={foods} />
+                Total Calories:
               </div>
-
-        {/* {props => <Food {...props} getFood={getFood} food={food} />} */}
+              <div>
+                {totalCalories.toFixed(2)}
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   );

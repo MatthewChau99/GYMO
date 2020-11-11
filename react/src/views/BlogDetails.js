@@ -6,6 +6,7 @@ import PageTitle from "../components/common/PageTitle";
 import Author from "../components/blog-posts/Author";
 import Details from "../components/blog-posts/Details";
 import Comments from "../components/blog-posts/Comments";
+
 import BlogDetail from "../components/blog/BlogDetail";
 
 const BlogDetails = () => (
@@ -35,7 +36,6 @@ const BlogDetails = () => (
             </Col>
         </Row>
     </Container>
-
 );
 
 export default BlogDetails;
