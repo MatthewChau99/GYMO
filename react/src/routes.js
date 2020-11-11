@@ -1,11 +1,12 @@
 import React from "react";
 import {Redirect} from "react-router-dom";
+
 // Layout Types
 import {DefaultLayout, UserLayout} from "./layouts";
+
 // Route Views
-import BlogDetails from "./views/BlogDetails";
 import BlogOverview from "./views/BlogOverview";
-import UserProfileLite from "./views/UserProfileLite";
+import PersonalInfo from "./views/PersonalInfo";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
@@ -14,13 +15,17 @@ import BlogPosts from "./views/BlogPosts";
 import Login from "./views/Login";
 import Sign from "./views/Sign";
 import CalorieCalculator from "./views/CalorieCalculator";
+import BlogDetails from "./views/BlogDetails";
+import UserProfile from "./views/UserProfile";
+import about from "./views/about";
+
 
 export default [
     {
         path: "/",
         exact: true,
         layout: DefaultLayout,
-        component: () => <Redirect to="/blog-posts" />
+        component: () => <Redirect to="/blog-posts"/>
     },
     {
         path: "/blog-overview",
@@ -69,12 +74,12 @@ export default [
     },
     {
         path: "/calorie-calculator",
-        layout:DefaultLayout,
+        layout: DefaultLayout,
         component: CalorieCalculator
     },
     {
         path: "/blog-details",
-        layout:DefaultLayout,
+        layout: DefaultLayout,
         component: BlogDetails
     },
     {
