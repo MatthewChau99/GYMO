@@ -1,40 +1,86 @@
 import React, {Component} from "react";
 import {Badge, Card, CardBody, Col} from "shards-react";
 import axios from "axios";
+import store from "../../states/store";
+import {Link, withRouter} from "react-router-dom";
 
-export default class BlogPost extends Component {
+class BlogPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            PostsListOne: []
+            PostsListOne: [],
+            picFilePath: "",
+            hasPic: 0,
         };
-        this.getPosts(4);
+        this.getPosts(12);
+
     }
 
-    getPosts(limit) {
+    async getPic(post) {
+        if (post.pictureID) {
+            axios.get(`/pic/${post.pictureID}`, {
+                params: {
+                    picID: post.pictureID
+                }
+            }).then(
+                async (response) => {
+                    this.setState({
+                        picFilePath: response.data
+                    });
+                    const newPost = {
+                        backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
+                        categoryTheme: "dark",
+                        author: post.userName,
+                        postID: post.postID,
+                        authorAvatar: require("../../images/avatars/1.jpg"),
+                        title: post.title,
+                        body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                        date: post.date,
+                        userID: post.userID
+                    };
+                    this.setState({
+                        PostsListOne: this.state.PostsListOne.concat(newPost)
+                    });
+
+                }).catch(
+                function (error) {
+                    console.error(error);
+                }
+            );
+        } else {
+            this.setState({
+                picFilePath: require("../../cache/default.jpg")
+            });
+            const newPost = {
+                backgroundImage: `url(${this.state.picFilePath})`,
+                categoryTheme: "dark",
+                author: post.userName,
+                postID: post.postID,
+                authorAvatar: require("../../images/avatars/1.jpg"),
+                title: post.title,
+                body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                date: post.date,
+                userID: post.userID
+            };
+            this.setState({
+                PostsListOne: this.state.PostsListOne.concat(newPost)
+            });
+        }
+
+    }
+
+    async getPosts(limit) {
         axios.get('/posts/getAllPosts',
-            {params: {limit: 4}}
-        ).then((response) => {
+            {params: {limit: 12}}
+        ).then(async (response) => {
             const posts = response.data["posts"];
-            console.log(posts.length);
             for (let i = 0; i < posts.length; i++) {
-                const post = {
-                    backgroundImage: require("../../images/content-management/1.jpeg"),
-                    categoryTheme: "dark",
-                    author: posts[i].userName,
-                    authorAvatar: require("../../images/avatars/1.jpg"),
-                    title: posts[i].title,
-                    body: posts[i].content,
-                    date: posts[i].date
-                };
-                this.setState({
-                    PostsListOne: this.state.PostsListOne.concat(post)
-                });
+                console.log(posts[i]);
+                await this.getPic(posts[i]);
             }
         }).catch(function (error) {
             console.log(error)
         })
-
     }
 
     render() {
@@ -45,7 +91,7 @@ export default class BlogPost extends Component {
                     <Card small className="card-post card-post--1">
                         <div
                             className="card-post__image"
-                            style={{backgroundImage: `url(${post.backgroundImage})`}}
+                            style={{backgroundImage: `${post.backgroundImage}`}}
                         >
                             <Badge
                                 pill
@@ -63,7 +109,11 @@ export default class BlogPost extends Component {
                                 </a>
                             </div>
                         </div>
-                        <CardBody>
+                        <CardBody tag={Link} to={{
+                            pathname: 'blog-details',
+                            search: `?postID=${post.postID}`,
+                            state: {postID: post.postID}
+                        }}>
                             <h5 className="card-title">
                                 <a href="#" className="text-fiord-blue">
                                     {post.title}
@@ -74,7 +124,12 @@ export default class BlogPost extends Component {
                         </CardBody>
                     </Card>
                 </Col>
+
+
             ))
+
         );
     }
-};
+}
+
+export default withRouter(BlogPost);

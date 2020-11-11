@@ -1,16 +1,16 @@
 import React from "react";
 import { ButtonGroup, Button } from 'react-bootstrap';
 
-const LikesAndComments = ({ lnum, cnum }) => {
-    
+const LikesAndComments = ({ lnum, cnum, addLike }) => {
+
     return (
         <ButtonGroup >
-            
-            <Button variant="outline-danger" size="sm">
+
+            <Button variant="outline-danger" size="sm" onClick={addLike}>
             <i className="material-icons mr-1">favorite_border</i>
             {lnum}
             </Button>
-            
+
             <Button as = {ButtonGroup} variant="outline-dark" size="sm" >
             <i className="material-icons mr-1">chat_bubble_outline</i>
             {cnum}
@@ -18,7 +18,6 @@ const LikesAndComments = ({ lnum, cnum }) => {
 
         </ButtonGroup>
     )
-    
 };
 
 export default LikesAndComments;

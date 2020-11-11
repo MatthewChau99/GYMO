@@ -36,11 +36,11 @@ export default class UserActions extends React.Component {
             src={require("./../../../../images/avatars/0.jpg")}
             alt="User Avatar"
           />{" "}
-          <span className="d-none d-md-inline-block ">Xinman Zhang</span>
+          <span className="d-none d-md-inline-block">Xinman Zhang</span>
         </DropdownToggle>
         <Collapse tag={DropdownMenu} right small open={this.state.visible}>
           <DropdownItem tag={Link} to="user-profile">
-            <i className="material-icons">&#xE7FD;</i> Profile
+            <i className="material-icons">&#xE7FD;</i> Edit Profile
           </DropdownItem>
           {/* <DropdownItem tag={Link} to="edit-user-profile">
             <i className="material-icons">&#xE8B8;</i> Edit Profile

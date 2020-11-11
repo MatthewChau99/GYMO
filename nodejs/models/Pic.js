@@ -7,8 +7,12 @@ const imageSchema = new mongoose.Schema({
         {
             data: Buffer,
             contentType: String
-        }
+        },
+    userID: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }
 });
 
 
-module.exports = new mongoose.model('Image', imageSchema);
+module.exports = mongoose.model('Image', imageSchema);

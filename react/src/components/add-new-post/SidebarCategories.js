@@ -13,7 +13,6 @@ import {
   FormInput
 } from "shards-react";
 
-
 const SidebarCategories = ({ title }) => (
   <Card small className="mb-3">
     <CardHeader className="border-bottom">
@@ -25,11 +24,11 @@ const SidebarCategories = ({ title }) => (
           <FormCheckbox className="mb-1" value="uncategorized" defaultChecked>
             Uncategorized
           </FormCheckbox>
-          <FormCheckbox className="mb-1" value="sharing" >
-            Sharing
+          <FormCheckbox className="mb-1" value="design" defaultChecked>
+            Design
           </FormCheckbox>
-          <FormCheckbox className="mb-1" value="development" >
-            Gym
+          <FormCheckbox className="mb-1" value="development">
+            Development
           </FormCheckbox>
           <FormCheckbox className="mb-1" value="writing">
             Writing
@@ -37,7 +36,6 @@ const SidebarCategories = ({ title }) => (
           <FormCheckbox className="mb-1" value="books">
             Books
           </FormCheckbox>
-
         </ListGroupItem>
 
         <ListGroupItem className="d-flex px-3">

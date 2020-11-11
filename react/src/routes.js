@@ -6,7 +6,7 @@ import { DefaultLayout, UserLayout } from "./layouts";
 
 // Route Views
 import BlogOverview from "./views/BlogOverview";
-import PersonalInfo from "./views/PersonalInfo";
+import UserProfileLite from "./views/UserProfileLite";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
@@ -14,18 +14,13 @@ import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Login from "./views/Login";
 import Sign from "./views/Sign";
-import CalorieCalculator from "./views/CalorieCalculator";
-import BlogDetails from "./views/BlogDetails";
-import UserProfile from "./views/UserProfile";
-import about from "./views/about";
-
 
 export default [
   {
     path: "/",
     exact: true,
     layout: DefaultLayout,
-    component: () => <Redirect to="/blog-posts" />
+    component: () => <Redirect to="/blog-overview" />
   },
   {
     path: "/blog-overview",
@@ -33,9 +28,9 @@ export default [
     component: BlogOverview
   },
   {
-    path: "/personal-info",
+    path: "/user-profile-lite",
     layout: DefaultLayout,
-    component: PersonalInfo
+    component: UserProfileLite
   },
   {
     path: "/add-new-post",
@@ -72,24 +67,4 @@ export default [
     layout: UserLayout,
     component: Sign
   },
-  {
-    path: "/calorie-calculator",
-    layout:DefaultLayout,
-    component: CalorieCalculator
-  },
-  {
-    path: "/blog-details",
-    layout:DefaultLayout,
-    component: BlogDetails
-  },
-  {
-    path: "/user-profile",
-    layout: DefaultLayout,
-    component: UserProfile
-  },
-  {
-    path: "/about",
-    layout: DefaultLayout,
-    component: about
-  }
 ];
