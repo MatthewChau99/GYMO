@@ -16,7 +16,7 @@ import Login from "./views/Login";
 import Sign from "./views/Sign";
 import CalorieCalculator from "./views/CalorieCalculator";
 import BlogDetails from "./views/BlogDetails";
-import UserProfile from "./views/UserProfile";
+import UserProfileLite from "./views/UserProfileLite";
 import about from "./views/about";
 
 
@@ -85,7 +85,7 @@ export default [
     {
         path: "/user-profile-lite",
         layout: DefaultLayout,
-        component: UserProfile
+        component: UserProfileLite
     },
     {
         path: "/about",
