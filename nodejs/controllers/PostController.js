@@ -64,6 +64,69 @@ const getPostById = async (req, res) => {
         res.status(404).json({message: "Interesting!"});
     }
 };
+/*
+const getPostsByUser = async (req, res) => {
+    try {
+        let posts = await Post.find({}).sort({date: -1});
+        let returnPosts = [];
+        let user = await User.findById(req.params.userID);
+        //const post = await Post.findById(req.params.postID);
+        //let user = await User.findById(post.userID).lean();
+        if(user){
+            for(let i = 0; i < posts.length; i++){
+                if(posts[i].userID == req.params.userID){
+                    print(userID);
+                    let returnPost = {
+                        title: posts[i].title,
+                        content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                        userID: posts[i].userID,
+                        postID: posts[i]._id,
+                        userName: user.name,
+                        pictureID: posts[i].pictureID,
+                        date: new Date(posts[i].date).toISOString().substring(0, 10),
+                        likes: posts[i].likes
+                    };
+                    returnPosts.push(returnPost);
+                } 
+            }
+        }
+        res.status(200).json({posts: returnPosts});
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+};*/
+
+
+const getPostsByUser = async (req, res) => {
+    try {
+        let posts = await Post.find({}).sort({date: -1});
+        let returnPosts = [];
+        let user = await User.findById(req.params.userID);
+        const post = await Post.findById(req.params.postID);
+        let user = await User.findById(post.userID).lean();
+        if(user){
+            for(let i = 0; i < posts.length; i++){
+                if(posts[i].userID == req.params.userID){
+                    print(userID);
+                    let returnPost = {
+                        title: posts[i].title,
+                        content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                        userID: posts[i].userID,
+                        postID: posts[i]._id,
+                        userName: user.name,
+                        pictureID: posts[i].pictureID,
+                        date: new Date(posts[i].date).toISOString().substring(0, 10),
+                        likes: posts[i].likes
+                    };
+                    returnPosts.push(returnPost);
+                } 
+            }
+        }
+        res.status(200).json({posts: returnPosts});
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+};
 
 const deletePost = async (req, res) => {
     try {
@@ -147,5 +210,6 @@ module.exports = {
     removeCommentFromPost,
     addLikeToPost,
     removeLikeFromPost,
-    getPostLikeNum
+    getPostLikeNum,
+    getPostsByUser
 };
