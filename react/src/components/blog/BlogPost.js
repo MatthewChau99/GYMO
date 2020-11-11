@@ -13,7 +13,6 @@ class BlogPost extends Component {
             hasPic: 0,
         };
         this.getPosts(12);
-
     }
 
     async getPic(post) {

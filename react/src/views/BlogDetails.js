@@ -24,7 +24,7 @@ const BlogDetails = () => (
         </Row>
 
     <Row>
-    <UserProfile/>
+    <BlogDetail/>
 
             {/* Sidebar Widgets */}
             <Col lg="3" md="12">

@@ -15,6 +15,7 @@ class UserProfileLite extends Component {
         super(props);
         this.state = {
             isLogIn: store.getState().loginStatus,
+            user: store.getState().user,
             updatedName: "",
             updatedPhone: "",
             updatedPassword: "",
@@ -35,7 +36,7 @@ class UserProfileLite extends Component {
                             <UserAccountDetails/>
                         </Col>
                         <Col lg="8">
-                            <BlogViews/>
+                            <BlogViews userID={this.state.user._id}/>
                         </Col>
                     </Row>
                 </Container>

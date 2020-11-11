@@ -9,8 +9,7 @@ router.post('/submitPost', PostController.uploadPost);
 //get a specific post
 router.get('/getAllPosts', PostController.getAllPosts);
 router.get('/:postID', PostController.getPostById);
-//router.get('/:postID', PostController.getPostsByUser);
-//router.get('/:userID', PostController.getPostsByUser);
+router.get('/user/:userID', PostController.getPostsByUser);
 
 
 //delete a specific post
