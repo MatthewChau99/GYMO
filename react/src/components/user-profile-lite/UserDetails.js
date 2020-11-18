@@ -7,19 +7,24 @@ import Followers from "./Followers";
 import Followings from "./Followings";
 
 
+
 class UserDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
             //user: store.getState().user,
-            user: "",
+            user: {},
             userAvatar: require("../../cache/default.jpg"),
-            userID : this.props.userID,
+            userID: this.props.userID,
         };
-        this.getPic(this.state.user.pictureID);
-        //this.getUser = this.getUser.bind(this);
+        // this.getPic(this.state.user.pictureID);
+        // this.getUser = this.getUser.bind(this);
+        console.log(this.props.userID);
         this.getUser(this.props.userID);
-        
+    }
+
+    componentWillMount(){
+        this.getUser(this.props.userID);
     }
 
     getPic(picID) {
@@ -39,20 +44,20 @@ class UserDetails extends Component {
             );
         }
     }
-    //componentWillMount(){
-  //      this.getUser(this.props.userID);
-//    }
+
 
     getUser(userID) {
-        let self = this
+        let self = this;
         let user_id = userID;
         axios.get(`/account/${user_id}`,
             {params: {userID: user_id}}
-        ).then( (response) => {
-            self.setState({
+        ).then( async (response) => {
+            console.log("FUCK");
+            await self.setState({
                 user: response.data["user"]
+            }, () => {
+                console.log("user:" + self.state.user);
             });
-            console.log(self.state.user);
         }).catch(function (error) {
             console.log(error);
         })
@@ -60,19 +65,10 @@ class UserDetails extends Component {
 
 
     render() {
-        //const my_user = this.state.user;
-        //console.log(my_user);
-        //const my_user = this.getUser(this.state.userID);
-        //console.log(my_user);
-        //let i = 0;
-        //if (i == 0){
-        //    this.getUser(this.state.userID);
-        //    i++;
-        //}
-        const initial = this.state.user.name.charAt(0).toUpperCase();
+        // const initial = this.state.user;
         let img = <img
             className="rounded-circle"
-            src={require("./../../images/avatars/" + initial + ".png")}
+            src={require("./../../images/avatars/M.png")}
             alt={this.state.user.name}
             width="110"
         />;
