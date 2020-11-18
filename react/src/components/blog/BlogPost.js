@@ -97,7 +97,9 @@ class BlogPost extends Component {
                                 {post.category}
                             </Badge>
                             <CardBody tag={Link} to={{
-                                pathname: 'user-profile-lite'
+                                pathname: 'user-profile-lite',
+                                search: `?userID=${post.userID}`,
+                                state: {userID: post.userID}
                             }}>
                                 <div className="card-post__author d-flex">
                                     <a

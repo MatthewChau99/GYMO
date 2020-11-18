@@ -11,10 +11,15 @@ class UserDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: store.getState().user,
-            userAvatar: require("../../cache/default.jpg")
+            //user: store.getState().user,
+            user: "",
+            userAvatar: require("../../cache/default.jpg"),
+            userID : this.props.userID,
         };
         this.getPic(this.state.user.pictureID);
+        //this.getUser = this.getUser.bind(this);
+        this.getUser(this.props.userID);
+        
     }
 
     getPic(picID) {
@@ -34,9 +39,36 @@ class UserDetails extends Component {
             );
         }
     }
+    //componentWillMount(){
+  //      this.getUser(this.props.userID);
+//    }
+
+    getUser(userID) {
+        let self = this
+        let user_id = userID;
+        axios.get(`/account/${user_id}`,
+            {params: {userID: user_id}}
+        ).then( (response) => {
+            self.setState({
+                user: response.data["user"]
+            });
+            console.log(self.state.user);
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
 
 
     render() {
+        //const my_user = this.state.user;
+        //console.log(my_user);
+        //const my_user = this.getUser(this.state.userID);
+        //console.log(my_user);
+        //let i = 0;
+        //if (i == 0){
+        //    this.getUser(this.state.userID);
+        //    i++;
+        //}
         const initial = this.state.user.name.charAt(0).toUpperCase();
         let img = <img
             className="rounded-circle"

@@ -78,7 +78,14 @@ const updateUserInfo = async (req, res) => {
 };
 
 
-
+const getUserInfo = async (req, res) => {
+    try {
+        let my_user = await User.findById(req.params.userID);
+        res.status(200).json({user: my_user});
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+};
 
 module.exports = {
     addPostToUser,
@@ -87,5 +94,6 @@ module.exports = {
     deleteFollowerFromUser,
     addFollowToUser,
     deleteFollowFromUser,
-    updateUserInfo
+    updateUserInfo,
+    getUserInfo
 };
