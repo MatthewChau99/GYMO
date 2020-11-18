@@ -33,7 +33,6 @@ export default class UserActions extends React.Component {
     }
 
     getPic() {
-        console.log("FUCK");
         axios.get(`/pic/${this.state.user.pictureID}`, {
             params: {
                 picID: this.state.user.pictureID
