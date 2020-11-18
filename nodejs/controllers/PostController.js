@@ -14,8 +14,6 @@ const uploadPost = async (req, res) => {
         comments: req.body.comments
     });
     try {
-        console.log(post);
-        console.log(req.body.likesNum);
         const savedPost = await post.save();
         await UserController.addPostToUser(req.body.userID, savedPost._id);
         res.status(200).json(savedPost);
@@ -58,7 +56,6 @@ const getPostById = async (req, res) => {
         let returnPosts = [];
         const post = await Post.findById(req.params.postID);
         returnPosts.push(post);
-        console.log(returnPosts);
         res.status(200).json({posts: returnPosts});
     } catch (err) {
         res.status(404).json({message: "Interesting!"});
@@ -84,7 +81,7 @@ const getPostsByUser = async (req, res) => {
                         likes: posts[i].likes
                     };
                     returnPosts.push(returnPost);
-                } 
+                }
             }
         }
         res.status(200).json({posts: returnPosts});
@@ -96,7 +93,6 @@ const getPostsByUser = async (req, res) => {
 const deletePost = async (req, res) => {
     try {
         const post = await Post.findById(req.params.postID);
-        console.log(post.userID);
         await UserController.deletePostFromUser(post.userID, post._id);
         const removedPost = await Post.remove({_id: req.params.postID});
         res.status(200).json(removedPost);
@@ -127,6 +123,7 @@ const addCommentToPost = async (commentID, postID) => {
         }
     });
 };
+
 const removeCommentFromPost = async (commentID, postID) => {
     await Post.findByIdAndUpdate(postID, {
         '$pull': {

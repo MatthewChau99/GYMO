@@ -8,7 +8,7 @@ class BlogPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            PostsListOne: [],
+            PostList: [],
             picFilePath: "",
             hasPic: 0,
         };
@@ -38,7 +38,7 @@ class BlogPost extends Component {
                         userID: post.userID
                     };
                     this.setState({
-                        PostsListOne: this.state.PostsListOne.concat(newPost)
+                        PostList: this.state.PostList.concat(newPost)
                     });
                 }).catch(
                 function (error) {
@@ -61,7 +61,7 @@ class BlogPost extends Component {
                 userID: post.userID
             };
             this.setState({
-                PostsListOne: this.state.PostsListOne.concat(newPost)
+                PostList: this.state.PostList.concat(newPost)
             });
         }
 
@@ -81,9 +81,9 @@ class BlogPost extends Component {
     }
 
     render() {
-        const {PostsListOne} = this.state;
+        const {PostList} = this.state;
         return (
-            PostsListOne.map((post, idx) => (
+            PostList.map((post, idx) => (
                 <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
                     <Card small className="card-post card-post--1">
                         <div

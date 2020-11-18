@@ -35,7 +35,6 @@ class UserDetails extends Component {
         }
     }
 
-
     render() {
         const initial = this.state.user.name.charAt(0).toUpperCase();
         let img = <img
@@ -48,12 +47,6 @@ class UserDetails extends Component {
             <Card small className="mb-4 pt-3">
                 <CardHeader className="border-bottom text-center">
                     <div className="mb-3 mx-auto">
-                        {/*<img*/}
-                        {/*    className="rounded-circle"*/}
-                        {/*    src={this.state.userAvatar}*/}
-                        {/*    alt={this.state.user.name}*/}
-                        {/*    width="110"*/}
-                        {/*/>*/}
                         {img}
                     </div>
                     <h4 className="mb-0">{this.state.user.name}</h4>
@@ -64,21 +57,6 @@ class UserDetails extends Component {
                     </Button>
                 </CardHeader>
                 <ListGroup flush>
-                    {/*        <ListGroupItem className="px-4">*/}
-                    {/*            <div className="progress-wrapper">*/}
-                    {/*                <strong className="text-muted d-block mb-2">*/}
-                    {/*                    {this.state.user.performanceReportTitle}*/}
-                    {/*                </strong>*/}
-                    {/*                <Progress*/}
-                    {/*                    className="progress-sm"*/}
-                    {/*                    value={this.state.user.performanceReportValue}*/}
-                    {/*                >*/}
-                    {/*<span className="progress-value">*/}
-                    {/*  {this.state.user.performanceReportValue}%*/}
-                    {/*</span>*/}
-                    {/*                </Progress>*/}
-                    {/*            </div>*/}
-                    {/*        </ListGroupItem>*/}
                     <ListGroupItem className="p-4">
                         <strong className="text-muted d-block mb-2">
                             Introduction

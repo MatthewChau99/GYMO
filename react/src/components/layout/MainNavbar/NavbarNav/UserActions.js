@@ -48,8 +48,6 @@ export default class UserActions extends React.Component {
                 <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
                     <img
                         className="user-avatar rounded-circle mr-2"
-                        style={{width: 45, height: 45}}
-                        // src={`url('${this.state.userAvatar}')`}
                         src={this.state.userAvatar}
                         alt="User Avatar"
                     />{" "}

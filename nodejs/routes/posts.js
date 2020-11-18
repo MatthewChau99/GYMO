@@ -19,10 +19,10 @@ router.delete('/:postID', PostController.deletePost);
 router.patch('/:postID', PostController.updatePost);
 
 //submit a comment
-router.post('/:postID/comment', CommentController.uploadComment);
+router.post('/comment/:postID', CommentController.uploadComment);
 
 //load all comment for a post
-router.get('/:postID/comment', CommentController.getAllComments);
+router.get('/comment/:postID', CommentController.getAllComments);
 
 //delete a comment
 router.delete('/:postID/:commentID', CommentController.deleteComment);
