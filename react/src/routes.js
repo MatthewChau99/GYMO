@@ -10,7 +10,6 @@ import PersonalInfo from "./views/PersonalInfo";
 import AddNewPost from "./views/AddNewPost";
 import Errors from "./views/Errors";
 import ComponentsOverview from "./views/ComponentsOverview";
-import Tables from "./views/Tables";
 import BlogPosts from "./views/BlogPosts";
 import Login from "./views/Login";
 import Sign from "./views/Sign";
@@ -51,11 +50,6 @@ export default [
     path: "/components-overview",
     layout: DefaultLayout,
     component: ComponentsOverview
-  },
-  {
-    path: "/tables",
-    layout: DefaultLayout,
-    component: Tables
   },
   {
     path: "/blog-posts",

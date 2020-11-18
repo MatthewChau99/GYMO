@@ -22,19 +22,9 @@ export default function() {
       to: "/calorie-calculator",
     },
     {
-      title: "Shopping",
-      htmlBefore: '<i class="material-icons">local_grocery_store</i>',
-      to: "/tables",
-    },
-    {
       title: "Personal Info",
       htmlBefore: '<i class="material-icons">person</i>',
       to: "/personal-info",
-    },
-    {
-      title: "Setting",
-      htmlBefore: '<i class="material-icons">settings</i>',
-      to: "/errors",
     }
   ];
 }
