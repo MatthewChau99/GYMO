@@ -106,20 +106,20 @@ UsersByDevice.propTypes = {
 };
 
 UsersByDevice.defaultProps = {
-  title: "Blogs by category",
+  title: "Users by device",
   chartData: {
     datasets: [
       {
         hoverBorderColor: "#ffffff",
-        data: [20, 40, 40],
+        data: [68.3, 24.2, 7.5],
         backgroundColor: [
-          "rgba(0,0,0,0.6)",
-          "rgba(152,255,144,1)",
-          "rgba(0,121,255,0.7)"
+          "rgba(0,123,255,0.9)",
+          "rgba(0,123,255,0.5)",
+          "rgba(0,123,255,0.3)"
         ]
       }
     ],
-    labels: ["Gym", "Sharing", "Public"]
+    labels: ["Desktop", "Tablet", "Mobile"]
   }
 };
 

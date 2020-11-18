@@ -18,6 +18,7 @@ const App = () => {
   const [emptyName, setEmptyName] = useState('');
   const [loading, setLoading] = useState(false);
   const [alert, setAlert] = useState(null);
+  const [weightDict, setWeightDict] = useState({});
 
   const searchFoods = async text => {
     clearFoods();
@@ -56,15 +57,26 @@ const App = () => {
     setTimeout(() => setAlert(null), 7000);
   };
 
-  const handleAddFood = (food) => {
+  const handleAddFood = (food, w) => {
     console.log(food)
-    setFoodList(foodList => [...foodList, food])
-    setTotalCalories(totalCalories+food.nf_calories)
+    if (!foodList.includes(food)) {
+      setFoodList(foodList => [...foodList, food])
+      console.log(foodList)
+    // setCalorie(food.nf_calories/food.serving_weight_grams*weight)
+      setWeightDict({...weightDict, [food]: w})
+      setTotalCalories(totalCalories+food.nf_calories/food.serving_weight_grams*w)
+    } else {
+      let newWeightDict = {...weightDict}
+      newWeightDict[food] = parseFloat(newWeightDict[food]) + parseFloat(w)
+      setWeightDict(newWeightDict)
+      setTotalCalories(totalCalories+food.nf_calories/food.serving_weight_grams*w)
+    }
+    console.log(weightDict)
   }
 
   const handleDeletFood = (food) => {
     setFoodList(foodList.filter(item => item.food_name !== food.food_name))
-    setTotalCalories(totalCalories-food.nf_calories)
+    setTotalCalories(totalCalories-food.nf_calories/food.serving_weight_grams*weightDict[food])
   }
   return (
     <div>
@@ -91,7 +103,7 @@ const App = () => {
                   </div>
                   <div>
                   <div className='result-container'>
-                    {fooditem.nf_calories}
+                    {(fooditem.nf_calories/fooditem.serving_weight_grams*weightDict[fooditem]).toFixed(2)}
                     <div className='space'></div>
                     <button className='delete-button' onClick={() => handleDeletFood(fooditem)}>
                       ×

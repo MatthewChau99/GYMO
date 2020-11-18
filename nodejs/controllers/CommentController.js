@@ -14,7 +14,7 @@ const uploadComment = async (req, res) => {
         await PostController.addCommentToPost(savedComment._id, req.body.postID);
         res.status(200).json(savedComment);
     } catch (err) {
-        res.status(404).json({message: "FUCK"});
+        res.status(404).json({message: "Some error occurred"});
     }
 };
 
@@ -44,17 +44,18 @@ const getAllComments = async (req, res) => {
     }
 };
 
-// const deleteComment = async (req, res) => {
-//     try {
-//         const comment = await Comment.findById(req.params.commentID);
-//         console.log(comment.postID);
-//         await PostController.removeCommentFromPost(commentID, post._id);
-//         const removedComment = await Comment.remove({_id: req.params.commentID});
-//         res.status(200).json(removedComment);
-//     } catch (err) {
-//         res.status(404).json({message: err});
-//     }
-// };
+const deleteComment = async (req, res) => {
+    try {
+        const comment = await Comment.findById(req.params.commentID);
+        console.log(comment.postID);
+        await PostController.removeCommentFromPost(commentID, post._id);
+        const removedComment = await Comment.remove({_id: req.params.commentID});
+        res.status(200).json(removedComment);
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+};
+
 
 module.exports = {
     uploadComment, getAllComments, deleteComment

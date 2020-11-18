@@ -6,6 +6,8 @@ import PageTitle from "../components/common/PageTitle";
 import UserDetails from "../components/user-profile-lite/UserDetails";
 import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import {connect} from "react-redux";
+import AccountDetails from "../components/user-profile-lite/AccountDetails";
+import BlogViews from "../components/user-profile-lite/BlogViews";
 
 
 class UserProfileLite extends Component {
@@ -30,9 +32,10 @@ class UserProfileLite extends Component {
                     <Row>
                         <Col lg="4">
                             <UserDetails/>
+                            <UserAccountDetails/>
                         </Col>
                         <Col lg="8">
-                            <UserAccountDetails/>
+                            <BlogViews/>
                         </Col>
                     </Row>
                 </Container>
