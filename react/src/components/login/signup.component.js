@@ -1,7 +1,11 @@
 import React, {Component} from "react";
 import axios from "axios";
 
-export default class SignUp extends Component {
+import {connect} from "react-redux";
+import {LoginAction} from "../../states/actions";
+import {withRouter, Redirect} from "react-router-dom";
+
+class SignUp extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -17,7 +21,6 @@ export default class SignUp extends Component {
             success: false,
             avatarID: ""
         };
-        // this.resend = this.resend.bind(this);
     }
 
     updateUsername(event) {
@@ -56,6 +59,30 @@ export default class SignUp extends Component {
                     avatarID: response.data.avatarID
                 })
             }
+
+            // Login after successful signup
+            axios({
+                method: 'post',
+                url: '/account/login',
+                data: {
+                    email: self.state.email,
+                    password: self.state.password
+                }
+            }).then((response) => {
+                if (response.data['login'] === 1) {
+                    console.log(response);                // Login successful
+                    self.setState({isLoggedIn: true});
+                    self.setState({returnPage: 'blog-overview'});
+                    self.props.loginState(response.data['user']);
+                } else if (response.data['login'] === 0) {              // Password incorrect
+                    self.setState({returnPage: 'login'});
+                } else {                                                // User doesn't exist
+                    self.setState({returnPage: 'login'});
+                }
+                self.props.history.push(self.state.returnPage);
+            }).catch(function (error) {
+                console.log(error)
+            });
         }).catch(function (error) {
             console.log(error);
         });
@@ -135,9 +162,27 @@ export default class SignUp extends Component {
 
                 <button type="submit" onClick={(event) => this.register(event)} className="btn btn-primary btn-block">Sign Up</button>
                 <p className="forgot-password text-right">
-                    Already registered <a href="#">sign in?</a>
+                    Already registered <a href="login">sign in?</a>
                 </p>
             </form>
         );
     }
 }
+
+
+const mapStateToProps = state => {
+    return{
+        state
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        loginState: (user) => dispatch(LoginAction(user))
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(withRouter(SignUp));
