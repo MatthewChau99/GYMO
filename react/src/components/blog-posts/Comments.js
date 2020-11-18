@@ -20,10 +20,10 @@ class Comments extends Component {
         super(props);
         this.state = {
             title: "Comments",
-            postID: "5fb51b91c037122b997b7269",
+            postID: this.props.location.state.postID,
             comment: "",
             user: store.getState().user
-        }
+        };
     }
 
     handleSubmit(event) {
@@ -69,7 +69,7 @@ class Comments extends Component {
                 <CardBody className="p-0">
                     <ListGroup flush>
                         <ListGroupItem className="p-3">
-                            <Comment/>
+                            <Comment postID={this.state.postID}/>
                             <Form onChange={(event) => this.handleChange(event)}
                                   onSubmit={(event) => this.handleSubmit(event)}>
                                 <FormInput placeholder="Comment Something!">

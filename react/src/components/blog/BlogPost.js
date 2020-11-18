@@ -64,7 +64,6 @@ class BlogPost extends Component {
                 PostList: this.state.PostList.concat(newPost)
             });
         }
-
     }
 
     async getPosts(limit) {

@@ -17,8 +17,7 @@ class UserDetails extends Component {
             userAvatar: require("../../cache/default.jpg"),
             userID: this.props.userID,
         };
-        // this.getPic(this.state.user.pictureID);
-        // this.getUser = this.getUser.bind(this);
+
         console.log(this.props.userID);
         this.getUser(this.props.userID);
     }
