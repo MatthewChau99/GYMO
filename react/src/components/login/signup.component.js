@@ -60,29 +60,7 @@ class SignUp extends Component {
                 })
             }
 
-            // Login after successful signup
-            axios({
-                method: 'post',
-                url: '/account/login',
-                data: {
-                    email: self.state.email,
-                    password: self.state.password
-                }
-            }).then((response) => {
-                if (response.data['login'] === 1) {
-                    console.log(response);                // Login successful
-                    self.setState({isLoggedIn: true});
-                    self.setState({returnPage: 'blog-overview'});
-                    self.props.loginState(response.data['user']);
-                } else if (response.data['login'] === 0) {              // Password incorrect
-                    self.setState({returnPage: 'login'});
-                } else {                                                // User doesn't exist
-                    self.setState({returnPage: 'login'});
-                }
-                self.props.history.push(self.state.returnPage);
-            }).catch(function (error) {
-                console.log(error)
-            });
+
         }).catch(function (error) {
             console.log(error);
         });
@@ -97,8 +75,6 @@ class SignUp extends Component {
             return;
         }
 
-        this.uploadAvatar(event);
-
         const self=this;
         axios({
             method: 'post',
@@ -107,17 +83,45 @@ class SignUp extends Component {
                 name: self.state.name,
                 phone: self.state.phone,
                 email: self.state.email,
-                password: self.state.password,
-                avatarID: self.state.avatarID
+                password: self.state.password
             }
         })
-        .then(function (response) {
-            if (response.status === 200) {
-                self.setState({success: true});
-                window.location.href = 'blog-overview';
-            }
-        })
-        .catch(function (error) {
+            .then((response) => {
+                if (response.status === 200) {
+                    self.setState({success: true});
+                    console.log(response);
+
+                    //self.setState({isLoggedIn: true});
+                    //self.setState({returnPage: 'blog-overview'});
+                    //self.props.loginState(response.data);
+                    //window.location.href = self.state.returnPage;
+                    //self.props.history.push(self.state.returnPage);
+                    //Login.login(event);
+                    axios({
+                        method: 'post',
+                        url: '/account/login',
+                        data: {
+                            email: self.state.email,
+                            password: self.state.password
+                        }
+                    }).then((response) => {
+                        if (response.data['login'] === 1) {
+                            console.log(response);                // Login successful
+                            self.setState({isLoggedIn: true});
+                            self.setState({returnPage: 'blog-overview'});
+                            self.props.loginState(response.data['user']);
+                        } else if (response.data['login'] === 0) {              // Password incorrect
+                            self.setState({returnPage: 'login'});
+                        } else {                                                // User doesn't exist
+                            self.setState({returnPage: 'login'});
+                        }
+                        self.props.history.push(self.state.returnPage);
+                        // window.location.href = this.state.returnPage
+                    }).catch(function (error) {
+                        console.log(error)
+                    });
+                }
+            }).catch(function (error) {
             // Materialize.toast(error.response.data.message, 4000);
             console.log(error);
         });
