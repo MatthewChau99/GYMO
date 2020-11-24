@@ -32,18 +32,11 @@ class UserProfileLite extends Component {
                     </Row>
                     <Row>
                         <Col lg="4">
-<<<<<<< HEAD
                             <UserDetails userID={this.state.user._id}/>
                         </Col>
                         <Col lg="8">
                             <BlogViews userID={this.state.user._id}/>
-=======
-                            <UserDetails/>
-                            <UserAccountDetails/>
-                        </Col>
-                        <Col lg="8">
-                            <BlogViews/>
->>>>>>> frontend-ran
+
                         </Col>
                     </Row>
                 </Container>

@@ -21,12 +21,9 @@ const Food = ({ food, handleAddFood }) => {
     nf_total_fat,
     nf_saturated_fat
   } = food;
-<<<<<<< HEAD
 
-=======
   const [weight, setWeight] = useState();
   const onChange = e => setWeight(e.target.value);
->>>>>>> frontend-ran
   return (
     <Fragment>
       <div className='center-page'>
@@ -40,9 +37,7 @@ const Food = ({ food, handleAddFood }) => {
           <li>sodium: {nf_sodium}</li>
           <li>total fat: {nf_total_fat}</li>
           <li>saturated fat: {nf_saturated_fat}</li>
-<<<<<<< HEAD
-          <button className='add-button' onClick={() => handleAddFood(food)}>
-=======
+
           <input
             type='number'
             name='number'
@@ -52,7 +47,6 @@ const Food = ({ food, handleAddFood }) => {
             onChange={onChange}
           />
           <button className='add-button' onClick={() => handleAddFood(food, weight)}>
->>>>>>> frontend-ran
             Add
           </button>
         </ul>

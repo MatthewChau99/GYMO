@@ -57,12 +57,7 @@ const App = () => {
     setTimeout(() => setAlert(null), 7000);
   };
 
-<<<<<<< HEAD
-  const handleAddFood = (food) => {
-    console.log(food)
-    setFoodList(foodList => [...foodList, food])
-    setTotalCalories(totalCalories+food.nf_calories)
-=======
+
   const handleAddFood = (food, w) => {
     console.log(food)
     if (!foodList.includes(food)) {
@@ -78,17 +73,13 @@ const App = () => {
       setTotalCalories(totalCalories+food.nf_calories/food.serving_weight_grams*w)
     }
     console.log(weightDict)
->>>>>>> frontend-ran
   }
 
-  const handleDeletFood = (food) => {
-    setFoodList(foodList.filter(item => item.food_name !== food.food_name))
-<<<<<<< HEAD
-    setTotalCalories(totalCalories-food.nf_calories)
-=======
-    setTotalCalories(totalCalories-food.nf_calories/food.serving_weight_grams*weightDict[food])
->>>>>>> frontend-ran
-  }
+  const handleDeleteFood = (food) => {
+    setFoodList(foodList.filter(item => item.food_name !== food.food_name));
+    setTotalCalories(totalCalories-food.nf_calories/food.serving_weight_grams*weightDict[food]);
+  };
+
   return (
     <div>
       <main className='container'>
@@ -114,13 +105,9 @@ const App = () => {
                   </div>
                   <div>
                   <div className='result-container'>
-<<<<<<< HEAD
-                    {fooditem.nf_calories}
-=======
                     {(fooditem.nf_calories/fooditem.serving_weight_grams*weightDict[fooditem]).toFixed(2)}
->>>>>>> frontend-ran
                     <div className='space'></div>
-                    <button className='delete-button' onClick={() => handleDeletFood(fooditem)}>
+                    <button className='delete-button' onClick={() => handleDeleteFood(fooditem)}>
                       ×
                     </button>
                   </div>
