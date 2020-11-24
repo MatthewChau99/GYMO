@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +21,12 @@ const Food = ({ food, handleAddFood }) => {
     nf_total_fat,
     nf_saturated_fat
   } = food;
+<<<<<<< HEAD
 
+=======
+  const [weight, setWeight] = useState();
+  const onChange = e => setWeight(e.target.value);
+>>>>>>> frontend-ran
   return (
     <Fragment>
       <div className='center-page'>
@@ -35,7 +40,19 @@ const Food = ({ food, handleAddFood }) => {
           <li>sodium: {nf_sodium}</li>
           <li>total fat: {nf_total_fat}</li>
           <li>saturated fat: {nf_saturated_fat}</li>
+<<<<<<< HEAD
           <button className='add-button' onClick={() => handleAddFood(food)}>
+=======
+          <input
+            type='number'
+            name='number'
+            // className='searchInput'
+            placeholder='weight in grams'
+            // value={20}
+            onChange={onChange}
+          />
+          <button className='add-button' onClick={() => handleAddFood(food, weight)}>
+>>>>>>> frontend-ran
             Add
           </button>
         </ul>

@@ -24,6 +24,7 @@ router.post('/comment/:postID', CommentController.uploadComment);
 //load all comment for a post
 router.get('/comment/:postID', CommentController.getAllComments);
 
+
 //delete a comment
 router.delete('/:postID/:commentID', CommentController.deleteComment);
 

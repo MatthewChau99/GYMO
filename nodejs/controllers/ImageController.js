@@ -32,6 +32,7 @@ const getPicById = (req, res) => {
         } else {
             res.render('Default', {items: items});
             // res.send(items);
+
         }
     });
 };
@@ -57,7 +58,10 @@ const postPic = (req, res, next) => {
             console.log(item._id.valueOf());
             res.status(200).json({
                 message: 'Image upload successful',
+<<<<<<< HEAD
                 avatarID: item._id.valueOf()
+=======
+>>>>>>> frontend-ran
             });
         }
     });
