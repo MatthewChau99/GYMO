@@ -12,6 +12,7 @@ router.patch('/updateInfo', UserController.updateUserInfo);
 
 router.get('/:userID', UserController.getUserInfo);
 
-router.post('/updateBodyInfo', BodyController.uploadBodyInfo);
+router.post('/addBodyInfo', BodyController.uploadBodyInfo);
+
 
 module.exports = router;

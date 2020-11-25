@@ -90,7 +90,7 @@ const getUserInfo = async (req, res) => {
 const addBodyInfoToUser = async (userID, BodyInfoID) => {
     await User.findByIdAndUpdate(userID, {
         $addToSet: {
-            BodyInfo: BodyInfoID
+            bodyInfo: BodyInfoID
         }
     });
 };
@@ -98,7 +98,7 @@ const addBodyInfoToUser = async (userID, BodyInfoID) => {
 const deleteBodyInfoFromUser = async (userID, BodyInfoID) => {
     const user = await User.findByIdAndUpdate(userID, {
         $pull: {
-            BodyInfo: BodyInfoID
+            bodyInfo: BodyInfoID
         }
     });
     console.log(BodyInfoID);

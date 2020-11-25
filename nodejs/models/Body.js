@@ -6,8 +6,8 @@ const BodySchema = mongoose.Schema({
         ref: 'User'
     },
     date: {
-        type: Date,
-        default: Date.now
+        type: String,
+        default: new Date(Date.now()).toISOString().substring(0, 10)
     },
     height: {
         type: Number,

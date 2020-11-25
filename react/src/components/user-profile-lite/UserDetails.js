@@ -50,7 +50,6 @@ class UserDetails extends Component {
         axios.get(`/account/${user_id}`,
             {params: {userID: user_id}}
         ).then( async (response) => {
-            console.log("FUCK");
             await self.setState({
                 user: response.data["user"]
             }, () => {

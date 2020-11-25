@@ -3,34 +3,59 @@ const User = require('../models/User');
 const UserController = require('./UserController');
 
 const uploadBodyInfo = async (req, res) => {
-    const BodyInfo = new Body({
-        userID: req.body.userID,
-        date: req.body.date,
-        height: req.body.height,
-        weight: req.body.weight,
-        bmi: req.body.bmi,
-        bodyFatPerc: req.body.bodyFatPerc
+    Body.find({date: req.body.date, userID: req.body.userID}, async function (err, exist) {
+        if (err) {
+            res.error(err);
+        }
+
+        console.log(req.body);
+
+        if (exist.length) {
+            try {
+                const updatedBodyInfo = await Body.updateOne({date: req.body.date, userID: req.body.userID}, {
+                    $set: {
+                        height: req.body.height,
+                        weight: req.body.weight,
+                        bmi: req.body.bmi,
+                        bodyFatPerc: req.body.bodyFatPerc
+                    }
+                });
+                res.status(200).json(updatedBodyInfo);
+            } catch (err) {
+                res.status(404).json({message: "Some error occurred when updating body info"})
+            }
+        }
+        else {
+            const BodyInfo = new Body({
+                userID: req.body.userID,
+                date: req.body.date,
+                height: req.body.height,
+                weight: req.body.weight,
+                bmi: req.body.bmi,
+                bodyFatPerc: req.body.bodyFatPerc
+            });
+            try {
+                const savedBodyInfo = await BodyInfo.save();
+                await UserController.addBodyInfoToUser(req.body.userID, savedBodyInfo._id);
+                res.status(200).json(savedBodyInfo);
+            } catch (err) {
+                res.status(404).json({message: "Some error occurred when uploading new body info"});
+            }
+        }
     });
-    try {
-        const savedBodyInfo = await BodyInfo.save();
-        await UserController.addBodyInfoToUser(req.body.userID, savedBodyInfo._id);
-        res.status(200).json(savedBodyInfo);
-    } catch (err) {
-        res.status(404).json({message: "Some error occurred"});
-    }
 };
 
 const getAllBodyInfo = async (req, res) => {
     try {
-        let BodyInfos = await Body.find({}).sort({date: -1});
+        let BodyInfo = await Body.find({}).sort({date: -1});
         let returnBodyInfos = [];
 
-        for (let i = 0; i < Math.min(BodyInfos.length, 5); i++) {
+        for (let i = 0; i < Math.min(BodyInfo.length, 5); i++) {
             let user = await User.findById(BodyInfo[i].userID).lean();
             if (user) {
                 let returnBodyInfos = {
                     userID: BodyInfo[i].userID,
-                    date: new Date(comments[i].date).toISOString().substring(0, 10),
+                    date: BodyInfo[i].date,
                     height: BodyInfo[i].height,
                     weight: BodyInfo[i].weight,
                     bmi: BodyInfo[i].bmi,
@@ -46,6 +71,7 @@ const getAllBodyInfo = async (req, res) => {
         res.status(404).json({message: err});
     }
 };
+
 
 const deleteBodyInfo = async (req, res) => {
     try {
