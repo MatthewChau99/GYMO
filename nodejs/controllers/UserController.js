@@ -87,6 +87,24 @@ const getUserInfo = async (req, res) => {
     }
 };
 
+const addBodyinfoToUser = async (userID, bodyinfoID) => {
+    await User.findByIdAndUpdate(userID, {
+        $addToSet: {
+            bodyinfo: bodyinfoID
+        }
+    });
+};
+
+const deleteBodyinfoFromUser = async (userID, bodyinfoID) => {
+    const user = await User.findByIdAndUpdate(userID, {
+        $pull: {
+            bodyinfo: bodyinfoID
+        }
+    });
+    console.log(bodyinfoID);
+    console.log(user);
+};
+
 module.exports = {
     addPostToUser,
     deletePostFromUser,
