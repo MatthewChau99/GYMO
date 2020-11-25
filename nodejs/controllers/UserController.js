@@ -87,21 +87,21 @@ const getUserInfo = async (req, res) => {
     }
 };
 
-const addBodyinfoToUser = async (userID, bodyinfoID) => {
+const addBodyInfoToUser = async (userID, BodyInfoID) => {
     await User.findByIdAndUpdate(userID, {
         $addToSet: {
-            bodyinfo: bodyinfoID
+            BodyInfo: BodyInfoID
         }
     });
 };
 
-const deleteBodyinfoFromUser = async (userID, bodyinfoID) => {
+const deleteBodyInfoFromUser = async (userID, BodyInfoID) => {
     const user = await User.findByIdAndUpdate(userID, {
         $pull: {
-            bodyinfo: bodyinfoID
+            BodyInfo: BodyInfoID
         }
     });
-    console.log(bodyinfoID);
+    console.log(BodyInfoID);
     console.log(user);
 };
 
@@ -113,5 +113,7 @@ module.exports = {
     addFollowToUser,
     deleteFollowFromUser,
     updateUserInfo,
-    getUserInfo
+    getUserInfo,
+    addBodyInfoToUser,
+    deleteBodyInfoFromUser
 };

@@ -2,8 +2,8 @@ const Body = require('../models/Body');
 const User = require('../models/User');
 const UserController = require('./UserController');
 
-const uploadBodyinfo = async (req, res) => {
-    const bodyinfo = new Body({
+const uploadBodyInfo = async (req, res) => {
+    const BodyInfo = new Body({
         userID: req.body.userID,
         date: req.body.date,
         height: req.body.height,
@@ -12,53 +12,53 @@ const uploadBodyinfo = async (req, res) => {
         bodyFatPerc: req.body.bodyFatPerc
     });
     try {
-        const savedBodyinfo = await bodyinfo.save();
-        await UserController.addBodyinfoToUser(req.body.userID, savedBodyinfo._id);
-        res.status(200).json(savedBodyinfo);
+        const savedBodyInfo = await BodyInfo.save();
+        await UserController.addBodyInfoToUser(req.body.userID, savedBodyInfo._id);
+        res.status(200).json(savedBodyInfo);
     } catch (err) {
         res.status(404).json({message: "Some error occurred"});
     }
 };
 
-const getAllBodyinfo = async (req, res) => {
+const getAllBodyInfo = async (req, res) => {
     try {
-        let bodyinfos = await Body.find({}).sort({date: -1});
-        let returnBodyinfos = [];
+        let BodyInfos = await Body.find({}).sort({date: -1});
+        let returnBodyInfos = [];
 
-        for (let i = 0; i < Math.min(bodyinfos.length, 5); i++) {
-            let user = await User.findById(bodyinfo[i].userID).lean();
+        for (let i = 0; i < Math.min(BodyInfos.length, 5); i++) {
+            let user = await User.findById(BodyInfo[i].userID).lean();
             if (user) {
-                let returnBodyinfos = {
-                    userID: bodyinfo[i].userID,
+                let returnBodyInfos = {
+                    userID: BodyInfo[i].userID,
                     date: new Date(comments[i].date).toISOString().substring(0, 10),
-                    height: bodyinfo[i].height,
-                    weight: bodyinfo[i].weight,
-                    bmi: bodyinfo[i].bmi,
-                    bodyFatPerc: bodyinfo[i].bodyFatPerc,
+                    height: BodyInfo[i].height,
+                    weight: BodyInfo[i].weight,
+                    bmi: BodyInfo[i].bmi,
+                    bodyFatPerc: BodyInfo[i].bodyFatPerc,
                 };
-                returnBodyinfos.push(returnBodyinfos);
+                returnBodyInfos.push(returnBodyInfos);
             }
         }
-        console.log(returnBodyinfos);
-        res.status(200).json({user: returnBodyinfos});
+        console.log(returnBodyInfos);
+        res.status(200).json({user: returnBodyInfos});
 
     } catch (err) {
         res.status(404).json({message: err});
     }
 };
 
-const deleteBodyinfo = async (req, res) => {
+const deleteBodyInfo = async (req, res) => {
     try {
-        const bodyinfo = await Body.findById(req.params.bodyinfoID);
-        console.log(bodyinfo.userID);
-        await UserController.deleteBodyinfoFromUser(bodyinfo.userID, bodyinfo._id);
-        const removedComment = await Comment.remove({_id: req.params.commentID});
-        res.status(200).json(removedBodyinfo);
+        const BodyInfo = await Body.findById(req.params.BodyInfoID);
+        console.log(BodyInfo.userID);
+        await UserController.deleteBodyInfoFromUser(BodyInfo.userID, BodyInfo._id);
+        const removedBodyInfo = await Body.remove({_id: req.params.BodyInfoID});
+        res.status(200).json(removedBodyInfo);
     } catch (err) {
         res.status(404).json({message: err});
     }
 };
 
 module.exports = {
-    uploadBodyinfo, getAllBodyinfo, deleteBodyinfo
+    uploadBodyInfo, getAllBodyInfo, deleteBodyInfo
 };
