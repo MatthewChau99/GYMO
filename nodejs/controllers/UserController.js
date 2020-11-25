@@ -29,18 +29,31 @@ const addFollowerToUser = async (userID, followerID) => {
     });
 };
 
-const deleteFollowerFromUser = async (userID, followerID) => {
-    await User.findByIdAndUpdate(userID, {
-        '$pull': {
-            'followers': followerID
-        }
-    });
-};
-
 const addFollowToUser = async (userID, followID) => {
     await User.findByIdAndUpdate(userID, {
         '$addToSet': {
             'follows': followID
+        }
+    });
+};
+
+const follow = async (req, res) => {
+    try {
+        await addFollowToUser(req.body.userID, req.body.followID);
+        await addFollowerToUser(req.body.followID, req.body.userID);
+        res.status(200).json({
+            message: "follow successful"
+        })
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+
+const deleteFollowerFromUser = async (userID, followerID) => {
+    await User.findByIdAndUpdate(userID, {
+        '$pull': {
+            'followers': followerID
         }
     });
 };
@@ -51,6 +64,28 @@ const deleteFollowFromUser = async (userID, followID) => {
             'follows': followID
         }
     });
+};
+
+const unfollow = async (req, res) => {
+    try {
+        await deleteFollowFromUser(req.body.userID, req.body.followID);
+        await deleteFollowerFromUser(req.body.followID, req.body.userID);
+        res.status(200).json({
+            message: "unfollow successful"
+        })
+    } catch (e) {
+        console.error(e);
+    }
+};
+
+const checkFollowState = async (req, res) => {
+    const user = await User.findById(req.params.userID);
+    const follows = user.follows;
+    if (follows.includes(req.params.followID)) {
+        res.json({follow: 1});
+    } else {
+        res.json({follow: 0});
+    }
 };
 
 const updateUserInfo = async (req, res) => {
@@ -108,12 +143,11 @@ const deleteBodyInfoFromUser = async (userID, BodyInfoID) => {
 module.exports = {
     addPostToUser,
     deletePostFromUser,
-    addFollowerToUser,
-    deleteFollowerFromUser,
-    addFollowToUser,
-    deleteFollowFromUser,
     updateUserInfo,
     getUserInfo,
     addBodyInfoToUser,
-    deleteBodyInfoFromUser
+    deleteBodyInfoFromUser,
+    follow,
+    unfollow,
+    checkFollowState
 };
