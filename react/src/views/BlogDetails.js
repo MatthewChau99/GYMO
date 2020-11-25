@@ -9,7 +9,6 @@ import Details from "../components/blog-posts/Details";
 import Comments from "../components/blog-posts/Comments";
 import BlogDetail from "../components/blog/BlogDetail";
 
-
 class BlogDetails extends Component {
     constructor(props) {
         super(props);
@@ -50,5 +49,6 @@ class BlogDetails extends Component {
         );
     }
 }
+
 
 export default BlogDetails;
