@@ -26,6 +26,7 @@ const userSchema = new Schema({
         minlength: 5,
         maxlength: 1024
     },
+    bodyInfo: [],
     followers: [],
     follows: [],
     posts: [],
