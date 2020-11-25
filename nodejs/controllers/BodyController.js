@@ -45,31 +45,75 @@ const uploadBodyInfo = async (req, res) => {
     });
 };
 
-const getAllBodyInfo = async (req, res) => {
-    try {
-        let BodyInfo = await Body.find({}).sort({date: -1});
-        let returnBodyInfos = [];
+const getUserBodyInfo = async (req, res) => {
+    const user = await User.findById(req.params.userID).lean();
 
-        for (let i = 0; i < Math.min(BodyInfo.length, 5); i++) {
-            let user = await User.findById(BodyInfo[i].userID).lean();
-            if (user) {
-                let returnBodyInfos = {
-                    userID: BodyInfo[i].userID,
-                    date: BodyInfo[i].date,
-                    height: BodyInfo[i].height,
-                    weight: BodyInfo[i].weight,
-                    bmi: BodyInfo[i].bmi,
-                    bodyFatPerc: BodyInfo[i].bodyFatPerc,
-                };
-                returnBodyInfos.push(returnBodyInfos);
-            }
+    const BodyInfoIDs = user.bodyInfo;
+    let BodyInfos = [];
+
+    for (let i = 0; i < BodyInfoIDs.length; i++) {
+        const bodyInfoID = BodyInfoIDs[i];
+        const bodyInfo = await Body.findById(bodyInfoID).lean();
+        if (bodyInfo) {
+            let returnBodyInfos = {
+                userID: bodyInfo.userID,
+                date: bodyInfo.date,
+                height: bodyInfo.height,
+                weight: bodyInfo.weight,
+                bmi: bodyInfo.bmi,
+                bodyFatPerc: bodyInfo.bodyFatPerc,
+            };
+            BodyInfos.push(returnBodyInfos);
         }
-        console.log(returnBodyInfos);
-        res.status(200).json({user: returnBodyInfos});
-
-    } catch (err) {
-        res.status(404).json({message: err});
     }
+
+    console.log(BodyInfos);
+
+    res.status(200).json({data: BodyInfos});
+
+    // BodyInfoIDs.forEach(async function(bodyInfoID) {
+    //     const bodyInfo = await Body.findById(bodyInfoID).lean();
+    //     if (bodyInfo) {
+    //         let returnBodyInfos = {
+    //             userID: bodyInfo.userID,
+    //             date: bodyInfo.date,
+    //             height: bodyInfo.height,
+    //             weight: bodyInfo.weight,
+    //             bmi: bodyInfo.bmi,
+    //             bodyFatPerc: bodyInfo.bodyFatPerc,
+    //         };
+    //         BodyInfos.push(returnBodyInfos);
+    //     }
+    // });
+    // console.log("FUCK");
+    // console.log(BodyInfos);
+    //
+    // res.status(200).json({data: BodyInfos});
+
+
+    // try {
+    //     let BodyInfo = await Body.find({}).sort({date: -1});
+    //     let returnBodyInfos = [];
+    //
+    //     for (let i = 0; i < Math.min(BodyInfo.length, 5); i++) {
+    //         let user = await User.findById(BodyInfo[i].userID).lean();
+    //         if (user) {
+    //             let returnBodyInfos = {
+    //                 userID: BodyInfo[i].userID,
+    //                 date: BodyInfo[i].date,
+    //                 height: BodyInfo[i].height,
+    //                 weight: BodyInfo[i].weight,
+    //                 bmi: BodyInfo[i].bmi,
+    //                 bodyFatPerc: BodyInfo[i].bodyFatPerc,
+    //             };
+    //             returnBodyInfos.push(returnBodyInfos);
+    //         }
+    //     }
+    //     res.status(200).json({user: returnBodyInfos});
+    //
+    // } catch (err) {
+    //     res.status(404).json({message: err});
+    // }
 };
 
 
@@ -86,5 +130,5 @@ const deleteBodyInfo = async (req, res) => {
 };
 
 module.exports = {
-    uploadBodyInfo, getAllBodyInfo, deleteBodyInfo
+    uploadBodyInfo, getUserBodyInfo, deleteBodyInfo
 };

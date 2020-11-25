@@ -14,5 +14,6 @@ router.get('/:userID', UserController.getUserInfo);
 
 router.post('/addBodyInfo', BodyController.uploadBodyInfo);
 
+router.get('/getBodyInfo/:userID', BodyController.getUserBodyInfo);
 
 module.exports = router;
