@@ -5,6 +5,7 @@ import store from "../../states/store";
 import axios from "axios";
 import Followers from "./Followers";
 import Followings from "./Followings";
+import {useLocation, withRouter} from "react-router-dom";
 
 
 class UserDetails extends Component {
@@ -12,11 +13,12 @@ class UserDetails extends Component {
         super(props);
         this.state = {
             //user: store.getState().user,
-            user: "",
+            //user: "",
+            users: [],
             userAvatar: require("../../cache/default.jpg"),
             userID : this.props.userID,
         };
-        this.getPic(this.state.user.pictureID);
+        //this.getPic(this.state.user.pictureID);
         //this.getUser = this.getUser.bind(this);
         this.getUser(this.props.userID);
         
@@ -42,9 +44,9 @@ class UserDetails extends Component {
     //componentWillMount(){
   //      this.getUser(this.props.userID);
 //    }
-
-    getUser(userID) {
-        let self = this
+/*
+    async getUser(userID) {
+        //let self = this
         let user_id = userID;
         axios.get(`/account/${user_id}`,
             {params: {userID: user_id}}
@@ -52,7 +54,22 @@ class UserDetails extends Component {
             self.setState({
                 user: response.data["user"]
             });
-            console.log(self.state.user);
+            console.log(response.data["user"])
+            //console.log(self.state.user);
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }*/
+
+    async getUser(userID) {
+        let user_id = userID;
+        axios.get(`/account/${user_id}`,
+            {params: {userID: user_id}}
+        ).then(async (response) => {
+            const user = response.data["user"];
+            this.setState({
+                users: this.state.users.concat(user)
+            });
         }).catch(function (error) {
             console.log(error);
         })
@@ -60,7 +77,7 @@ class UserDetails extends Component {
 
     render() {
         //const my_user = this.state.user;
-        //console.log(my_user);
+        //console.log(this.state.user);
         //const my_user = this.getUser(this.state.userID);
         //console.log(my_user);
         //let i = 0;
@@ -68,22 +85,24 @@ class UserDetails extends Component {
         //    this.getUser(this.state.userID);
         //    i++;
         //}
-        const initial = this.state.user.name.charAt(0).toUpperCase();
-        let img = <img
-            className="rounded-circle"
-            src={require("./../../images/avatars/" + initial + ".png")}
-            alt={this.state.user.name}
-            width="110"
-        />;
+        //const initial = this.state.user.name.charAt(0).toUpperCase();
+        const {users} = this.state;
+        //let img = ;
         return (
-            <Card small className="mb-4 pt-3">
+            users.map((user,idx) => (
+                <Card small className="mb-4 pt-3">
                 <CardHeader className="border-bottom text-center">
                     <div className="mb-3 mx-auto">
-                        {img}
+                        <img
+                        className="rounded-circle"
+                        src={require("./../../images/avatars/" + user.name.charAt(0).toUpperCase() + ".png")}
+                        alt={user.name}
+                        width="110"
+                        />
                     </div>
-                    <h4 className="mb-0">{this.state.user.name}</h4>
+                    <h4 className="mb-0">{user.name}</h4>
                     <span
-                        className="text-muted d-block mb-2"> <Followers/> : {this.state.user.followers} | <Followings/> : {this.state.user.follows}</span>
+                        className="text-muted d-block mb-2"> <Followers userID={user._id}/> : {user.followers} | <Followings/> : {user.follows}</span>
                     <Button pill outline size="sm" className="mb-2">
                         <i className="material-icons mr-1">person_add</i> Follow
                     </Button>
@@ -93,10 +112,12 @@ class UserDetails extends Component {
                         <strong className="text-muted d-block mb-2">
                             Introduction
                         </strong>
-                        <span>{this.state.user.intro}</span>
+                        <span>{user.intro}</span>
                     </ListGroupItem>
                 </ListGroup>
             </Card>
+            ))
+            
         );
     }
 }
@@ -122,4 +143,4 @@ UserDetails.defaultProps = {
     }
 };
 
-export default UserDetails;
+export default withRouter(UserDetails);

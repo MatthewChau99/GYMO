@@ -8,6 +8,7 @@ import UserAccountDetails from "../components/user-profile-lite/UserAccountDetai
 import {connect} from "react-redux";
 import AccountDetails from "../components/user-profile-lite/AccountDetails";
 import BlogViews from "../components/user-profile-lite/BlogViews";
+import {useLocation, withRouter} from "react-router-dom";
 
 
 class UserProfileLite extends Component {
@@ -19,9 +20,10 @@ class UserProfileLite extends Component {
             updatedName: "",
             updatedPhone: "",
             updatedPassword: "",
+            userID: this.props.location.state.userID
         };
-
     }
+
 
     render() {
         if (store.getState().loginStatus) {
@@ -32,10 +34,9 @@ class UserProfileLite extends Component {
                     </Row>
                     <Row>
                         <Col lg="4">
-                            <UserDetails userID={this.state.user._id}/>
-                        </Col>
+                            <UserDetails userID={this.state.userID}/>                        </Col>
                         <Col lg="8">
-                            <BlogViews userID={this.state.user._id}/>
+                            <BlogViews userID={this.state.userID}/>
                         </Col>
                     </Row>
                 </Container>

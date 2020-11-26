@@ -54,7 +54,11 @@ export default class UserActions extends React.Component {
                     <span className="d-none d-md-inline-block">{this.state.user.name}</span>
                 </DropdownToggle>
                 <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-                    <DropdownItem tag={Link} to="user-profile-lite">
+                    <DropdownItem tag={Link} to={{
+                                pathname: 'user-profile-lite',
+                                search: `?userID=${this.state.user._id}`,
+                                state: {userID: this.state.user._id}
+                            }}>
                         <i className="material-icons">&#xE7FD;</i> Profile
                     </DropdownItem>
                     {/* <DropdownItem tag={Link} to="edit-user-profile">
