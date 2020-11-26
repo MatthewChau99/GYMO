@@ -4,9 +4,7 @@ import store from "../states/store";
 import AuthError from "../views/AuthError";
 import PageTitle from "../components/common/PageTitle";
 import UserDetails from "../components/user-profile-lite/UserDetails";
-import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import {connect} from "react-redux";
-import AccountDetails from "../components/user-profile-lite/AccountDetails";
 import BlogViews from "../components/user-profile-lite/BlogViews";
 import {useLocation, withRouter} from "react-router-dom";
 
@@ -34,9 +32,17 @@ class UserProfileLite extends Component {
                     </Row>
                     <Row>
                         <Col lg="4">
+<<<<<<< HEAD
                             <UserDetails userID={this.state.userID}/>                        </Col>
                         <Col lg="8">
                             <BlogViews userID={this.state.userID}/>
+=======
+                            <UserDetails userID={this.state.userID}/>
+                        </Col>
+                        <Col lg="8">
+                            <BlogViews userID={this.state.userID}/>
+
+>>>>>>> 7ef8ca92d68c4e06e7880cc33c290ac7b57b3268
                         </Col>
                     </Row>
                 </Container>

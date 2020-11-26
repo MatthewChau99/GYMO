@@ -1,16 +1,7 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
 import Comment from "./Comment";
-import {Link, withRouter} from "react-router-dom";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    ListGroup,
-    ListGroupItem,
-    Form, FormInput
-
-} from "shards-react";
+import {withRouter} from "react-router-dom";
+import {Card, CardBody, CardHeader, Form, FormInput, ListGroup, ListGroupItem} from "shards-react";
 import store from "../../states/store";
 import axios from "axios";
 
@@ -20,13 +11,15 @@ class Comments extends Component {
         super(props);
         this.state = {
             title: "Comments",
-            postID: "5fb51b91c037122b997b7269",
+            postID: this.props.location.state.postID,
             comment: "",
             user: store.getState().user
-        }
+        };
     }
 
     handleSubmit(event) {
+        event.preventDefault();
+
         if (this.state.user) {
             axios({
                 method: 'post',
@@ -40,7 +33,7 @@ class Comments extends Component {
             }).then((response) => {
                 console.log(this.state.comment);
                 this.props.history.push({
-                    pathname: 'blog-details',
+                    pathname: 'blog-posts',
                     state: this.state.postID
                 })
             }).catch(function (error) {
@@ -50,7 +43,6 @@ class Comments extends Component {
             this.props.history.push("login");
         }
 
-        event.preventDefault();
     }
 
     handleChange(event) {
@@ -69,7 +61,7 @@ class Comments extends Component {
                 <CardBody className="p-0">
                     <ListGroup flush>
                         <ListGroupItem className="p-3">
-                            <Comment/>
+                            <Comment postID={this.state.postID}/>
                             <Form onChange={(event) => this.handleChange(event)}
                                   onSubmit={(event) => this.handleSubmit(event)}>
                                 <FormInput placeholder="Comment Something!">

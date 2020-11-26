@@ -40,7 +40,8 @@ class BlogDetail extends Component {
                         title: post.title,
                         body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                         date: post.date,
-                        likesNum: post.likesNum
+                        likesNum: post.likes.length,
+                        commentsNum: post.comments.length
 
                     };
                     console.log(newPost.backgroundImage);
@@ -65,7 +66,8 @@ class BlogDetail extends Component {
                 title: post.title,
                 body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                 date: post.date,
-                likesNum: post.likesNum
+                likesNum: post.likes.length,
+                commentsNum: post.comments.length
             };
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
@@ -102,8 +104,6 @@ class BlogDetail extends Component {
         })
     }
 
-
-
     render() {
         const {PostsListOne} = this.state;
         return (
@@ -116,7 +116,7 @@ class BlogDetail extends Component {
                         text = {post.body}
                         days = {post.date}
                         lnum = {post.likesNum}
-                        cnum = "2"
+                        cnum = {post.commentsNum}
                         addLike={this.addLike}
                     />
                 </Col>

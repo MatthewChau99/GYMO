@@ -39,27 +39,11 @@ MainFooter.propTypes = {
 
 MainFooter.defaultProps = {
     contained: false,
-    copyright: "Copyright © 2018 DesignRevision",
+    copyright: "Copyright © 2020 RabbitTail",
     menuItems: [
-        {
-            title: "Home",
-            to: "#"
-        },
-        {
-            title: "Services",
-            to: "#"
-        },
         {
             title: "About",
             to: "/about"
-        },
-        {
-            title: "Products",
-            to: "#"
-        },
-        {
-            title: "Blog",
-            to: "#"
         }
     ]
 };

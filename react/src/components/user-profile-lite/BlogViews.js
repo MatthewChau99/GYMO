@@ -1,16 +1,8 @@
 import React, {Component} from "react";
-import { Link } from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import axios from "axios";
-import {useLocation, withRouter} from "react-router-dom";
 
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  CardBody,
-  Badge
-} from "shards-react";
+import {Badge, Card, CardBody, Col} from "shards-react";
 
 class BlogViews extends Component {
     constructor(props) {
@@ -19,7 +11,7 @@ class BlogViews extends Component {
             PostsListOne: [],
             picFilePath: "",
             hasPic: 0,
-            userID: this.props.userID,
+            userID: this.props.location.state.userID,
         };
         this.getPostsByUser(this.state.userID);
     }
@@ -83,7 +75,6 @@ class BlogViews extends Component {
             {params: {userID: user_id}}
         ).then(async (response) => {
             const posts = response.data["posts"];
-            console.log(posts);
             for (let i = 0; i < posts.length; i++) {
                 await this.getPic(posts[i]);
             }
@@ -97,7 +88,7 @@ class BlogViews extends Component {
         const {PostsListOne} = this.state;
         return (
             PostsListOne.map((post, idx) => (
-                <Col lg="12" sm="12" className="mb-4" key={idx} >
+                <Col lg="12" sm="12" className="mb-4" key={idx}>
                     <Card small className="card-post card-post--aside card-post--1">
                         <div
                             className="card-post__image"
@@ -136,3 +127,4 @@ class BlogViews extends Component {
 }
 
 export default withRouter(BlogViews);
+

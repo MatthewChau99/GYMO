@@ -32,6 +32,7 @@ const getPicById = (req, res) => {
         } else {
             res.render('Default', {items: items});
             // res.send(items);
+
         }
     });
 };
