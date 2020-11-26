@@ -4,9 +4,7 @@ import store from "../states/store";
 import AuthError from "../views/AuthError";
 import PageTitle from "../components/common/PageTitle";
 import UserDetails from "../components/user-profile-lite/UserDetails";
-import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 import {connect} from "react-redux";
-import AccountDetails from "../components/user-profile-lite/AccountDetails";
 import BlogViews from "../components/user-profile-lite/BlogViews";
 
 
@@ -19,6 +17,7 @@ class UserProfileLite extends Component {
             updatedName: "",
             updatedPhone: "",
             updatedPassword: "",
+            userID: this.props.location.state.userID
         };
 
     }
@@ -32,10 +31,10 @@ class UserProfileLite extends Component {
                     </Row>
                     <Row>
                         <Col lg="4">
-                            <UserDetails userID={this.state.user._id}/>
+                            <UserDetails userID={this.state.userID}/>
                         </Col>
                         <Col lg="8">
-                            <BlogViews userID={this.state.user._id}/>
+                            <BlogViews userID={this.state.userID}/>
 
                         </Col>
                     </Row>

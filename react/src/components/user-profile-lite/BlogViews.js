@@ -11,7 +11,7 @@ class BlogViews extends Component {
             PostsListOne: [],
             picFilePath: "",
             hasPic: 0,
-            userID: this.props.userID,
+            userID: this.props.location.state.userID,
         };
         this.getPostsByUser(this.state.userID);
     }
@@ -75,7 +75,6 @@ class BlogViews extends Component {
             {params: {userID: user_id}}
         ).then(async (response) => {
             const posts = response.data["posts"];
-            console.log(posts);
             for (let i = 0; i < posts.length; i++) {
                 await this.getPic(posts[i]);
             }

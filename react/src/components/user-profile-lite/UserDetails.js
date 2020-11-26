@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
+import {withRouter} from "react-router-dom";
 import {Button, Card, CardHeader, ListGroup, ListGroupItem} from "shards-react";
 import axios from "axios";
 import Followers from "./Followers";
@@ -13,15 +14,13 @@ class UserDetails extends Component {
         this.state = {
             user: "user",
             userAvatar: require("../../cache/default.jpg"),
-            userID: this.props.userID,      // This page's user ID, not the current login user ID
+            userID: this.props.location.state.userID,      // This page's user ID, not the current login user ID
             follow: 0
         };
-        this.getUser(this.props.userID);
-        console.log(this.state.user);
-    }
 
-    componentWillMount(){
-        console.log(this.state.userID);
+        this.getUser.bind(this);
+        this.getUser(this.props.location.state.userID);
+        console.log(this.props.location.state.userID);
     }
 
     getPic(picID) {
@@ -48,10 +47,8 @@ class UserDetails extends Component {
         axios.get(`/account/${user_id}`,
             {params: {userID: user_id}}
         ).then( async (response) => {
-            await self.setState({
+            self.setState({
                 user: response.data["user"]
-            }, () => {
-                console.log("user:" + response.data['user']);
             });
         }).catch(function (error) {
             console.log(error);
@@ -127,10 +124,16 @@ class UserDetails extends Component {
     }
 
     render() {
-        // const initial = this.state.user;
+        console.log(this.state.user);
+        let initial = 'A';
+        if (this.state.user.name) {
+            initial = this.state.user.name[0].toUpperCase();
+        }
+        // const initial = this.state.user ? this.state.user.name.toUpperCase() : 'A';
+
         let img = <img
             className="rounded-circle"
-            src={require("./../../images/avatars/M.png")}
+            src={require("./../../images/avatars/" + initial + ".png")}
             alt={this.state.user.name}
             width="110"
         />;
@@ -144,7 +147,7 @@ class UserDetails extends Component {
                     <h4 className="mb-0">{this.state.user.name}</h4>
                     <span
                         className="text-muted d-block mb-2"> <Followers/> : {this.state.user.followers} | <Followings/> : {this.state.user.follows}</span>
-                    <Button pill outline size="sm" className="mb-2" onClick={this.checkFollowState.bind(this)}>
+                    <Button pill outline size="sm" className="mb-2" onClick={this.unfollow.bind(this)}>
                         <i className="material-icons mr-1" >person_add</i> Follow
                     </Button>
                 </CardHeader>
@@ -182,4 +185,4 @@ UserDetails.defaultProps = {
     }
 };
 
-export default UserDetails;
+export default withRouter(UserDetails);
