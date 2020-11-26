@@ -122,7 +122,6 @@ const getUserInfo = async (req, res) => {
     }
 };
 
-<<<<<<< HEAD
 const getFollowers = async(userID, res) => {
     try {
         const user = await User.findById(userID);
@@ -140,7 +139,7 @@ const getFollows = async(userID, res) => {
     } catch (err) {
         res.status(404).json({message: err});
     }
-=======
+}
 const addBodyInfoToUser = async (userID, BodyInfoID) => {
     await User.findByIdAndUpdate(userID, {
         $addToSet: {
@@ -157,7 +156,6 @@ const deleteBodyInfoFromUser = async (userID, BodyInfoID) => {
     });
     console.log(BodyInfoID);
     console.log(user);
->>>>>>> 7ef8ca92d68c4e06e7880cc33c290ac7b57b3268
 };
 
 module.exports = {
@@ -165,14 +163,11 @@ module.exports = {
     deletePostFromUser,
     updateUserInfo,
     getUserInfo,
-<<<<<<< HEAD
     getFollowers,
     getFollows,
-=======
     addBodyInfoToUser,
     deleteBodyInfoFromUser,
     follow,
     unfollow,
     checkFollowState
->>>>>>> 7ef8ca92d68c4e06e7880cc33c290ac7b57b3268
 };
