@@ -104,8 +104,6 @@ class BlogDetail extends Component {
         })
     }
 
-
-
     render() {
         const {PostsListOne} = this.state;
         return (
