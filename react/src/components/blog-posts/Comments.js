@@ -1,59 +1,87 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
+import Comment from "./Comment";
+import {Link, withRouter} from "react-router-dom";
 import {
-  Card,
-  CardHeader,
-  CardBody,
-  ListGroup,
-  ListGroupItem,
-  Form, FormInput
+    Card,
+    CardHeader,
+    CardBody,
+    ListGroup,
+    ListGroupItem,
+    Form, FormInput
 
 } from "shards-react";
+import store from "../../states/store";
+import axios from "axios";
 
-const Comments = ({ title }) => (
-  <Card small className="mb-3">
-    <CardHeader className="border-bottom">
-      <h6 className="m-0">{title}</h6>
-    </CardHeader>
 
-    <CardBody className="p-0">
-      <ListGroup flush>
-        <ListGroupItem className="p-3">
-          
-          <span className="d-flex mb-2">
-            
-            <strong className="mr-1">Ran Xu:</strong>{" "}
-            <strong className="text-dark">Thanks for sharing!</strong>{" "}
-          </span>
-          
-          <span className="d-flex mb-2">
-            
-            <strong className="mr-1">X. Zhang:</strong>{" "}
-            <strong className="text-dark">Nice to hear that!</strong>{" "}
-          </span>
-          <Form>
-              <FormInput placeholder="Comment Something!">
+class Comments extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            title: "Comments",
+            postID: this.props.location.state.postID,
+            comment: "",
+            user: store.getState().user
+        };
+    }
 
-              </FormInput>
-          </Form>
-          
-        </ListGroupItem>
+    handleSubmit(event) {
+        if (this.state.user) {
+            axios({
+                method: 'post',
+                url: `/posts/comment/${this.state.postID}`,
+                data: {
+                    postID: this.state.postID,
+                    content: this.state.comment,
+                    date: Date.now(),
+                    userID: this.state.user._id
+                }
+            }).then((response) => {
+                console.log(this.state.comment);
+                this.props.history.push({
+                    pathname: 'blog-details',
+                    state: this.state.postID
+                })
+            }).catch(function (error) {
+                console.log(error)
+            });
+        } else {
+            this.props.history.push("login");
+        }
 
-      </ListGroup>
-    </CardBody>
-  </Card>
-);
+        event.preventDefault();
+    }
 
-Comments.propTypes = {
-  /**
-   * The component's title.
-   */
-  title: PropTypes.string
-};
+    handleChange(event) {
+        this.setState({
+            comment: event.target.value
+        })
+    }
 
-Comments.defaultProps = {
-  title: "Comments"
-  
-};
+    render() {
+        return (
+            <Card small className="mb-3">
+                <CardHeader className="border-bottom">
+                    <h6 className="m-0">{this.state.title}</h6>
+                </CardHeader>
 
-export default Comments;
+                <CardBody className="p-0">
+                    <ListGroup flush>
+                        <ListGroupItem className="p-3">
+                            <Comment postID={this.state.postID}/>
+                            <Form onChange={(event) => this.handleChange(event)}
+                                  onSubmit={(event) => this.handleSubmit(event)}>
+                                <FormInput placeholder="Comment Something!">
+
+                                </FormInput>
+                            </Form>
+                        </ListGroupItem>
+                    </ListGroup>
+                </CardBody>
+            </Card>
+        );
+    }
+}
+
+export default withRouter(Comments);

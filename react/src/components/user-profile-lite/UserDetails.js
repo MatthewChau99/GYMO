@@ -1,18 +1,26 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Button, Card, CardHeader, ListGroup, ListGroupItem, Progress} from "shards-react";
-import store from "../../states/store";
+import {withRouter} from "react-router-dom";
+import {Button, Card, CardHeader, ListGroup, ListGroupItem} from "shards-react";
 import axios from "axios";
+import Followers from "./Followers";
+import Followings from "./Followings";
+import store from "../../states/store";
 
 
 class UserDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: store.getState().user,
-            userAvatar: require("../../cache/default.jpg")
+            user: "user",
+            userAvatar: require("../../cache/default.jpg"),
+            userID: this.props.location.state.userID,      // This page's user ID, not the current login user ID
+            follow: 0
         };
-        this.getPic(this.state.user.pictureID);
+
+        this.getUser.bind(this);
+        this.getUser(this.props.location.state.userID);
+        console.log(this.props.location.state.userID);
     }
 
     getPic(picID) {
@@ -33,40 +41,117 @@ class UserDetails extends Component {
         }
     }
 
+    getUser(userID) {
+        let self = this;
+        let user_id = userID;
+        axios.get(`/account/${user_id}`,
+            {params: {userID: user_id}}
+        ).then( async (response) => {
+            self.setState({
+                user: response.data["user"]
+            });
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    follow() {
+        if (store.getState().loginStatus) {
+            const loginUserID = store.getState().user._id;
+            const self = this;
+            axios({
+                method: 'post',
+                url: `/account/addFollower`,
+                data: {
+                    userID: loginUserID,
+                    followID: self.state.userID
+                }
+            }).then((response) => {
+                console.log(response.data.message);
+            }).catch((error) => {
+                console.log(error);
+            })
+        } else {
+            alert("You need to login first.");
+        }
+    }
+
+    unfollow() {
+        if (store.getState().loginStatus) {
+            const loginUserID = store.getState().user._id;
+            const self = this;
+            axios({
+                method: 'delete',
+                url: `/account/deleteFollower`,
+                data: {
+                    userID: loginUserID,
+                    followID: self.state.userID
+                }
+            }).then((response) => {
+                console.log(response.data.message);
+            }).catch((error) => {
+                console.log(error);
+            })
+        } else {
+            alert("You need to login first.");
+        }
+    }
+
+    checkFollowState() {
+        if (store.getState().loginStatus) {
+            const loginUserID = store.getState().user._id;
+            const self = this;
+            axios.get(`/account/checkFollowState/${loginUserID}/${self.state.userID}`,
+                {
+                    params: {
+                        userID: loginUserID,
+                        followID: self.state.userID
+                    }
+                }
+            ).then( async (response) => {
+                if (response.data.follow === 1) {
+                    self.setState({
+                        follow: 1
+                    });
+                    console.log("is following");
+                }
+            }).catch(function (error) {
+                console.log(error);
+            })
+        } else {
+            alert("You need to login first.");
+        }
+    }
+
     render() {
+        console.log(this.state.user);
+        let initial = 'A';
+        if (this.state.user.name) {
+            initial = this.state.user.name[0].toUpperCase();
+        }
+        // const initial = this.state.user ? this.state.user.name.toUpperCase() : 'A';
+
+        let img = <img
+            className="rounded-circle"
+            src={require("./../../images/avatars/" + initial + ".png")}
+            alt={this.state.user.name}
+            width="110"
+        />;
+
         return (
             <Card small className="mb-4 pt-3">
                 <CardHeader className="border-bottom text-center">
                     <div className="mb-3 mx-auto">
-                        <img
-                            className="rounded-circle"
-                            src={this.state.userAvatar}
-                            alt={this.state.user.name}
-                            width="110"
-                        />
+                        {img}
                     </div>
                     <h4 className="mb-0">{this.state.user.name}</h4>
-                    <span className="text-muted d-block mb-2">{this.state.user.phone}</span>
-                    <Button pill outline size="sm" className="mb-2">
-                        <i className="material-icons mr-1">person_add</i> Follow
+                    <span
+                        className="text-muted d-block mb-2"> <Followers/> : {this.state.user.followers} | <Followings/> : {this.state.user.follows}</span>
+                    <Button pill outline size="sm" className="mb-2" onClick={this.unfollow.bind(this)}>
+                        <i className="material-icons mr-1" >person_add</i> Follow
                     </Button>
                 </CardHeader>
                 <ListGroup flush>
-                    <ListGroupItem className="px-4">
-                        <div className="progress-wrapper">
-                            <strong className="text-muted d-block mb-2">
-                                {this.state.user.performanceReportTitle}
-                            </strong>
-                            <Progress
-                                className="progress-sm"
-                                value={this.state.user.performanceReportValue}
-                            >
-            <span className="progress-value">
-              {this.state.user.performanceReportValue}%
-            </span>
-                            </Progress>
-                        </div>
-                    </ListGroupItem>
                     <ListGroupItem className="p-4">
                         <strong className="text-muted d-block mb-2">
                             Introduction
@@ -100,4 +185,4 @@ UserDetails.defaultProps = {
     }
 };
 
-export default UserDetails;
+export default withRouter(UserDetails);
