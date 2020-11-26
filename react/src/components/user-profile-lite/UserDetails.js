@@ -11,13 +11,11 @@ class UserDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            //user: store.getState().user,
             user: "user",
             userAvatar: require("../../cache/default.jpg"),
             userID: this.props.userID,      // This page's user ID, not the current login user ID
             follow: 0
         };
-
         this.getUser(this.props.userID);
         console.log(this.state.user);
     }
