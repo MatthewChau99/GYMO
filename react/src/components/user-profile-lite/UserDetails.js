@@ -8,6 +8,7 @@ import Followings from "./Followings";
 import {useLocation, withRouter} from "react-router-dom";
 
 
+
 class UserDetails extends Component {
     constructor(props) {
         super(props);
@@ -16,12 +17,11 @@ class UserDetails extends Component {
             //user: "",
             users: [],
             userAvatar: require("../../cache/default.jpg"),
-            userID : this.props.userID,
+            userID: this.props.userID,
         };
         //this.getPic(this.state.user.pictureID);
         //this.getUser = this.getUser.bind(this);
         this.getUser(this.props.userID);
-        
     }
 
     getPic(picID) {
@@ -50,9 +50,12 @@ class UserDetails extends Component {
         let user_id = userID;
         axios.get(`/account/${user_id}`,
             {params: {userID: user_id}}
-        ).then( (response) => {
-            self.setState({
+        ).then( async (response) => {
+            console.log("FUCK");
+            await self.setState({
                 user: response.data["user"]
+            }, () => {
+                console.log("user:" + self.state.user);
             });
             console.log(response.data["user"])
             //console.log(self.state.user);
@@ -74,6 +77,7 @@ class UserDetails extends Component {
             console.log(error);
         })
     }
+
 
     render() {
         //const my_user = this.state.user;
