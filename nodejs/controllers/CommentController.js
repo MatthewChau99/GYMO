@@ -46,6 +46,31 @@ const getAllComments = async (req, res) => {
     }
 };
 
+const getCommentsForPost = async (req, res) => {
+    try{
+        const post = await Post.findById(req.params.postID);
+        let returnComments = [];
+        let i = 0;
+        while(post.comments[i]){
+            let comment = await Comment.findById(post.comments[i]);
+            let user = await User.findById(comment.userID);
+            if (comment){
+                let returnComment = {
+                    content: comment.content,
+                    username: user.name
+                };
+                returnComments.push(returnComment);
+            }
+            i++;
+        }
+        console.log(returnComments);
+        res.status(200).json({comments: returnComments});
+    } catch (err) {
+        console.log(err);
+        res.status(404).json({message: err});
+    }
+};
+
 const deleteComment = async (req, res) => {
     try {
         const comment = await Comment.findById(req.params.commentID);
@@ -60,5 +85,5 @@ const deleteComment = async (req, res) => {
 
 
 module.exports = {
-    uploadComment, getAllComments, deleteComment
+    uploadComment, getAllComments, deleteComment, getCommentsForPost
 };

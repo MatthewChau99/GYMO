@@ -22,8 +22,7 @@ router.patch('/:postID', PostController.updatePost);
 router.post('/comment/:postID', CommentController.uploadComment);
 
 //load all comment for a post
-router.get('/comment/:postID', CommentController.getAllComments);
-
+router.get('/comment/:postID', CommentController.getCommentsForPost);
 
 //delete a comment
 router.delete('/:postID/:commentID', CommentController.deleteComment);

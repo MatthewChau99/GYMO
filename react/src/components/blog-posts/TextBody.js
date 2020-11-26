@@ -44,7 +44,7 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
                 <LikesAndComments lnum={lnum} cnum={cnum} addLike={addLike}/>
 
             </CardBody>
-            <Card.Footer className="text-muted">{days}</Card.Footer>
+            <Card.Footer className="text-muted">{days.toString().substring(0, 10) + " " + days.toString().substring(11, 16)}</Card.Footer>
 
         </Card>
     )
