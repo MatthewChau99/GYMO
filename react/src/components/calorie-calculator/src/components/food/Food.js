@@ -21,6 +21,7 @@ const Food = ({ food, handleAddFood }) => {
     nf_total_fat,
     nf_saturated_fat
   } = food;
+
   const [weight, setWeight] = useState();
   const onChange = e => setWeight(e.target.value);
   return (
@@ -36,6 +37,7 @@ const Food = ({ food, handleAddFood }) => {
           <li>sodium: {nf_sodium}</li>
           <li>total fat: {nf_total_fat}</li>
           <li>saturated fat: {nf_saturated_fat}</li>
+
           <input
             type='number'
             name='number'

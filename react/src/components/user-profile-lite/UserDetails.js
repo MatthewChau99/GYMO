@@ -1,20 +1,27 @@
+
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Button, Card, CardHeader, ListGroup, ListGroupItem, Progress} from "shards-react";
-import store from "../../states/store";
+import {withRouter} from "react-router-dom";
+import {Button, Card, CardHeader, ListGroup, ListGroupItem} from "shards-react";
 import axios from "axios";
 import Followers from "./Followers";
 import Followings from "./Followings";
+import store from "../../states/store";
 
 
 class UserDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: store.getState().user,
-            userAvatar: require("../../cache/default.jpg")
+            user: "user",
+            userAvatar: require("../../cache/default.jpg"),
+            userID: this.props.location.state.userID,      // This page's user ID, not the current login user ID
+            follow: 0
         };
-        this.getPic(this.state.user.pictureID);
+        this.getUser.bind(this);
+        this.getUser(this.props.location.state.userID);
+        console.log(this.props.location.state.userID);
+        this.checkFollowState();
     }
 
     getPic(picID) {
@@ -35,236 +42,164 @@ class UserDetails extends Component {
         }
     }
 
+    getUser(userID) {
+        let self = this;
+        let user_id = userID;
+        axios.get(`/account/user/${user_id}`,
+            {params: {userID: user_id}}
+        ).then( async (response) => {
+            self.setState({
+                user: response.data["user"]
+            });
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    follow() {
+        if (store.getState().loginStatus) {
+            const loginUserID = store.getState().user._id;
+            const self = this;
+            axios({
+                method: 'post',
+                url: `/account/addFollower`,
+                data: {
+                    userID: loginUserID,
+                    followID: self.state.userID
+                }
+            }).then((response) => {
+                self.setState({
+                    follow: 1
+                });
+                console.log(this.state.follow);                
+                console.log(response.data.message);
+            }).catch((error) => {
+                console.log(error);
+            })
+        } else {
+            alert("You need to login first.");
+        }
+    }
+
+    unfollow() {
+        if (store.getState().loginStatus) {
+            const loginUserID = store.getState().user._id;
+            const self = this;
+            axios({
+                method: 'delete',
+                url: `/account/deleteFollower`,
+                data: {
+                    userID: loginUserID,
+                    followID: self.state.userID
+                }
+            }).then((response) => {
+                self.setState({
+                    follow: 0
+                });
+                console.log(response.data.message);
+            }).catch((error) => {
+                console.log(error);
+            })
+        } else {
+            alert("You need to login first.");
+        }
+    }
+
+    checkFollowState() {
+        if (store.getState().loginStatus) {
+            const loginUserID = store.getState().user._id;
+            const self = this;
+            axios.get(`/account/checkFollowState/${loginUserID}/${self.state.userID}`,
+                {
+                    params: {
+                        userID: loginUserID,
+                        followID: self.state.userID
+                    }
+                }
+            ).then( async (response) => {
+                if (response.data.follow === 1) {
+                    self.setState({
+                        follow: 1
+                    });
+                    console.log("is following");
+                }
+            }).catch(function (error) {
+                console.log(error);
+            })
+        } else {
+            alert("You need to login first.");
+        }
+    }
+
 
     render() {
-        let img;
-        if (this.state.user.name.charAt(0) === "A") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/A.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "B") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/B.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "C") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/C.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "D") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/D.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "E") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/E.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "F") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/F.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "G") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/G.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "H") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/H.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "I") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/I.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "J") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/J.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "K") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/K.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "L") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/L.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "M") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/M.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "N") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/N.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "O") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/O.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "P") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/P.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "Q") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/Q.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "R") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/R.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "S") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/S.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "T") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/T.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "U") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/U.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "V") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/V.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "W") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/W.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "X") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/X.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "Y") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/Y.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
-        } else if (this.state.user.name.charAt(0) === "Z") {
-            img = <img
-                className="rounded-circle"
-                src={require("./../../images/avatars/Z.png")}
-                alt={this.state.user.name}
-                width="110"
-            />
+        console.log(this.state.follow);
+        console.log(this.state.user);
+        let initial = 'A';
+        if (this.state.user.name) {
+            initial = this.state.user.name[0].toUpperCase();
         }
-        return (
-            <Card small className="mb-4 pt-3">
-                <CardHeader className="border-bottom text-center">
-                    <div className="mb-3 mx-auto">
-                        {/*<img*/}
-                        {/*    className="rounded-circle"*/}
-                        {/*    src={this.state.userAvatar}*/}
-                        {/*    alt={this.state.user.name}*/}
-                        {/*    width="110"*/}
-                        {/*/>*/}
-                        {img}
-                    </div>
-                    <h4 className="mb-0">{this.state.user.name}</h4>
-                    <span
-                        className="text-muted d-block mb-2"> <Followers/> : {this.state.user.followers} | <Followings/> : {this.state.user.follows}</span>
-                    <Button pill outline size="sm" className="mb-2">
-                        <i className="material-icons mr-1">person_add</i> Follow
-                    </Button>
-                </CardHeader>
-                <ListGroup flush>
-                    {/*        <ListGroupItem className="px-4">*/}
-                    {/*            <div className="progress-wrapper">*/}
-                    {/*                <strong className="text-muted d-block mb-2">*/}
-                    {/*                    {this.state.user.performanceReportTitle}*/}
-                    {/*                </strong>*/}
-                    {/*                <Progress*/}
-                    {/*                    className="progress-sm"*/}
-                    {/*                    value={this.state.user.performanceReportValue}*/}
-                    {/*                >*/}
-                    {/*<span className="progress-value">*/}
-                    {/*  {this.state.user.performanceReportValue}%*/}
-                    {/*</span>*/}
-                    {/*                </Progress>*/}
-                    {/*            </div>*/}
-                    {/*        </ListGroupItem>*/}
-                    <ListGroupItem className="p-4">
-                        <strong className="text-muted d-block mb-2">
-                            Introduction
-                        </strong>
-                        <span>{this.state.user.intro}</span>
-                    </ListGroupItem>
-                </ListGroup>
-            </Card>
-        );
+        // const initial = this.state.user ? this.state.user.name.toUpperCase() : 'A';
+
+        let img = <img
+            className="rounded-circle"
+            src={require("./../../images/avatars/" + initial + ".png")}
+            alt={this.state.user.name}
+            width="110"
+        />;
+
+        if (this.state.follow == 0){
+            return (
+                
+                <Card small className="mb-4 pt-3">
+                    <CardHeader className="border-bottom text-center">
+                        <div className="mb-3 mx-auto">
+                            {img}
+                        </div>
+                        <h4 className="mb-0">{this.state.user.name}</h4>
+                        <span
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                            <i className="material-icons mr-1" >person_add</i> Follow
+                        </Button>
+                    </CardHeader>
+                    <ListGroup flush>
+                        <ListGroupItem className="p-4">
+                            <strong className="text-muted d-block mb-2">
+                                Introduction
+                            </strong>
+                            <span>{this.state.user.intro}</span>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Card>
+            );
+        }
+        else {
+            return (
+                <Card small className="mb-4 pt-3">
+                    <CardHeader className="border-bottom text-center">
+                        <div className="mb-3 mx-auto">
+                            {img}
+                        </div>
+                        <h4 className="mb-0">{this.state.user.name}</h4>
+                        <span
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                            <i className="material-icons mr-1" >person_add</i> Unfollow
+                        </Button>
+                    </CardHeader>
+                    <ListGroup flush>
+                        <ListGroupItem className="p-4">
+                            <strong className="text-muted d-block mb-2">
+                                Introduction
+                            </strong>
+                            <span>{this.state.user.intro}</span>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Card>
+            );
+        }
+        
     }
 }
 
@@ -289,4 +224,4 @@ UserDetails.defaultProps = {
     }
 };
 
-export default UserDetails;
+export default withRouter(UserDetails);

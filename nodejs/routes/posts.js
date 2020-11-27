@@ -9,6 +9,13 @@ router.post('/submitPost', PostController.uploadPost);
 //get a specific post
 router.get('/getAllPosts', PostController.getAllPosts);
 router.get('/:postID', PostController.getPostById);
+router.get('/user/:userID', PostController.getPostsByUser);
+
+router.get('/getUserByPost/:postID', PostController.getUserByPost);
+router.get('/getPostCount/:postID', PostController.getPostCount);
+router.get('/getPostDate/:postID', PostController.getPostDate);
+router.get('/checkFollowState/:userID/:postID', PostController.checkFollowState);
+
 
 
 //delete a specific post
@@ -18,10 +25,10 @@ router.delete('/:postID', PostController.deletePost);
 router.patch('/:postID', PostController.updatePost);
 
 //submit a comment
-router.post('/:postID/comment', CommentController.uploadComment);
+router.post('/comment/:postID', CommentController.uploadComment);
 
 //load all comment for a post
-router.get('/:postID/comment', CommentController.getAllComments);
+router.get('/comment/:postID', CommentController.getCommentsForPost);
 
 //delete a comment
 router.delete('/:postID/:commentID', CommentController.deleteComment);

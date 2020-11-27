@@ -8,12 +8,11 @@ class BlogPost extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            PostsListOne: [],
+            PostList: [],
             picFilePath: "",
             hasPic: 0,
         };
         this.getPosts(12);
-
     }
 
     async getPic(post) {
@@ -32,16 +31,15 @@ class BlogPost extends Component {
                         categoryTheme: "dark",
                         author: post.userName,
                         postID: post.postID,
-                        authorAvatar: require("../../images/avatars/1.jpg"),
+                        authorAvatar: require("../../images/avatars/" + post.userName[0].toUpperCase() + ".png"),
                         title: post.title,
                         body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                         date: post.date,
                         userID: post.userID
                     };
                     this.setState({
-                        PostsListOne: this.state.PostsListOne.concat(newPost)
+                        PostList: this.state.PostList.concat(newPost)
                     });
-
                 }).catch(
                 function (error) {
                     console.error(error);
@@ -56,17 +54,16 @@ class BlogPost extends Component {
                 categoryTheme: "dark",
                 author: post.userName,
                 postID: post.postID,
-                authorAvatar: require("../../images/avatars/1.jpg"),
+                authorAvatar: require("../../images/avatars/" + post.userName[0].toUpperCase() + ".png"),
                 title: post.title,
                 body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                 date: post.date,
                 userID: post.userID
             };
             this.setState({
-                PostsListOne: this.state.PostsListOne.concat(newPost)
+                PostList: this.state.PostList.concat(newPost)
             });
         }
-
     }
 
     async getPosts(limit) {
@@ -75,7 +72,6 @@ class BlogPost extends Component {
         ).then(async (response) => {
             const posts = response.data["posts"];
             for (let i = 0; i < posts.length; i++) {
-                console.log(posts[i]);
                 await this.getPic(posts[i]);
             }
         }).catch(function (error) {
@@ -84,9 +80,9 @@ class BlogPost extends Component {
     }
 
     render() {
-        const {PostsListOne} = this.state;
+        const {PostList} = this.state;
         return (
-            PostsListOne.map((post, idx) => (
+            PostList.map((post, idx) => (
                 <Col lg="3" md="6" sm="12" className="mb-4" key={idx}>
                     <Card small className="card-post card-post--1">
                         <div
@@ -99,15 +95,21 @@ class BlogPost extends Component {
                             >
                                 {post.category}
                             </Badge>
-                            <div className="card-post__author d-flex">
-                                <a
-                                    href="#"
-                                    className="card-post__author-avatar card-post__author-avatar--small"
-                                    style={{backgroundImage: `url('${post.authorAvatar}')`}}
-                                >
-                                    Written by {post.author}
-                                </a>
-                            </div>
+                            <CardBody tag={Link} to={{
+                                pathname: 'user-profile-lite',
+                                search: `?userID=${post.userID}`,
+                                state: {userID: post.userID}
+                            }}>
+                                <div className="card-post__author d-flex">
+                                    <a
+                                        href="#"
+                                        className="card-post__author-avatar card-post__author-avatar--small"
+                                        style={{backgroundImage: `url('${post.authorAvatar}')`}}
+                                    >
+                                        Written by {post.author}
+                                    </a>
+                                </div>
+                            </CardBody>
                         </div>
                         <CardBody tag={Link} to={{
                             pathname: 'blog-details',
@@ -127,10 +129,10 @@ class BlogPost extends Component {
                 </Col>
 
 
-            ))
+    ))
 
-        );
+    );
     }
-}
+    }
 
-export default withRouter(BlogPost);
+    export default withRouter(BlogPost);

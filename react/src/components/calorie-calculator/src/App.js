@@ -57,6 +57,7 @@ const App = () => {
     setTimeout(() => setAlert(null), 7000);
   };
 
+
   const handleAddFood = (food, w) => {
     console.log(food)
     if (!foodList.includes(food)) {
@@ -74,10 +75,11 @@ const App = () => {
     console.log(weightDict)
   }
 
-  const handleDeletFood = (food) => {
-    setFoodList(foodList.filter(item => item.food_name !== food.food_name))
-    setTotalCalories(totalCalories-food.nf_calories/food.serving_weight_grams*weightDict[food])
-  }
+  const handleDeleteFood = (food) => {
+    setFoodList(foodList.filter(item => item.food_name !== food.food_name));
+    setTotalCalories(totalCalories-food.nf_calories/food.serving_weight_grams*weightDict[food]);
+  };
+
   return (
     <div>
       <main className='container'>
@@ -105,7 +107,7 @@ const App = () => {
                   <div className='result-container'>
                     {(fooditem.nf_calories/fooditem.serving_weight_grams*weightDict[fooditem]).toFixed(2)}
                     <div className='space'></div>
-                    <button className='delete-button' onClick={() => handleDeletFood(fooditem)}>
+                    <button className='delete-button' onClick={() => handleDeleteFood(fooditem)}>
                       ×
                     </button>
                   </div>
