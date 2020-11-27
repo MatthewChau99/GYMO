@@ -12,6 +12,10 @@ export default class Comment extends Component {
         this.getComments();
     }
 
+    componentWillUpdate(nextProps, nextState, nextContext) {
+        this.getComments();
+    }
+
     async getPost(postID) {
         let self = this;
         let post_id = postID;
@@ -27,7 +31,7 @@ export default class Comment extends Component {
         })
     }
 
-    async getComments() {
+    getComments() {
         const self = this;
         console.log(this.state.postID);
         axios.get(`/posts/comment/${this.state.postID}`, {params: {postID: this.state.postID}})

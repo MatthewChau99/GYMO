@@ -76,9 +76,9 @@ const getPostsByUser = async (req, res) => {
         let posts = await Post.find({}).sort({date: -1});
         let returnPosts = [];
         let user = await User.findById(req.params.userID);
-        if(user){
-            for(let i = 0; i < posts.length; i++){
-                if(posts[i].userID == req.params.userID){
+        if (user) {
+            for (let i = 0; i < posts.length; i++) {
+                if (posts[i].userID == req.params.userID) {
                     let returnPost = {
                         title: posts[i].title,
                         content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
@@ -115,9 +115,9 @@ const getPostCount = async (req, res) => {
         let posts = await Post.find({}).sort({date: -1});
         let post = await Post.findById(req.params.postID);
         let user = await User.findById(post.userID);
-        if(user){
-            for(let i = 0; i < posts.length; i++){
-                if (posts[i].userID.equals(post.userID)){
+        if (user) {
+            for (let i = 0; i < posts.length; i++) {
+                if (posts[i].userID.equals(post.userID)) {
                     post_num += 1;
                 }
             }
@@ -194,7 +194,7 @@ const removeLikeFromPost = async (userID, postID) => {
     });
 };
 
-const getPostLikeNum = async(postID) => {
+const getPostLikeNum = async (postID) => {
     let post = await Post.findById(postID);
     return post.likesNum;
 };

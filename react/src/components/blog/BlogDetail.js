@@ -14,7 +14,8 @@ class BlogDetail extends Component {
             PostsListOne: [],
             picFilePath: "",
             hasPic: 0,
-            postID: this.props.location.state.postID
+            postID: this.props.location.state.postID,
+            likesNum: 0
         };
         this.getPosts(this.state.postID);
         this.addLike = this.addLike.bind(this);
@@ -42,7 +43,6 @@ class BlogDetail extends Component {
                         date: post.date,
                         likesNum: post.likes.length,
                         commentsNum: post.comments.length
-
                     };
                     console.log(newPost.backgroundImage);
                     this.setState({
