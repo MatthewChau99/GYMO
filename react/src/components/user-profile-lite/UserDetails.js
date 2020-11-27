@@ -71,7 +71,7 @@ class UserDetails extends Component {
                 self.setState({
                     follow: 1
                 });
-                console.log(this.state.follow);                
+                console.log(this.state.follow);
                 console.log(response.data.message);
             }).catch((error) => {
                 console.log(error);
@@ -126,8 +126,6 @@ class UserDetails extends Component {
             }).catch(function (error) {
                 console.log(error);
             })
-        } else {
-            alert("You need to login first.");
         }
     }
 
@@ -150,7 +148,7 @@ class UserDetails extends Component {
 
         if (this.state.follow == 0){
             return (
-                
+
                 <Card small className="mb-4 pt-3">
                     <CardHeader className="border-bottom text-center">
                         <div className="mb-3 mx-auto">
@@ -199,7 +197,7 @@ class UserDetails extends Component {
                 </Card>
             );
         }
-        
+
     }
 }
 

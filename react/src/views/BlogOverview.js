@@ -139,8 +139,6 @@ class BlogOverview extends Component {
             ],
             bodyInfo: []
         };
-
-        this.getBodyInfo();
     }
 
 

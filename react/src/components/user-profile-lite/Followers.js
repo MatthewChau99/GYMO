@@ -13,7 +13,6 @@ class Followers extends Component {
             user: "user",
             userID: this.props.location.state.userID,
         };
-        //this.getFollower.bind(this);
         this.getFollowers(this.props.location.state.userID);
     }
 
