@@ -19,7 +19,6 @@ class UserDetails extends Component {
         };
         this.getUser.bind(this);
         this.getUser(this.props.location.state.userID);
-        console.log(this.props.location.state.userID);
         this.checkFollowState();
     }
 
@@ -70,8 +69,6 @@ class UserDetails extends Component {
                 self.setState({
                     follow: 1
                 });
-                console.log(this.state.follow);
-                console.log(response.data.message);
             }).catch((error) => {
                 console.log(error);
             })
@@ -95,7 +92,6 @@ class UserDetails extends Component {
                 self.setState({
                     follow: 0
                 });
-                console.log(response.data.message);
             }).catch((error) => {
                 console.log(error);
             })
@@ -130,13 +126,10 @@ class UserDetails extends Component {
 
 
     render() {
-        console.log(this.state.follow);
-        console.log(this.state.user);
         let initial = 'A';
         if (this.state.user.name) {
             initial = this.state.user.name[0].toUpperCase();
         }
-        // const initial = this.state.user ? this.state.user.name.toUpperCase() : 'A';
 
         let img = <img
             className="rounded-circle"
