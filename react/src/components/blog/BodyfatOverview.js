@@ -4,14 +4,13 @@ import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
 
 import RangeDatePicker from "../common/RangeDatePicker";
 import Chart from "../../utils/chart";
-let BMIChart;
+let BodyfatChart;
 
-class BMIOverview extends React.Component {
+class BodyfatOverview extends React.Component {
   constructor(props) {
     super(props);
 
     this.canvasRef = React.createRef();
-    console.log(props.bmi);
   }
 
   componentDidMount() {
@@ -76,23 +75,23 @@ class BMIOverview extends React.Component {
       },
       ...this.props.chartOptions
     };
-    const {bmi, date} = this.props;
-    if (typeof BMIChart !== "undefined") BMIChart.destroy();
-    BMIChart = new Chart(this.canvasRef.current, {
+    const {bodyfat, date} = this.props;
+    if (typeof BodyfatChart !== "undefined") BodyfatChart.destroy();
+    BodyfatChart = new Chart(this.canvasRef.current, {
       type: "LineWithLine",
       data: {
         labels: date,
         datasets: [{
-          label: 'BMI',
+          label: 'Body Fat',
           fill: 'start',
-          data: bmi,
-          backgroundColor: "rgba(0,123,255,0.1)",
-          borderColor: "rgba(0,123,255,1)",
+          data: bodyfat,
+          backgroundColor: "rgba(255,255,0,0.3)",
+          borderColor: "rgba(255,130,0,1)",
           pointBackgroundColor: "#ffffff",
-          pointHoverBackgroundColor: "rgb(0,123,255)",
-          borderWidth: 1.5,
+          pointHoverBackgroundColor: "rgba(255,255,0,1)",
+          borderWidth: 1,
           pointRadius: 0,
-          pointHoverRadius: 3
+          pointHoverRadius: 2
         }]
       },
       options: chartOptions
@@ -100,9 +99,7 @@ class BMIOverview extends React.Component {
   }
 
   render() {
-    const title = 'BMI Overview';
-    console.log(this.props.bmi);
-    console.log(this.props.date);
+    const title = 'Body Fat Overview';
     return (
       <Card small className="h-100">
         <CardHeader className="border-bottom">
@@ -133,7 +130,7 @@ class BMIOverview extends React.Component {
   }
 }
 
-BMIOverview.propTypes = {
+BodyfatOverview.propTypes = {
   /**
    * The component's title.
    */
@@ -146,7 +143,7 @@ BMIOverview.propTypes = {
    * The Chart.js options.
    */
   chartOptions: PropTypes.object,
-  bmi: PropTypes.array,
+  bodyfat: PropTypes.array,
   date: PropTypes.array
 };
 
@@ -172,4 +169,4 @@ BMIOverview.propTypes = {
 //   }
 // };
 
-export default BMIOverview;
+export default BodyfatOverview;

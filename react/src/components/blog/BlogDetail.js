@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {Col} from "shards-react";
 import {withRouter} from "react-router-dom";
 import TextBody from "../blog-posts/TextBody";
+import LikesAndComments from "../blog-posts/LikesAndcomments";
 
 
 class BlogDetail extends Component {

@@ -3,6 +3,7 @@ import {Link, withRouter} from "react-router-dom";
 
 import React, {Component} from "react";
 import {Button, Card, CardBody, CardHeader, ListGroup, ListGroupItem} from "shards-react";
+
 import axios from "axios";
 import store from "../../states/store";
 
@@ -58,7 +59,6 @@ class Author extends Component {
         }).catch(function (error) {
             console.log(error);
         })
-
     }
 
     follow() {
@@ -264,7 +264,6 @@ class Author extends Component {
                 </Card>
             );
         }
-
     }
 }
 

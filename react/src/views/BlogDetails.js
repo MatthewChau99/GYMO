@@ -227,8 +227,6 @@ class BlogDetails extends Component {
             return null;
         }
     }
-
 }
-
 
 export default BlogDetails;

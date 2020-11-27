@@ -4,7 +4,7 @@ import {Col, Container, Row} from "shards-react";
 
 import PageTitle from "./../components/common/PageTitle";
 import SmallStats from "./../components/common/SmallStats";
-import UsersOverview from "./../components/blog/UsersOverview";
+import BodyfatOverview from "../components/blog/BodyfatOverview";
 import UsersByDevice from "./../components/blog/UsersByDevice";
 import BMIOverview from "./../components/blog/BMIOverview";
 import WeightOverview from "./../components/blog/WeightOverview";
@@ -137,11 +137,23 @@ class BlogOverview extends Component {
                     ]
                 }
             ],
+<<<<<<< HEAD
             bodyInfo: []
         };
     }
 
 
+=======
+            bodyInfo: [],
+            bodyfat: [],
+            bmi: [],
+            weight: [],
+            date: []
+        };
+        this.getBodyInfo();
+    }
+
+>>>>>>> frontend-ran
     getBodyInfo() {
         const self = this;
         if (store.getState().loginStatus) {
@@ -153,6 +165,18 @@ class BlogOverview extends Component {
                 self.setState({
                     bodyInfo: response.data.data
                 });
+<<<<<<< HEAD
+=======
+                // console.log(self.state.bodyInfo);
+                self.setState({bodyfat: self.state.bodyInfo.map(o=>o.bodyFatPerc)});
+                // console.log(self.state.bodyfat);
+                self.setState({bmi: self.state.bodyInfo.map(o=>o.bmi)});
+                // console.log(self.state.bmi);
+                self.setState({weight: self.state.bodyInfo.map(o=>o.weight)});
+                // console.log(self.state.weight);
+                self.setState({date: self.state.bodyInfo.map(o=>o.date)});
+                // console.log(self.state.date);
+>>>>>>> frontend-ran
             }).catch((error) => {
                 console.log(error);
             })
@@ -190,6 +214,7 @@ class BlogOverview extends Component {
                 <Row>
                     {/* Users Overview */}
                     <Col lg="8" md="12" sm="12" className="mb-4">
+<<<<<<< HEAD
                         <UsersOverview/>
                     </Col>
 
@@ -205,6 +230,23 @@ class BlogOverview extends Component {
 
                     {/* Discussions */}
                     <Col lg="6" md="12" sm="12" className="mb-4">
+=======
+                        <BodyfatOverview bodyfat={this.state.bodyfat} date={this.state.date}/>
+                    </Col>
+
+                    {/* Users by Device
+                    <Col lg="4" md="6" sm="12" className="mb-4">
+                        <UsersByDevice/>
+                    </Col> */}
+
+                    {/* New Draft */}
+                    <Col lg="8" md="12" sm="12" className="mb-4">
+                        <BMIOverview bmi={this.state.bmi} date={this.state.date}/>
+                    </Col>
+
+                    {/* Discussions */}
+                    <Col lg="8" md="12" sm="12" className="mb-4">
+>>>>>>> frontend-ran
                         <WeightOverview/>
                     </Col>
 

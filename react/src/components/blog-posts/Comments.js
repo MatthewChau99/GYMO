@@ -5,6 +5,7 @@ import {Card, CardBody, CardHeader, Form, FormInput, ListGroup, ListGroupItem} f
 import store from "../../states/store";
 
 
+
 class Comments extends Component {
     constructor(props) {
         super(props);
@@ -15,8 +16,6 @@ class Comments extends Component {
             user: store.getState().user,
             hasComment: this.props.hasComment,
         };
-
-        // this.props.getComments();
     }
 
     render() {
