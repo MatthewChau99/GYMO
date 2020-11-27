@@ -1,19 +1,42 @@
-import React from "react";
+import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    ListGroup,
-    ListGroupItem,
-    Button,
-    Badge
-} from "shards-react";
+import {Badge, Card, CardBody, CardHeader, ListGroup, ListGroupItem} from "shards-react";
+import { render } from "react-dom";
+import {Link, withRouter} from "react-router-dom";
+import axios from "axios";
+import store from "../../states/store";
 
-const Details = ({title, postdate, tags}) => (
-    <Card small className="mb-3">
+class Details extends Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+          postID: this.props.location.state.postID,
+          datecreated:""
+      };
+      this.getDate(this.state.postID);
+    }
+
+getDate(postID){
+    let self = this;
+    let post_id = postID;
+    axios.get(`/posts/getPostDate/${post_id}`,
+            {params: {postID: post_id}}
+        ).then(async (response) => {
+            console.log(response.data["postDate"]);
+          this.setState({
+            datestarted: response.data["postDate"]
+          });
+        }).catch(function (error) {
+            console.log(error);
+        })
+}
+
+render(){
+    console.log(this.state.datestarted);
+    return(
+<Card small className="mb-3">
         <CardHeader className="border-bottom">
-            <h6 className="m-0">{title}</h6>
+            <h6 className="m-0">{"Other Details"}</h6>
         </CardHeader>
 
         <CardBody className="p-0">
@@ -23,17 +46,7 @@ const Details = ({title, postdate, tags}) => (
           <span className="d-flex mb-2">
             <i className="material-icons mr-1">event_available</i>
             <strong className="mr-1">Date Posted:</strong>{" "}
-              <strong className="text-success">{postdate}</strong>{" "}
-          </span>
-
-                    <span className="d-flex mb-2">
-            <i className="material-icons mr-1">menu</i>
-            <strong className="mr-1">Tags:</strong>{" "}
-
-                        <Badge pill className={`card-post__category bg-${"dark"}`}>
-              {tags}
-            </Badge>
-
+              <strong className="text-success">{this.state.datecreated}</strong>{" "}
           </span>
 
                 </ListGroupItem>
@@ -41,18 +54,9 @@ const Details = ({title, postdate, tags}) => (
             </ListGroup>
         </CardBody>
     </Card>
-);
+    )
+}
 
-Details.propTypes = {
-    /**
-     * The component's title.
-     */
-    title: PropTypes.string
-};
+}
 
-Details.defaultProps = {
-    title: "Other Details"
-
-};
-
-export default Details;
+export default withRouter(Details);

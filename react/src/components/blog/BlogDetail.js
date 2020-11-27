@@ -4,6 +4,7 @@ import axios from "axios";
 import store from "../../states/store";
 import {useLocation, withRouter} from "react-router-dom";
 import TextBody from "../blog-posts/TextBody";
+import LikesAndComments from "../blog-posts/LikesAndcomments";
 
 
 class BlogDetail extends Component {
@@ -13,7 +14,8 @@ class BlogDetail extends Component {
             PostsListOne: [],
             picFilePath: "",
             hasPic: 0,
-            postID: this.props.location.state.postID
+            postID: this.props.location.state.postID,
+            likesNum: 0
         };
         this.getPosts(this.state.postID);
         this.addLike = this.addLike.bind(this);
@@ -39,8 +41,8 @@ class BlogDetail extends Component {
                         title: post.title,
                         body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                         date: post.date,
-                        likesNum: post.likesNum
-
+                        likesNum: post.likes.length,
+                        commentsNum: post.comments.length
                     };
                     console.log(newPost.backgroundImage);
                     this.setState({
@@ -64,7 +66,8 @@ class BlogDetail extends Component {
                 title: post.title,
                 body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
                 date: post.date,
-                likesNum: post.likesNum
+                likesNum: post.likes.length,
+                commentsNum: post.comments.length
             };
             this.setState({
                 PostsListOne: this.state.PostsListOne.concat(newPost)
@@ -96,7 +99,7 @@ class BlogDetail extends Component {
             }
         }).then(() => {
             console.log("added like");
-        }).catch( function(error) {
+        }).catch(function (error) {
             console.log(error);
         })
     }
@@ -104,8 +107,8 @@ class BlogDetail extends Component {
     render() {
         const {PostsListOne} = this.state;
         return (
-                PostsListOne.map((post, idx) => (
-                    <Col lg="9" md="12">
+            PostsListOne.map((post, idx) => (
+                <Col lg="9" md="12">
                     <TextBody
                         backgroundImage = "https://mdbootstrap.com/img/Others/documentation/1.jpg"
                         badge = "sharing"
@@ -113,10 +116,10 @@ class BlogDetail extends Component {
                         text = {post.body}
                         days = {post.date}
                         lnum = {post.likesNum}
-                        cnum = "2"
+                        cnum = {post.commentsNum}
                         addLike={this.addLike}
                     />
-                    </Col>
+                </Col>
             ))
         );
     }

@@ -1,5 +1,6 @@
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
+const User = require('../models/User');
 const PostController = require('./PostController');
 
 const uploadComment = async (req, res) => {
@@ -21,25 +22,51 @@ const uploadComment = async (req, res) => {
 const getAllComments = async (req, res) => {
     try {
         let comments = await Comment.find({}).sort({date: -1});
-        let returnComment = [];
+        let returnComments = [];
+        let post = await Post.findById(req.params.postID).lean();
 
         for (let i = 0; i < Math.min(comments.length, 5); i++) {
-            let post = await Post.findById(comments[i].postID).lean();
             if (post) {
+                let user = await User.findById(comments[i].userID);
                 let returnComment = {
                     //need postID or not?
                     postID: comments[i].postID,
-                    userID: comments[i].userID,
-                    content: comments[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                    username: user.name,
+                    content: comments[i].content,
                     date: new Date(comments[i].date).toISOString().substring(0, 10)
                 };
-                returnComment.push(returnComment);
+                returnComments.push(returnComment);
             }
         }
-        console.log(returnComment);
-        res.status(200).json({posts: returnComment});
+        console.log(returnComments);
+        res.status(200).json({comments: returnComments});
 
     } catch (err) {
+        res.status(404).json({message: err});
+    }
+};
+
+const getCommentsForPost = async (req, res) => {
+    try{
+        const post = await Post.findById(req.params.postID);
+        let returnComments = [];
+        let i = 0;
+        while(post.comments[i]){
+            let comment = await Comment.findById(post.comments[i]);
+            let user = await User.findById(comment.userID);
+            if (comment){
+                let returnComment = {
+                    content: comment.content,
+                    username: user.name
+                };
+                returnComments.push(returnComment);
+            }
+            i++;
+        }
+        console.log(returnComments);
+        res.status(200).json({comments: returnComments});
+    } catch (err) {
+        console.log(err);
         res.status(404).json({message: err});
     }
 };
@@ -58,5 +85,5 @@ const deleteComment = async (req, res) => {
 
 
 module.exports = {
-    uploadComment, getAllComments, deleteComment
+    uploadComment, getAllComments, deleteComment, getCommentsForPost
 };

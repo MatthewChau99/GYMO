@@ -29,6 +29,7 @@ class UserAccountDetails extends Component {
             updatedPhone: store.getState().user.phone,
             updatedPassword: store.getState().user.password,
             updatedIntro: store.getState().user.intro,
+            userID: this.props.userID,
         };
     }
 
