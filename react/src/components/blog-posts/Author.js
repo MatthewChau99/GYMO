@@ -2,14 +2,7 @@
 import {Link, withRouter} from "react-router-dom";
 
 import React, {Component} from "react";
-import {
-    Card,
-    CardHeader,
-    CardBody,
-    ListGroup,
-    ListGroupItem,
-    Button
-} from "shards-react";
+import {Button, Card, CardBody, CardHeader, ListGroup, ListGroupItem} from "shards-react";
 import axios from "axios";
 import store from "../../states/store";
 
@@ -44,12 +37,11 @@ class Author extends Component {
             {params: {postID: post_id}}
         ).then(async (response) => {
             const user = response.data["user"];
-            this.setState({
+            self.setState({
                 author: user.name,
                 userID: user._id,
                 datestarted: user.createdAt
             });
-            console.log(user.createdAt.toDateString())
         }).catch(function (error) {
             console.log(error);
         })
@@ -62,7 +54,7 @@ class Author extends Component {
             {params: {postID: post_id}}
         ).then(async (response) => {
             const postCount = response.data["postCount"];
-            this.setState({tpost: postCount});
+            self.setState({tpost: postCount});
         }).catch(function (error) {
             console.log(error);
         })
@@ -133,7 +125,6 @@ class Author extends Component {
                     }
                 }
             ).then(async (response) => {
-                console.log(response.data.follow);
                 if (response.data.follow === 1) {
                     self.setState({
                         follow: 1
@@ -147,7 +138,6 @@ class Author extends Component {
     }
 
     render() {
-        console.log(this.state.follow);
         if (this.state.follow === 0) {
             return (
                 <Card small className="mb-3">
@@ -253,7 +243,7 @@ class Author extends Component {
                                 </span>
                                 <span className="d-flex">
                                     <i className="material-icons mr-1">forward</i>
-                                    <strong className="mr-1" href="#">Main Page</strong>{" "}
+                                    <strong className="mr-1">Main Page</strong>{" "}
                                     <CardBody tag={Link} to={{
                                         pathname: 'user-profile-lite',
                                         search: `?userID=${this.state.userID}`,
@@ -266,7 +256,7 @@ class Author extends Component {
                             <ListGroupItem className="d-flex px-3 border-0">
                                 <Button theme="accent" size="sm" className="ml-auto"
                                         onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
-                                    <i className="material-icons"></i> Unfollow
+                                    <i className="material-icons">Unfollow</i>
                                 </Button>
                             </ListGroupItem>
                         </ListGroup>

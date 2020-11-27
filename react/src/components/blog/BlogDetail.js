@@ -16,7 +16,7 @@ class BlogDetail extends Component {
     render() {
         const {PostsListOne} = this.state;
         return (
-            PostsListOne.map((post, idx) => (
+            PostsListOne.map((post) => (
                 <Col lg="9" md="12">
                     <TextBody
                         backgroundImage = "https://mdbootstrap.com/img/Others/documentation/1.jpg"
@@ -24,8 +24,8 @@ class BlogDetail extends Component {
                         title = {post.title}
                         text = {post.body}
                         days = {post.date}
-                        lnum = {this.props.likesNum}
-                        cnum = {this.props.commentsNum}
+                        lnum={this.props.likesNum}
+                        cnum={this.props.commentsNum}
                         addLike={this.props.addLike}
                     />
                 </Col>

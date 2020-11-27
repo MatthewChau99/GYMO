@@ -1,10 +1,7 @@
 import React, {Component} from "react";
-import PropTypes from "prop-types";
-import {Badge, Card, CardBody, CardHeader, ListGroup, ListGroupItem} from "shards-react";
-import {render} from "react-dom";
-import {Link, withRouter} from "react-router-dom";
+import {Card, CardBody, CardHeader, ListGroup, ListGroupItem} from "shards-react";
+import {withRouter} from "react-router-dom";
 import axios from "axios";
-import store from "../../states/store";
 
 class Details extends Component {
     constructor(props) {
@@ -22,7 +19,6 @@ class Details extends Component {
         axios.get(`/posts/getPostDate/${post_id}`,
             {params: {postID: post_id}}
         ).then(async (response) => {
-            console.log(response.data["postDate"]);
             self.setState({
                 dateCreated: response.data["postDate"]
             });

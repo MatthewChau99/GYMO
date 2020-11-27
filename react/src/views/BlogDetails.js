@@ -78,7 +78,7 @@ class BlogDetails extends Component {
                     date: Date.now(),
                     userID: self.state.user._id
                 }
-            }).then((response) => {
+            }).then(() => {
                 self.props.history.push({
                     pathname: 'blog-details',
                     state: this.state.postID,
@@ -113,7 +113,6 @@ class BlogDetails extends Component {
             }).catch(function (error) {
             console.log(error)
         });
-        console.log(this.state.commentList);
     }
 
     changeComment(event) {

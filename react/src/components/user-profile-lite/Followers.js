@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Popover from 'react-bootstrap/Popover';
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import {Button} from "react-bootstrap";
-import {useLocation, withRouter} from "react-router-dom";
+import {withRouter} from "react-router-dom";
 import axios from "axios";
 
 class Followers extends Component {
@@ -34,7 +34,7 @@ class Followers extends Component {
     render() {
         const {followers} = this.state;
         return (
-            followers.map((follower, idx) => (
+            followers.map((follower) => (
                 <OverlayTrigger trigger="click" placement="bottom" overlay={
                     <Popover id="popover-basic" className="text-center">
                         <Popover.Title as="h3" size="lg">Followers</Popover.Title>

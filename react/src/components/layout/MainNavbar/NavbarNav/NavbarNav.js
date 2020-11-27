@@ -1,7 +1,5 @@
 import React from "react";
 import {Nav} from "shards-react";
-
-import Notifications from "./Notifications";
 import UserActions from "./UserActions";
 import AddPost from "./AddPost";
 import LogIn from "./LogIn";
@@ -14,7 +12,7 @@ export default () => {
     return (
         <Nav navbar className="border-left flex-row">
             <AddPost/>
-            <Notifications/>
+            {/*<Notifications/>*/}
             {loginState ? <UserActions/> : ""}
             {loginState ? <Logout/> : <LogIn/>}
         </Nav>

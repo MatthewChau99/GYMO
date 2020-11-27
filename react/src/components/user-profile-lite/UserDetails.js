@@ -1,4 +1,3 @@
-
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
@@ -146,7 +145,7 @@ class UserDetails extends Component {
             width="110"
         />;
 
-        if (this.state.follow == 0){
+        if (this.state.follow === 0) {
             return (
 
                 <Card small className="mb-4 pt-3">
@@ -157,7 +156,8 @@ class UserDetails extends Component {
                         <h4 className="mb-0">{this.state.user.name}</h4>
                         <span
                             className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
-                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                        <Button pill outline size="sm" className="mb-2"
+                                onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
                             <i className="material-icons mr-1" >person_add</i> Follow
                         </Button>
                     </CardHeader>
@@ -182,7 +182,8 @@ class UserDetails extends Component {
                         <h4 className="mb-0">{this.state.user.name}</h4>
                         <span
                             className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
-                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                        <Button pill outline size="sm" className="mb-2"
+                                onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
                             <i className="material-icons mr-1" >person_add</i> Unfollow
                         </Button>
                     </CardHeader>

@@ -2,9 +2,7 @@ import React, {Component} from "react";
 import Comment from "./Comment";
 import {withRouter} from "react-router-dom";
 import {Card, CardBody, CardHeader, Form, FormInput, ListGroup, ListGroupItem} from "shards-react";
-import BlogDetail from "../blog/BlogDetail";
 import store from "../../states/store";
-import axios from "axios";
 
 
 class Comments extends Component {
