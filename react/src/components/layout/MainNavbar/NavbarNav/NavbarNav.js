@@ -12,7 +12,7 @@ export default () => {
     const loginState = useSelector(state => state.loginStatus);
 
     return (
-        <Nav navbar className="border-left flex-row">
+        <Nav navbar className="border-left flex-row flex-nowrap p-1">
             <AddPost/>
             <Notifications/>
             {loginState ? <UserActions/> : ""}

@@ -16,13 +16,10 @@ const MainNavbar = ({ layout, stickyTop }) => {
 
   return (
     <div className={classes}>
-      <Container className="p-0">
-        <Navbar type="light" className="align-items-stretch flex-md-nowrap p-0">
-          <NavbarSearch />
-          <NavbarNav />
-          <NavbarToggle />
-        </Navbar>
-      </Container>
+      <Navbar type="light" className="d-flex flex-row-reverse flex-md-nowrap p-1">
+        <NavbarNav />
+        <NavbarToggle />
+      </Navbar>
     </div>
   );
 };

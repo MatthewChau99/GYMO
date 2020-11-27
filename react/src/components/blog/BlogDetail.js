@@ -110,7 +110,7 @@ class BlogDetail extends Component {
             PostsListOne.map((post, idx) => (
                 <Col lg="9" md="12">
                     <TextBody
-                        backgroundImage = "https://mdbootstrap.com/img/Others/documentation/1.jpg"
+                        backgroundImage = "https://mdbootstrap.com/img/Others/documentation/1.jpg" //hardcoded
                         badge = "sharing"
                         title = {post.title}
                         text = {post.body}

@@ -98,7 +98,7 @@ class BlogViews extends Component {
         return (
             PostsListOne.map((post, idx) => (
                 <Col lg="12" sm="12" className="mb-4" key={idx} >
-                    <Card small className="card-post card-post--aside card-post--1">
+                    <Card small className="card-post card-post--aside card-post--1 ">
                         <div
                             className="card-post__image"
                             style={{backgroundImage: `${post.backgroundImage}`}}
@@ -120,7 +120,9 @@ class BlogViews extends Component {
                                     {post.title}
                                 </a>
                             </h5>
-                            <span className="card-text d-inline-block mb-3">{post.body}</span>
+                            <span className="card-text d-inline-block mb-3 w-70">
+                                <div dangerouslySetInnerHTML={{ __html: post.body }} ></div>
+                            </span>
                             <br/>
                             <span className="text-muted">{post.date}</span>
                         </CardBody>
