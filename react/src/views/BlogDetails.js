@@ -32,16 +32,8 @@ class BlogDetails extends Component {
 
                     {/* Sidebar Widgets */}
                     <Col lg="3" md="12">
-                        <Author
-                            author="Anna Kunis"
-                            page="user-profile-lite"
-                            datestarted="Sep 2020"
-                            tpost="2"
-                        />
-                        <Details
-                            postdate="21 Sep 2020"
-                            tags="Sharing"
-                        />
+                        <Author/>
+                        <Details/>
                         <Comments/>
                     </Col>
                 </Row>

@@ -122,24 +122,36 @@ const getUserInfo = async (req, res) => {
     }
 };
 
-const getFollowers = async(userID, res) => {
+const getFollowers = async(req, res) => {
     try {
-        const user = await User.findById(userID);
-        res.status(200).json({followers: user.followers});
+        let my_user = await User.findById(req.params.userID);
+        let followers = my_user.followers;
+        let follower_names = [];
+        for(let i = 0; i < followers.length; i++){
+            let follower = await User.findById(followers[i]);
+            follower_names.push(follower.name);
+        }
+        res.status(200).json({followers: follower_names});
     } catch (err) {
         res.status(404).json({message: err});
     }
 };
 
-
-const getFollows = async(userID, res) => {
+const getFollows = async(req, res) => {
     try {
-        const user = await User.findById(userID);
-        res.status(200).json({follows: user.follows});
+        let my_user = await User.findById(req.params.userID);
+        let follows = my_user.follows;
+        let follow_names = [];
+        for(let i = 0; i < follows.length; i++){
+            let follow = await User.findById(follows[i]);
+            follow_names.push(follow.name);
+        }
+        res.status(200).json({follows: follow_names});
     } catch (err) {
         res.status(404).json({message: err});
     }
-}
+};
+
 const addBodyInfoToUser = async (userID, BodyInfoID) => {
     await User.findByIdAndUpdate(userID, {
         $addToSet: {

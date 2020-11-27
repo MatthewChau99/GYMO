@@ -1,3 +1,4 @@
+
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
@@ -17,10 +18,10 @@ class UserDetails extends Component {
             userID: this.props.location.state.userID,      // This page's user ID, not the current login user ID
             follow: 0
         };
-
         this.getUser.bind(this);
         this.getUser(this.props.location.state.userID);
         console.log(this.props.location.state.userID);
+        this.checkFollowState();
     }
 
     getPic(picID) {
@@ -40,34 +41,15 @@ class UserDetails extends Component {
             );
         }
     }
-    //componentWillMount(){
-  //      this.getUser(this.props.userID);
-//    }
-/*
-    async getUser(userID) {
-        //let self = this
+
+    getUser(userID) {
+        let self = this;
         let user_id = userID;
-        axios.get(`/account/${user_id}`,
+        axios.get(`/account/user/${user_id}`,
             {params: {userID: user_id}}
         ).then( async (response) => {
             self.setState({
                 user: response.data["user"]
-            });
-            console.log(response.data["user"])
-            //console.log(self.state.user);
-        }).catch(function (error) {
-            console.log(error);
-        })
-    }*/
-
-    async getUser(userID) {
-        let user_id = userID;
-        axios.get(`/account/${user_id}`,
-            {params: {userID: user_id}}
-        ).then(async (response) => {
-            const user = response.data["user"];
-            this.setState({
-                users: this.state.users.concat(user)
             });
         }).catch(function (error) {
             console.log(error);
@@ -86,6 +68,10 @@ class UserDetails extends Component {
                     followID: self.state.userID
                 }
             }).then((response) => {
+                self.setState({
+                    follow: 1
+                });
+                console.log(this.state.follow);                
                 console.log(response.data.message);
             }).catch((error) => {
                 console.log(error);
@@ -107,6 +93,9 @@ class UserDetails extends Component {
                     followID: self.state.userID
                 }
             }).then((response) => {
+                self.setState({
+                    follow: 0
+                });
                 console.log(response.data.message);
             }).catch((error) => {
                 console.log(error);
@@ -142,7 +131,9 @@ class UserDetails extends Component {
         }
     }
 
+
     render() {
+        console.log(this.state.follow);
         console.log(this.state.user);
         let initial = 'A';
         if (this.state.user.name) {
@@ -157,37 +148,58 @@ class UserDetails extends Component {
             width="110"
         />;
 
-        return (
-            users.map((user,idx) => (
+        if (this.state.follow == 0){
+            return (
+                
                 <Card small className="mb-4 pt-3">
-                <CardHeader className="border-bottom text-center">
-                    <div className="mb-3 mx-auto">
-                        <img
-                        className="rounded-circle"
-                        src={require("./../../images/avatars/" + user.name.charAt(0).toUpperCase() + ".png")}
-                        alt={user.name}
-                        width="110"
-                        />
-                    </div>
-                    <h4 className="mb-0">{user.name}</h4>
-                    <span
-                        className="text-muted d-block mb-2"> <Followers/> : {this.state.user.followers} | <Followings/> : {this.state.user.follows}</span>
-                    <Button pill outline size="sm" className="mb-2" onClick={this.unfollow.bind(this)}>
-                        <i className="material-icons mr-1" >person_add</i> Follow
-                    </Button>
-                </CardHeader>
-                <ListGroup flush>
-                    <ListGroupItem className="p-4">
-                        <strong className="text-muted d-block mb-2">
-                            Introduction
-                        </strong>
-                        <span>{user.intro}</span>
-                    </ListGroupItem>
-                </ListGroup>
-            </Card>
-            ))
-            
-        );
+                    <CardHeader className="border-bottom text-center">
+                        <div className="mb-3 mx-auto">
+                            {img}
+                        </div>
+                        <h4 className="mb-0">{this.state.user.name}</h4>
+                        <span
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                            <i className="material-icons mr-1" >person_add</i> Follow
+                        </Button>
+                    </CardHeader>
+                    <ListGroup flush>
+                        <ListGroupItem className="p-4">
+                            <strong className="text-muted d-block mb-2">
+                                Introduction
+                            </strong>
+                            <span>{this.state.user.intro}</span>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Card>
+            );
+        }
+        else {
+            return (
+                <Card small className="mb-4 pt-3">
+                    <CardHeader className="border-bottom text-center">
+                        <div className="mb-3 mx-auto">
+                            {img}
+                        </div>
+                        <h4 className="mb-0">{this.state.user.name}</h4>
+                        <span
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                            <i className="material-icons mr-1" >person_add</i> Unfollow
+                        </Button>
+                    </CardHeader>
+                    <ListGroup flush>
+                        <ListGroupItem className="p-4">
+                            <strong className="text-muted d-block mb-2">
+                                Introduction
+                            </strong>
+                            <span>{this.state.user.intro}</span>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Card>
+            );
+        }
+        
     }
 }
 
