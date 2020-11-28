@@ -11,7 +11,6 @@ class BlogDetail extends Component {
         this.state = {
             PostsListOne: this.props.PostList,
             postID: this.props.location.state.postID,
-            backgroundImage: require("../../images/user-profile/" + Math.floor(Math.random() * 10) + ".jpg")
         };
     }
 
@@ -21,11 +20,11 @@ class BlogDetail extends Component {
             PostsListOne.map((post) => (
                 <Col lg="9" md="12">
                     <TextBody
-                        backgroundImage={this.state.backgroundImage}
-                        badge="sharing"
-                        title={post.title}
-                        text={post.body}
-                        days={post.date}
+                        backgroundImage = "https://mdbootstrap.com/img/Photos/Others/images/86.jpg"
+                        badge = "sharing"
+                        title = {post.title}
+                        text = {post.body}
+                        days = {post.date}
                         lnum={this.props.likesNum}
                         cnum={this.props.commentsNum}
                         addLike={this.props.addLike}

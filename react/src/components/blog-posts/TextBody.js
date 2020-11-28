@@ -20,7 +20,7 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
         className="card-post__image"
         style={{ backgroundImage: `url(${require({backgroundImage})})` }}
       > */}
-            <Card.Img variant="top" src={backgroundImage}/>
+            <img variant="top" src={backgroundImage} alt={"hi"}/>
             <Badge
                 pill
                 className={`card-post__category bg-${"dark"}`}
