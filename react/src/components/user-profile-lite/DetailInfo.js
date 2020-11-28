@@ -87,7 +87,7 @@ class DetailInfo extends Component {
                                             <FormInput
                                                 type="weight"
                                                 id="feWeight"
-                                                placeholder="Weight in lb"
+                                                placeholder="Weight in kg"
                                                 onChange={(event) => {
                                                     this.updateWeight(event)
                                                 }}

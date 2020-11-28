@@ -17,8 +17,9 @@ import Tab from 'react-bootstrap/Tab';
 class BlogOverview extends Component {
     constructor(props) {
         super(props);
-
+        this.getBodyInfo();
         this.state = {
+<<<<<<< HEAD
             smallStats: [
                 {
                     label: "Posts",
@@ -140,13 +141,15 @@ class BlogOverview extends Component {
                 }
             ],
 
+=======
+>>>>>>> frontend-ran
             bodyInfo: [],
             bodyfat: [],
             bmi: [],
             weight: [],
+            height: [],
             date: []
         };
-        this.getBodyInfo();
     }
 
     getBodyInfo() {
@@ -167,6 +170,7 @@ class BlogOverview extends Component {
                 self.setState({bmi: self.state.bodyInfo.map(o=>o.bmi)});
                 // console.log(self.state.bmi);
                 self.setState({weight: self.state.bodyInfo.map(o=>o.weight)});
+                self.setState({height: self.state.bodyInfo.map(o=>o.height)});
                 // console.log(self.state.weight);
                 self.setState({date: self.state.bodyInfo.map(o=>o.date)});
                 // console.log(self.state.date);
@@ -236,6 +240,85 @@ class BlogOverview extends Component {
     // };
 
     render() {
+        const smallStats = [
+            {
+                label: "Height",
+                value: this.state.height.length==0? 'N/A' : this.state.height[this.state.height.length-1] + ' cm',
+                percentage: this.state.height.length<2 ? '0%' : ((this.state.height[this.state.height.length-1]-this.state.height[this.state.height.length-2])/this.state.height[this.state.height.length-2]*100).toFixed(2) + '%',
+                increase: this.state.height.length<2 ? true : (this.state.height[this.state.height.length-1]-this.state.height[this.state.height.length-2]>=0? true: false),
+                decrease: this.state.height.length<2 ? false : (this.state.height[this.state.height.length-1]-this.state.height[this.state.height.length-2]>=0? false: true),
+                // chartLabels: [null, null, null, null, null, null, null],
+                attrs: {md: "6", sm: "6"},
+                datasets: [
+                    {
+                        label: "Today",
+                        fill: "start",
+                        borderWidth: 1.5,
+                        backgroundColor: "rgba(0, 184, 216, 0.1)",
+                        borderColor: "rgb(0, 184, 216)",
+                        data: this.state.height,
+                    }
+                ]
+            },
+            {
+                label: "Weight",
+                value: this.state.weight.length==0? 'N/A' : this.state.weight[this.state.weight.length-1] + ' kg',
+                percentage: this.state.weight.length<2 ? '0%' : ((this.state.weight[this.state.weight.length-1]-this.state.weight[this.state.weight.length-2])/this.state.weight[this.state.weight.length-2]*100).toFixed(2) + '%',
+                increase: this.state.weight.length<2 ? true : (this.state.weight[this.state.weight.length-1]-this.state.weight[this.state.weight.length-2]>=0? true: false),
+                decrease: this.state.weight.length<2 ? false : (this.state.weight[this.state.weight.length-1]-this.state.weight[this.state.weight.length-2]>=0? false: true),
+                // chartLabels: [null, null, null, null, null, null, null],
+                attrs: {md: "6", sm: "6"},
+                datasets: [
+                    {
+                        label: "Today",
+                        fill: "start",
+                        borderWidth: 1.5,
+                        backgroundColor: "rgba(23,198,113,0.1)",
+                        borderColor: "rgb(23,198,113)",
+                        data: this.state.weight,
+                    }
+                ]
+            },
+            {
+                label: "Body Fat Percent",
+                value: this.state.bodyfat.length==0? 'N/A' : this.state.bodyfat[this.state.bodyfat.length-1] + '%',
+                percentage: this.state.bodyfat.length<2 ? '0%' : ((this.state.bodyfat[this.state.bodyfat.length-1]-this.state.bodyfat[this.state.bodyfat.length-2])/this.state.bodyfat[this.state.bodyfat.length-2]*100).toFixed(2) + '%',
+                increase: this.state.bodyfat.length<2 ? true : (this.state.bodyfat[this.state.bodyfat.length-1]-this.state.bodyfat[this.state.bodyfat.length-2]>=0? true: false),
+                decrease: this.state.bodyfat.length<2 ? false : (this.state.bodyfat[this.state.bodyfat.length-1]-this.state.bodyfat[this.state.bodyfat.length-2]>=0? false: true),
+                // chartLabels: [null, null, null, null, null, null, null],
+                attrs: {md: "4", sm: "6"},
+                datasets: [
+                    {
+                        label: "Today",
+                        fill: "start",
+                        borderWidth: 1.5,
+                        backgroundColor: "rgba(255,180,0,0.1)",
+                        borderColor: "rgb(255,180,0)",
+                        data: this.state.bodyfat,
+                    }
+                ]
+            },
+            {
+                label: "B.M.I.",
+                value: this.state.bmi.length==0? 'N/A' : this.state.bmi[this.state.bmi.length-1],
+                percentage: this.state.bmi.length<2 ? '0%' : ((this.state.bmi[this.state.bmi.length-1]-this.state.bmi[this.state.bmi.length-2])/this.state.bmi[this.state.bmi.length-2]*100).toFixed(2) + '%',
+                increase: this.state.bmi.length<2 ? true : (this.state.bmi[this.state.bmi.length-1]-this.state.bmi[this.state.bmi.length-2]>=0? true: false),
+                decrease: this.state.bmi.length<2 ? false : (this.state.bmi[this.state.bmi.length-1]-this.state.bmi[this.state.bmi.length-2]>=0? false: true),
+                // chartLabels: [null, null, null, null, null, null, null],
+                attrs: {md: "4", sm: "6"},
+                datasets: [
+                    {
+                        label: "Today",
+                        fill: "start",
+                        borderWidth: 1.5,
+                        backgroundColor: "rgba(255,65,105,0.1)",
+                        borderColor: "rgb(255,65,105)",
+                        data: this.state.bmi,
+                    }
+                ]
+            }
+        ]
+        console.log(this.state.weight.slice(0, this.state.weight.length));
         return (
             <Container fluid className="main-content-container px-4">
                 {/* Page Header */}
@@ -246,7 +329,7 @@ class BlogOverview extends Component {
 
                 {/* Small Stats Blocks */}
                 <Row>
-                    {this.state.smallStats.map((stats, idx) => (
+                    {smallStats.map((stats, idx) => (
                         <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
                             <SmallStats
                                 id={`small-stats-${idx}`}
