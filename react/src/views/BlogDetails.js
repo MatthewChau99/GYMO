@@ -7,6 +7,7 @@ import Author from "../components/blog-posts/Author";
 import Details from "../components/blog-posts/Details";
 import Comments from "../components/blog-posts/Comments";
 import BlogDetail from "../components/blog/BlogDetail";
+import {Form} from "react-advanced-form";
 import axios from "axios";
 import store from "../states/store";
 
@@ -24,8 +25,7 @@ class BlogDetails extends Component {
             user: store.getState().user,
             commentList: "No comments",
             hasComments: 0,
-            comment: "",
-            hasGotComments: 0
+            hasGotComments: 0,
         };
 
         this.addLike = this.addLike.bind(this);
@@ -85,8 +85,10 @@ class BlogDetails extends Component {
                 });
                 self.getComments();
                 self.setState({
-                    commentsNum: self.state.commentsNum + 1
-                })
+                    commentsNum: self.state.commentsNum + 1,
+                    commentContent: ""
+                });
+                self.form.reset();
             }).catch(function (error) {
                 console.log(error)
             });
@@ -139,7 +141,7 @@ class BlogDetails extends Component {
                         author: post.userName,
                         authorAvatar: require("../images/avatars/1.jpg"),
                         title: post.title,
-                        body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                        body: post.content,
                         date: post.date,
                         likesNum: post.likesNum,
                         commentsNum: post.comments.length
@@ -165,7 +167,7 @@ class BlogDetails extends Component {
                 postID: post._id,
                 authorAvatar: require("../images/avatars/1.jpg"),
                 title: post.title,
-                body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                body: post.content,
                 date: post.date,
                 likesNum: post.likesNum,
                 commentsNum: post.comments.length
@@ -194,6 +196,7 @@ class BlogDetails extends Component {
     }
 
     render() {
+        console.log("comment: " + this.state.commentContent);
         if (this.state.PostsListOne.length > 0 && this.state.hasGotComments === 1) {
             return (
                 <Container fluid className="main-content-container px-4 pb-4">
@@ -218,7 +221,7 @@ class BlogDetails extends Component {
                             <Comments addComment={this.addComment.bind(this)}
                                       changeComment={this.changeComment.bind(this)}
                                       getComments={this.getComments.bind(this)} commentList={this.state.commentList}
-                                      hasComment={this.state.hasComment}/>
+                                      hasComment={this.state.hasComment} currentText={this.state.commentContent}/>
                         </Col>
                     </Row>
                 </Container>

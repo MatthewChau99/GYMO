@@ -15,6 +15,7 @@ class Comments extends Component {
             commentList: this.props.commentList,
             user: store.getState().user,
             hasComment: this.props.hasComment,
+            currentText: this.props.currentText
         };
     }
 
@@ -29,9 +30,10 @@ class Comments extends Component {
                     <ListGroup flush>
                         <ListGroupItem className="p-3">
                             <Comment postID={this.state.postID} commentList={this.props.commentList} hasComment={this.props.hasComment}/>
-                            <Form onChange={(event) => this.props.changeComment(event)}
-                                  onSubmit={(event) => this.props.addComment(event)}>
-                                <FormInput placeholder="Comment something and press enter!">
+                            <Form ref={form => this.form = form} onChange={(event) => this.props.changeComment(event)}
+                                  onSubmit={(event) => this.props.addComment(event)}
+                                  value={this.state.currentText}>
+                                <FormInput placeholder="Comment something and enter!">
                                 </FormInput>
                             </Form>
                         </ListGroupItem>
