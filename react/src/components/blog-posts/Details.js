@@ -46,7 +46,7 @@ class Details extends Component {
                 </CardBody>
             </Card>
         )
-    }rontend-ran
+    }
 
 }
 

@@ -137,13 +137,7 @@ class BlogOverview extends Component {
                     ]
                 }
             ],
-<<<<<<< HEAD
-            bodyInfo: []
-        };
-    }
 
-
-=======
             bodyInfo: [],
             bodyfat: [],
             bmi: [],
@@ -153,7 +147,6 @@ class BlogOverview extends Component {
         this.getBodyInfo();
     }
 
->>>>>>> frontend-ran
     getBodyInfo() {
         const self = this;
         if (store.getState().loginStatus) {
@@ -165,8 +158,7 @@ class BlogOverview extends Component {
                 self.setState({
                     bodyInfo: response.data.data
                 });
-<<<<<<< HEAD
-=======
+
                 // console.log(self.state.bodyInfo);
                 self.setState({bodyfat: self.state.bodyInfo.map(o=>o.bodyFatPerc)});
                 // console.log(self.state.bodyfat);
@@ -176,7 +168,6 @@ class BlogOverview extends Component {
                 // console.log(self.state.weight);
                 self.setState({date: self.state.bodyInfo.map(o=>o.date)});
                 // console.log(self.state.date);
->>>>>>> frontend-ran
             }).catch((error) => {
                 console.log(error);
             })
@@ -214,23 +205,7 @@ class BlogOverview extends Component {
                 <Row>
                     {/* Users Overview */}
                     <Col lg="8" md="12" sm="12" className="mb-4">
-<<<<<<< HEAD
-                        <UsersOverview/>
-                    </Col>
 
-                    {/* Users by Device */}
-                    <Col lg="4" md="6" sm="12" className="mb-4">
-                        <UsersByDevice/>
-                    </Col>
-
-                    {/* New Draft */}
-                    <Col lg="6" md="6" sm="12" className="mb-4">
-                        <BMIOverview/>
-                    </Col>
-
-                    {/* Discussions */}
-                    <Col lg="6" md="12" sm="12" className="mb-4">
-=======
                         <BodyfatOverview bodyfat={this.state.bodyfat} date={this.state.date}/>
                     </Col>
 
@@ -246,7 +221,6 @@ class BlogOverview extends Component {
 
                     {/* Discussions */}
                     <Col lg="8" md="12" sm="12" className="mb-4">
->>>>>>> frontend-ran
                         <WeightOverview/>
                     </Col>
 
