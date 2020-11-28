@@ -88,6 +88,9 @@ class BlogDetails extends Component {
                     commentsNum: self.state.commentsNum + 1,
                     commentContent: ""
                 });
+                Array.from(document.querySelectorAll("input")).forEach(
+                    input => (input.value = "")
+                  );
                 self.form.reset();
             }).catch(function (error) {
                 console.log(error)
@@ -196,7 +199,7 @@ class BlogDetails extends Component {
     }
 
     render() {
-        console.log("comment: " + this.state.commentContent);
+        //console.log("comment: " + this.state.commentContent);
         if (this.state.PostsListOne.length > 0 && this.state.hasGotComments === 1) {
             return (
                 <Container fluid className="main-content-container px-4 pb-4">
