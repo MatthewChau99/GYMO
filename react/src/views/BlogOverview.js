@@ -221,7 +221,7 @@ class BlogOverview extends Component {
 
                     {/* Discussions */}
                     <Col lg="8" md="12" sm="12" className="mb-4">
-                        <WeightOverview/>
+                        <WeightOverview weight={this.state.weight} date={this.state.date}/>
                     </Col>
 
                     {/* Top Referrals */}

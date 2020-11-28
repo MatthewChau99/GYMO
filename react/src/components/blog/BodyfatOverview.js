@@ -41,10 +41,12 @@ class BodyfatOverview extends React.Component {
             {
               gridLines: false,
               ticks: {
-                callback(tick, index) {
-                  // Jump every 7 values on the X axis labels to avoid clutter.
-                  return index % 7 !== 0 ? "" : tick;
-                }
+                padding: 10,
+                autoSkip: true,
+                // callback(tick, index) {
+                //   // Jump every 7 values on the X axis labels to avoid clutter.
+                //   return index % 7 !== 0 ? "" : tick;
+                // }
               }
             }
           ],
@@ -52,6 +54,7 @@ class BodyfatOverview extends React.Component {
             {
               ticks: {
                 suggestedMax: 45,
+                suggestedMin: 0,
                 callback(tick) {
                   if (tick === 0) {
                     return tick;
