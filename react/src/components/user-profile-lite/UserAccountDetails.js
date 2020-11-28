@@ -1,18 +1,5 @@
 import React, {Component} from "react";
-import {
-    Button,
-    Card,
-    CardHeader,
-    Col,
-    Form,
-    FormGroup,
-    FormInput,
-    FormSelect,
-    FormTextarea,
-    ListGroup,
-    ListGroupItem,
-    Row
-} from "shards-react";
+import {Button, Card, CardHeader, Col, Form, FormInput, ListGroup, ListGroupItem, Row} from "shards-react";
 import axios from "axios";
 import store from "../../states/store";
 import {withRouter} from "react-router-dom";
@@ -22,20 +9,20 @@ class UserAccountDetails extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user: store.getState().user,
-            name: store.getState().user.name,
-            email: store.getState().user.email,
-            updatedName: store.getState().user.name,
-            updatedPhone: store.getState().user.phone,
-            updatedPassword: store.getState().user.password,
-            updatedIntro: store.getState().user.intro,
+            user: "",
+            name: "",
+            email: "",
+            updatedName: "",
+            updatedPhone: 0,
+            updatedIntro: "",
             userID: this.props.userID,
         };
+
+        this.getUser(this.props.userID);
     }
 
     updateName(event) {
         this.setState({updatedName: event.target.value});
-        console.log(this.state.updatedName);
     }
 
     updatePhone(event) {
@@ -44,15 +31,30 @@ class UserAccountDetails extends Component {
 
     updateEmail(event) {
         this.setState({email: event.target.value});
-        console.log(this.state.email);
-    }
-
-    updatePassword(event) {
-        this.setState({updatedPassword: event.target.value});
     }
 
     updateIntro(event) {
         this.setState({updatedIntro: event.target.value});
+    }
+
+    getUser(userID) {
+        let self = this;
+        let user_id = userID;
+        axios.get(`/account/user/${user_id}`,
+            {params: {userID: user_id}}
+        ).then( async (response) => {
+            self.setState({
+                user: response.data["user"],
+                name: response.data["user"].name,
+                email: response.data["user"].email,
+                updatedName: response.data["user"].name,
+                updatedPhone: response.data["user"].phone,
+                updatedIntro: response.data["user"].intro
+            });
+            console.log(self);
+        }).catch(function (error) {
+            console.log(error);
+        })
     }
 
     updateAccountInfo(event) {
@@ -64,7 +66,6 @@ class UserAccountDetails extends Component {
                 email: this.state.email,
                 name: this.state.updatedName,
                 phone: this.state.updatedPhone,
-                // password: this.state.updatedPassword
                 intro: this.state.updatedIntro
             }
         }).then(() => {
@@ -72,6 +73,7 @@ class UserAccountDetails extends Component {
         }).catch(function (error) {
             console.log(error);
         });
+
     }
 
     render() {
@@ -140,7 +142,14 @@ class UserAccountDetails extends Component {
                                         {/* Description */}
                                         <Col md="12" className="form-group">
                                             <label htmlFor="feDescription">Introduction</label>
-                                            <FormTextarea id="feDescription" rows="5"/>
+                                            <FormInput
+                                                type="intro"
+                                                id="feDescription"
+                                                value={this.state.updatedIntro}
+                                                onChange={(event) => this.updateIntro(event)}
+                                                autoComplete="current-intro"
+                                            />
+                                            {/*<FormTextarea id="feDescription" rows="5"/>*/}
                                         </Col>
                                     </Row>
                                     <Button type="submit"

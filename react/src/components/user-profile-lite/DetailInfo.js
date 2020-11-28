@@ -120,9 +120,6 @@ class DetailInfo extends Component {
                                             />
                                         </Col>
                                     </Row>
-                                    <Col>
-                                        <label>Health Condition: Underweighted!</label>
-                                    </Col>
                                     <br/>
                                     <Button theme="accent" onClick={(event) => {
                                         this.updateBodyInfo(event)

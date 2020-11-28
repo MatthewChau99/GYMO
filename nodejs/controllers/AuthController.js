@@ -29,7 +29,7 @@ const register = async (req, res) => {
                 email: req.body.email,
                 phone: req.body.phone,
                 password: hashedPass,
-                // intro: req.body.intro,
+                intro: "None",
                 pictureID: req.body.avatarID
             });
             await user.save();

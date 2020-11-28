@@ -34,7 +34,7 @@ class UserProfileLite extends Component {
                     <Row>
                         <Col lg="4">
                             <UserDetails userID={this.state.userID}/>
-                            {this.state.userID === this.state.user._id ? <UserAccountDetails/> : ""}
+                            {this.state.userID === this.state.user._id ? <UserAccountDetails userID={this.state.userID}/> : ""}
                         </Col>
                         <Col lg="8">
                             <BlogViews userID={this.state.userID}/>
