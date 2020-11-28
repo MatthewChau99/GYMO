@@ -3,7 +3,7 @@ import Comment from "./Comment";
 import {withRouter} from "react-router-dom";
 import {Card, CardBody, CardHeader, Form, FormInput, ListGroup, ListGroupItem} from "shards-react";
 import store from "../../states/store";
-import axios from "axios";
+
 
 
 class Comments extends Component {
@@ -12,43 +12,10 @@ class Comments extends Component {
         this.state = {
             title: "Comments",
             postID: this.props.location.state.postID,
-            comment: "",
-            user: store.getState().user
+            commentList: this.props.commentList,
+            user: store.getState().user,
+            hasComment: this.props.hasComment,
         };
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-
-        if (this.state.user) {
-            axios({
-                method: 'post',
-                url: `/posts/comment/${this.state.postID}`,
-                data: {
-                    postID: this.state.postID,
-                    content: this.state.comment,
-                    date: Date.now(),
-                    userID: this.state.user._id
-                }
-            }).then((response) => {
-                console.log(this.state.comment);
-                this.props.history.push({
-                    pathname: 'blog-posts',
-                    state: this.state.postID
-                })
-            }).catch(function (error) {
-                console.log(error)
-            });
-        } else {
-            this.props.history.push("login");
-        }
-
-    }
-
-    handleChange(event) {
-        this.setState({
-            comment: event.target.value
-        })
     }
 
     render() {
@@ -61,11 +28,10 @@ class Comments extends Component {
                 <CardBody className="p-0">
                     <ListGroup flush>
                         <ListGroupItem className="p-3">
-                            <Comment postID={this.state.postID}/>
-                            <Form onChange={(event) => this.handleChange(event)}
-                                  onSubmit={(event) => this.handleSubmit(event)}>
-                                <FormInput placeholder="Comment Something!">
-
+                            <Comment postID={this.state.postID} commentList={this.props.commentList} hasComment={this.props.hasComment}/>
+                            <Form onChange={(event) => this.props.changeComment(event)}
+                                  onSubmit={(event) => this.props.addComment(event)}>
+                                <FormInput placeholder="Comment something and press enter!">
                                 </FormInput>
                             </Form>
                         </ListGroupItem>

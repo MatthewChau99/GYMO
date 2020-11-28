@@ -102,6 +102,7 @@ const updateUserInfo = async (req, res) => {
             {
                 "name": req.body.name,
                 "phone": req.body.phone,
+                "intro": req.body.intro
             }
         );
         if (user) {
@@ -166,8 +167,6 @@ const deleteBodyInfoFromUser = async (userID, BodyInfoID) => {
             bodyInfo: BodyInfoID
         }
     });
-    console.log(BodyInfoID);
-    console.log(user);
 };
 
 module.exports = {

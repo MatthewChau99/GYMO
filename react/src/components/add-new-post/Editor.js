@@ -12,6 +12,22 @@ export default class Editor extends Component {
         this.updatePostTitle = this.updatePostTitle.bind(this);
         this.updatePostContent = this.updatePostContent.bind(this);
     }
+    modules = {
+        toolbar: [
+          [{ 'header': [1, 2, false] }],
+          ['bold', 'italic', 'underline','strike', 'blockquote'],
+          [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+          ['link', 'image'],
+          ['clean']
+        ],
+    };
+
+    formats = [
+        'header',
+        'bold', 'italic', 'underline', 'strike', 'blockquote',
+        'list', 'bullet', 'indent',
+        'link', 'image'
+    ];
 
     updatePostTitle(event) {
         this.props.updatePostTitle(event);
@@ -29,7 +45,11 @@ export default class Editor extends Component {
                         <FormInput onChange={(event) => this.updatePostTitle(event)}
                                    size="lg" className="mb-3" placeholder="Your Post Title"/>
                         <ReactQuill onChange={this.updatePostContent}
-                                    className="add-new-post__editor mb-1"/>
+                                    className="add-new-post__editor mb-1"
+                                    theme="snow"
+                                    modules={this.modules}
+                                    formats={this.formats}
+                                    />
                     </Form>
                 </CardBody>
             </Card>

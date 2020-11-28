@@ -20,7 +20,6 @@ class UserDetails extends Component {
         };
         this.getUser.bind(this);
         this.getUser(this.props.location.state.userID);
-        console.log(this.props.location.state.userID);
         this.checkFollowState();
     }
 
@@ -71,8 +70,6 @@ class UserDetails extends Component {
                 self.setState({
                     follow: 1
                 });
-                console.log(this.state.follow);                
-                console.log(response.data.message);
             }).catch((error) => {
                 console.log(error);
             })
@@ -96,7 +93,7 @@ class UserDetails extends Component {
                 self.setState({
                     follow: 0
                 });
-                console.log(response.data.message);
+
             }).catch((error) => {
                 console.log(error);
             })
@@ -126,20 +123,15 @@ class UserDetails extends Component {
             }).catch(function (error) {
                 console.log(error);
             })
-        } else {
-            alert("You need to login first.");
         }
     }
 
 
     render() {
-        console.log(this.state.follow);
-        console.log(this.state.user);
         let initial = 'A';
         if (this.state.user.name) {
             initial = this.state.user.name[0].toUpperCase();
         }
-        // const initial = this.state.user ? this.state.user.name.toUpperCase() : 'A';
 
         let img = <img
             className="rounded-circle"
@@ -148,9 +140,9 @@ class UserDetails extends Component {
             width="110"
         />;
 
-        if (this.state.follow == 0){
+        if (this.state.follow === 0) {
             return (
-                
+
                 <Card small className="mb-4 pt-3">
                     <CardHeader className="border-bottom text-center">
                         <div className="mb-3 mx-auto">
@@ -159,7 +151,8 @@ class UserDetails extends Component {
                         <h4 className="mb-0">{this.state.user.name}</h4>
                         <span
                             className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
-                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                        <Button pill outline size="sm" className="mb-2"
+                                onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
                             <i className="material-icons mr-1" >person_add</i> Follow
                         </Button>
                     </CardHeader>
@@ -184,7 +177,8 @@ class UserDetails extends Component {
                         <h4 className="mb-0">{this.state.user.name}</h4>
                         <span
                             className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
-                        <Button pill outline size="sm" className="mb-2" onClick={this.state.follow == 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                        <Button pill outline size="sm" className="mb-2"
+                                onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
                             <i className="material-icons mr-1" >person_add</i> Unfollow
                         </Button>
                     </CardHeader>
@@ -199,7 +193,6 @@ class UserDetails extends Component {
                 </Card>
             );
         }
-        
     }
 }
 

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Badge, Card, CardBody, Col} from "shards-react";
+import {Badge, Card, CardBody, CardHeader, Col} from "shards-react";
 import axios from "axios";
 import store from "../../states/store";
 import {Link, withRouter} from "react-router-dom";
@@ -27,13 +27,15 @@ class BlogPost extends Component {
                         picFilePath: response.data
                     });
                     const newPost = {
-                        backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
+                        backgroundImage: require(post.content.substring(10, post.content.length()-2)),
                         categoryTheme: "dark",
                         author: post.userName,
                         postID: post.postID,
                         authorAvatar: require("../../images/avatars/" + post.userName[0].toUpperCase() + ".png"),
                         title: post.title,
-                        body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                        body: post.content.replace(/<p>/g, "").replace(/<h1>/g, "").replace(/<h2>/g, "")
+                            .replace(/<h3>/g, "").replace(/<u>/g, "").replace(/<ol>/g, "")
+                            .replace(/<strong>/g, "").replace(/<i>/g, "").replace(/<\/p>/g, "\n"),
                         date: post.date,
                         userID: post.userID
                     };
@@ -50,13 +52,19 @@ class BlogPost extends Component {
                 picFilePath: require("../../cache/default.jpg")
             });
             const newPost = {
-                backgroundImage: `url(${this.state.picFilePath})`,
+                backgroundImage: require("../../images/user-profile/" + Math.floor(Math.random() * 10) + ".jpg"),
                 categoryTheme: "dark",
                 author: post.userName,
                 postID: post.postID,
                 authorAvatar: require("../../images/avatars/" + post.userName[0].toUpperCase() + ".png"),
                 title: post.title,
-                body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                body: post.content.replace(/<p>/g, "").replace(/<h1>/g, "").replace(/<h2>/g, "")
+                    .replace(/<h3>/g, "").replace(/<u>/g, "").replace(/<ol>/g, "").replace(/<em>/g, "")
+                    .replace(/<strong>/g, "").replace(/<i>/g, "").replace(/<\/p>/g, "\n").replace(/<\/h1>/g, '\n')
+                    .replace(/<\/h2>/g, "\n").replace(/<\/h3>/g, "\n").replace(/<\/u>/g, "\n").replace(/<\/em>/g, "\n")
+                    .replace(/<\/u>/g, "\n").replace(/<\/ol>/g, "").replace(/<\/strong>/g, "").replace(/<br>/g, "\n")
+                    .replace(post.content.substring(post.content.indexOf('<img'),(post.content.indexOf('>',post.content.indexOf('<img')))+1), "[image]")
+                    .replace(post.content.substring(post.content.indexOf('<img',(post.content.indexOf('>',post.content.indexOf('<img')))+1),(post.content.indexOf('>',(post.content.indexOf('<img',(post.content.indexOf('>',post.content.indexOf('<img')))+2))))),"[image]"),
                 date: post.date,
                 userID: post.userID
             };
@@ -87,7 +95,7 @@ class BlogPost extends Component {
                     <Card small className="card-post card-post--1">
                         <div
                             className="card-post__image"
-                            style={{backgroundImage: `${post.backgroundImage}`}}
+                            style={{backgroundImage: `url(${post.backgroundImage})`}}
                         >
                             <Badge
                                 pill
@@ -121,7 +129,10 @@ class BlogPost extends Component {
                                     {post.title}
                                 </a>
                             </h5>
-                            <span className="card-text d-inline-block mb-3">{post.body}</span>
+                            <span className="card-text d-inline-block mb-3">
+                                {post.body}
+                                {/*<div dangerouslySetInnerHTML={{ __html: post.body }}/>*/}
+                            </span>
                             <br/>
                             <span className="text-muted">{post.date}</span>
                         </CardBody>
@@ -129,10 +140,10 @@ class BlogPost extends Component {
                 </Col>
 
 
-    ))
+            ))
 
-    );
+        );
     }
-    }
+}
 
-    export default withRouter(BlogPost);
+export default withRouter(BlogPost);

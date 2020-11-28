@@ -95,7 +95,7 @@ class AddNewPost extends Component {
                         {/* Sidebar Widgets */}
                         <Col lg="3" md="12">
                             <SidebarActions uploadPost={this.uploadPost}/>
-                            <SidebarCategories/>
+                            {/*<SidebarCategories/>*/}
                         </Col>
                     </Row>
                 </Container>

@@ -27,12 +27,12 @@ const getAllPosts = async (req, res) => {
         let posts = await Post.find({}).sort({date: -1});
         let returnPosts = [];
 
-        for (let i = 0; i < Math.min(posts.length, 12); i++) {
+        for (let i = 0; i < posts.length; i++) {
             let user = await User.findById(posts[i].userID).lean();
             if (user) {
                 let returnPost = {
                     title: posts[i].title,
-                    content: posts[i].content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                    content: posts[i].content,
                     userID: posts[i].userID,
                     postID: posts[i]._id,
                     userName: user.name,

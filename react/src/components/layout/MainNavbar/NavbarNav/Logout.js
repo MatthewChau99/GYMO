@@ -20,17 +20,18 @@ class Logout extends React.Component {
 
     render() {
         return (
-            <DropdownItem className="nav-link-icon center" onClick={(event) => this.updateLogout(event)}>
-                <i className="material-icons" onClick={(event) => this.updateLogout(event)}>
-                    account_circle
-                </i> Logout
+            <DropdownItem className="text-center" onClick={(event) => this.updateLogout(event)}>
+                {/*<i className="material-icons" onClick={(event) => this.updateLogout(event)}>*/}
+                {/*    account_circle*/}
+                {/*</i>*/}
+                <span className="mb-2">Logout</span>
             </DropdownItem>
         );
     }
 }
 
 const mapStateToProps = state => {
-    return{
+    return {
         state
     }
 };

@@ -7,6 +7,7 @@ import UserDetails from "../components/user-profile-lite/UserDetails";
 import {connect} from "react-redux";
 import BlogViews from "../components/user-profile-lite/BlogViews";
 import {useLocation, withRouter} from "react-router-dom";
+import UserAccountDetails from "../components/user-profile-lite/UserAccountDetails";
 
 
 class UserProfileLite extends Component {
@@ -33,6 +34,7 @@ class UserProfileLite extends Component {
                     <Row>
                         <Col lg="4">
                             <UserDetails userID={this.state.userID}/>
+                            {this.state.userID === this.state.user._id ? <UserAccountDetails userID={this.state.userID}/> : ""}
                         </Col>
                         <Col lg="8">
                             <BlogViews userID={this.state.userID}/>
