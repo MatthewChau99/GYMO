@@ -14,7 +14,7 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
     return (
         <Card
             className="card-post card-post--1"
-            style={{width: '48rem'}}
+            // style={{width: '48rem'}}
         >
             {/* <div
         className="card-post__image"

@@ -22,19 +22,19 @@ class BlogPost extends Component {
                     picID: post.pictureID
                 }
             }).then(
-            
+
                 async (response) => {
-           
+
                     this.setState({
                         picFilePath: response.data
                     });
 
                     const newPost = {
                         // backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
-                        backgroundImage: require(post.content.subString(10, post.content.length()-2)),
+                        backgroundImage: require(post.content.substring(10, post.content.length()-2)),
                         categoryTheme: "dark",
                         author: post.userName,
-                        postID: post.postID,
+                        postID: post.postID,s
                         authorAvatar: require("../../images/avatars/" + post.userName[0].toUpperCase() + ".png"),
                         title: post.title,
                         body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
@@ -53,10 +53,10 @@ class BlogPost extends Component {
             this.setState({
                 picFilePath: require("../../cache/default.jpg")
             });
-            
+
             const newPost = {
                 // backgroundImage: `url(${this.state.picFilePath})`,
-                backgroundImage: require("../../images/user-profile/" + Math.floor(Math.random() * 10) + ".jpg"),    
+                backgroundImage: require("../../images/user-profile/" + Math.floor(Math.random() * 10) + ".jpg"),
                 categoryTheme: "dark",
                 author: post.userName,
                 postID: post.postID,
@@ -128,10 +128,10 @@ class BlogPost extends Component {
                             pathname: 'blog-details',
                             search: `?postID=${post.postID}`,
                             state: {postID: post.postID}
-                            
+
                         }}>
                             <span className="card-text d-inline-block mb-3">
-                                
+
                                 <div dangerouslySetInnerHTML={{ __html: post.body }}></div>
                             </span>
                             <br/>

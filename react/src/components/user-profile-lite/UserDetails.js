@@ -182,14 +182,14 @@ class UserDetails extends Component {
                             <i className="material-icons mr-1" >person_add</i> Unfollow
                         </Button>
                     </CardHeader>
-                    <ListGroup flush>
-                        <ListGroupItem className="p-4">
-                            <strong className="text-muted d-block mb-2">
-                                Introduction
-                            </strong>
-                            <span>{this.state.user.intro}</span>
-                        </ListGroupItem>
-                    </ListGroup>
+                    {/*<ListGroup flush>*/}
+                    {/*    <ListGroupItem className="p-4">*/}
+                    {/*        <strong className="text-muted d-block mb-2">*/}
+                    {/*            Introduction*/}
+                    {/*        </strong>*/}
+                    {/*        <span>{this.state.user.intro}</span>*/}
+                    {/*    </ListGroupItem>*/}
+                    {/*</ListGroup>*/}
                 </Card>
             );
         }

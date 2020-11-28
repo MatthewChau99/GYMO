@@ -136,50 +136,10 @@ class UserAccountDetails extends Component {
                                             />
                                         </Col>
                                     </Row>
-                                    <FormGroup>
-                                        <label htmlFor="feAddress">Address</label>
-                                        <FormInput
-                                            id="feAddress"
-                                            placeholder="Address"
-                                            value="1234 Main St."
-                                            onChange={() => {
-                                            }}
-                                        />
-                                    </FormGroup>
-                                    <Row form>
-                                        {/* City */}
-                                        <Col md="6" className="form-group">
-                                            <label htmlFor="feCity">City</label>
-                                            <FormInput
-                                                id="feCity"
-                                                placeholder="City"
-                                                onChange={() => {
-                                                }}
-                                            />
-                                        </Col>
-                                        {/* State */}
-                                        <Col md="4" className="form-group">
-                                            <label htmlFor="feInputState">State</label>
-                                            <FormSelect id="feInputState">
-                                                <option>Choose...</option>
-                                                <option>...</option>
-                                            </FormSelect>
-                                        </Col>
-                                        {/* Zip Code */}
-                                        <Col md="2" className="form-group">
-                                            <label htmlFor="feZipCode">Zip</label>
-                                            <FormInput
-                                                id="feZipCode"
-                                                placeholder="Zip Code"
-                                                onChange={() => {
-                                                }}
-                                            />
-                                        </Col>
-                                    </Row>
                                     <Row form>
                                         {/* Description */}
                                         <Col md="12" className="form-group">
-                                            <label htmlFor="feDescription">Description</label>
+                                            <label htmlFor="feDescription">Introduction</label>
                                             <FormTextarea id="feDescription" rows="5"/>
                                         </Col>
                                     </Row>

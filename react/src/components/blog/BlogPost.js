@@ -27,7 +27,7 @@ class BlogPost extends Component {
                         picFilePath: response.data
                     });
                     const newPost = {
-                        backgroundImage: `url("data:image/png;base64, ${this.state.picFilePath}")`,
+                        backgroundImage: require(post.content.substring(10, post.content.length()-2)),
                         categoryTheme: "dark",
                         author: post.userName,
                         postID: post.postID,
@@ -52,7 +52,7 @@ class BlogPost extends Component {
                 picFilePath: require("../../cache/default.jpg")
             });
             const newPost = {
-                backgroundImage: `url(${this.state.picFilePath})`,
+                backgroundImage: require("../../images/user-profile/" + Math.floor(Math.random() * 10) + ".jpg"),
                 categoryTheme: "dark",
                 author: post.userName,
                 postID: post.postID,
@@ -93,7 +93,7 @@ class BlogPost extends Component {
                     <Card small className="card-post card-post--1">
                         <div
                             className="card-post__image"
-                            style={{backgroundImage: `${post.backgroundImage}`}}
+                            style={{backgroundImage: `url(${post.backgroundImage})`}}
                         >
                             <Badge
                                 pill
