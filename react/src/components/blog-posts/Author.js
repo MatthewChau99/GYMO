@@ -3,7 +3,6 @@ import {Link, withRouter} from "react-router-dom";
 
 import React, {Component} from "react";
 import {Button, Card, CardBody, CardHeader, ListGroup, ListGroupItem} from "shards-react";
-
 import axios from "axios";
 import store from "../../states/store";
 
@@ -12,10 +11,10 @@ class Author extends Component {
         super(props);
         this.state = {
             postID: this.props.location.state.postID,
-            title: "",
+            title: "Author",
             author: "author",
             page: "",
-            tpost: "2",
+            tpost: 2,
             datestarted: "Sep 2020",
             userID: "",
             follow: 0
@@ -59,6 +58,7 @@ class Author extends Component {
         }).catch(function (error) {
             console.log(error);
         })
+
     }
 
     follow() {
@@ -84,6 +84,7 @@ class Author extends Component {
             })
         } else {
             alert("You need to login first.");
+            // return (<AuthError/>);
         }
     }
 
@@ -180,21 +181,21 @@ class Author extends Component {
                                 </span>
 
                                 <span className="d-flex mb-2">
-                                    <i className="material-icons mr-1">forward</i>
-                                    <strong className="mr-1">Main Page</strong>{" "}
+                                    <i className="material-icons mr-1 mt-2">forward</i>
+                                    <strong className="mr-2 mt-2">Main Page:</strong>{" "}
                                     {/*<a className="ml-auto" href={this.state.page}>Enter</a>*/}
 
-                                    <CardBody tag={Link} to={{
+                                    <Button outline pill theme = "light" tag={Link} to={{
                                         pathname: 'user-profile-lite',
                                         search: `?userID=${this.state.userID}`,
                                         state: {userID: this.state.userID}
                                     }}>
-                                        <a className="ml-auto" href={this.state.page}>Enter</a>
-                                    </CardBody>
+                                        Enter
+                                    </Button>
                                 </span>
                             </ListGroupItem>
                             <ListGroupItem className="d-flex px-3 border-0">
-                                <Button theme="accent" size="sm" className="ml-auto"
+                                <Button block theme="accent" size="md" className="ml-auto"
                                         onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
                                     <i className="material-icons">add</i> Follow
                                 </Button>
@@ -233,7 +234,7 @@ class Author extends Component {
                                 <span className="d-flex mb-2">
                                     <i className="material-icons mr-1">insert_invitation</i>
                                     <strong className="mr-1">Date Started:</strong>{" "}
-                                    <strong className="text-warning">{this.state.datestarted}</strong>{" "}
+                                    <strong className="text-warning">{this.state.datestarted.substring(0, 10)}</strong>{" "}
                                 </span>
 
                                 <span className="d-flex mb-2">
@@ -242,21 +243,21 @@ class Author extends Component {
                                     <strong className="text-light">{this.state.tpost}</strong>
                                 </span>
                                 <span className="d-flex">
-                                    <i className="material-icons mr-1">forward</i>
-                                    <strong className="mr-1">Main Page</strong>{" "}
-                                    <CardBody tag={Link} to={{
+                                    <i className="material-icons mr-1 mt-2">forward</i>
+                                    <strong className="mr-2 mt-2">Main Page:</strong>{" "}
+                                    <Button outline pill theme="light" tag={Link} to={{
                                         pathname: 'user-profile-lite',
                                         search: `?userID=${this.state.userID}`,
                                         state: {userID: this.state.userID}
                                     }}>
-                                        <a className="ml-auto" href={this.state.page}>Enter</a>
-                                    </CardBody>
+                                        Enter
+                                    </Button>
                                 </span>
                             </ListGroupItem>
                             <ListGroupItem className="d-flex px-3 border-0">
-                                <Button theme="accent" size="sm" className="ml-auto"
+                                <Button block theme="accent" size="md" className="ml-auto"
                                         onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
-                                    <i className="material-icons">Unfollow</i>
+                                    <i className="material-icons">remove</i> Unfollow
                                 </Button>
                             </ListGroupItem>
                         </ListGroup>
@@ -264,6 +265,7 @@ class Author extends Component {
                 </Card>
             );
         }
+
     }
 }
 

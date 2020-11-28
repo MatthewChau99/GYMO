@@ -34,20 +34,20 @@ class Followers extends Component {
     render() {
         const {followers} = this.state;
         return (
-            followers.map((follower) => (
-                <OverlayTrigger trigger="click" placement="bottom" overlay={
-                    <Popover id="popover-basic" className="text-center">
-                        <Popover.Title as="h3" size="lg">Followers</Popover.Title>
-                        <Popover.Content>
-                            <strong>{follower}</strong>
-                            <br/>
-                            <br/>
-                        </Popover.Content>
-                    </Popover>
-                }>
-                    <Button variant="light" className="text-center">Followers</Button>
-                </OverlayTrigger>
-            ))
+            <OverlayTrigger trigger="click" placement="bottom-end" overlay={
+                <Popover id="popover-basic" className="text-center">
+                    <Popover.Title as="h3" size="lg">Followers</Popover.Title>
+                    {followers.map((follower, index) => (
+                    <Popover.Content>
+                        <strong key={index}>{follower}</strong>
+                        <br/>
+                        <br/>
+                    </Popover.Content>
+                    ))}
+                </Popover>
+            }>
+                <Button variant="light" className="text-center">Followers</Button>
+            </OverlayTrigger>
         )
 
     }

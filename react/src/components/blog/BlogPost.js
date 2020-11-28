@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Badge, Card, CardBody, Col} from "shards-react";
+import {Badge, Card, CardBody, CardHeader, Col} from "shards-react";
 import axios from "axios";
 import store from "../../states/store";
 import {Link, withRouter} from "react-router-dom";
@@ -33,7 +33,9 @@ class BlogPost extends Component {
                         postID: post.postID,
                         authorAvatar: require("../../images/avatars/" + post.userName[0].toUpperCase() + ".png"),
                         title: post.title,
-                        body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                        body: post.content.replace(/<p>/g, "").replace(/<h1>/g, "").replace(/<h2>/g, "")
+                            .replace(/<h3>/g, "").replace(/<u>/g, "").replace(/<ol>/g, "")
+                            .replace(/<strong>/g, "").replace(/<i>/g, "").replace(/<\/p>/g, "\n"),
                         date: post.date,
                         userID: post.userID
                     };
@@ -56,7 +58,11 @@ class BlogPost extends Component {
                 postID: post.postID,
                 authorAvatar: require("../../images/avatars/" + post.userName[0].toUpperCase() + ".png"),
                 title: post.title,
-                body: post.content.replace(/<p>/g, "").replace(/<\/p>/g, ""),
+                body: post.content.replace(/<p>/g, "").replace(/<h1>/g, "").replace(/<h2>/g, "")
+                    .replace(/<h3>/g, "").replace(/<u>/g, "").replace(/<ol>/g, "").replace(/<em>/g, "")
+                    .replace(/<strong>/g, "").replace(/<i>/g, "").replace(/<\/p>/g, "\n").replace(/<\/h1>/g, '\n')
+                    .replace(/<\/h2>/g, "\n").replace(/<\/h3>/g, "\n").replace(/<\/u>/g, "\n").replace(/<\/em>/g, "\n")
+                    .replace(/<\/u>/g, "\n").replace(/<\/ol>/g, "").replace(/<\/strong>/g, "").replace(/<br>/g, "\n"),
                 date: post.date,
                 userID: post.userID
             };
@@ -111,17 +117,22 @@ class BlogPost extends Component {
                                 </div>
                             </CardBody>
                         </div>
-                        <CardBody tag={Link} to={{
-                            pathname: 'blog-details',
-                            search: `?postID=${post.postID}`,
-                            state: {postID: post.postID}
-                        }}>
+                        <CardHeader>
                             <h5 className="card-title">
                                 <a href="#" className="text-fiord-blue">
                                     {post.title}
                                 </a>
                             </h5>
-                            <span className="card-text d-inline-block mb-3">{post.body}</span>
+                        </CardHeader>
+                        <CardBody tag={Link} to={{
+                            pathname: 'blog-details',
+                            search: `?postID=${post.postID}`,
+                            state: {postID: post.postID}
+                        }}>
+                            <span className="card-text d-inline-block mb-3">
+                                {post.body}
+                                {/*<div dangerouslySetInnerHTML={{ __html: post.body }}/>*/}
+                            </span>
                             <br/>
                             <span className="text-muted">{post.date}</span>
                         </CardBody>
@@ -129,10 +140,10 @@ class BlogPost extends Component {
                 </Col>
 
 
-    ))
+            ))
 
-    );
+        );
     }
-    }
+}
 
-    export default withRouter(BlogPost);
+export default withRouter(BlogPost);

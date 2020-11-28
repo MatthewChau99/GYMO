@@ -10,8 +10,8 @@ export default () => {
     const loginState = useSelector(state => state.loginStatus);
 
     return (
-        <Nav navbar className="border-left flex-row">
-            <AddPost/>
+        <Nav navbar className="border-right flex-row">
+            {/*<AddPost/>*/}
             {/*<Notifications/>*/}
             {loginState ? <UserActions/> : ""}
             {loginState ? <Logout/> : <LogIn/>}

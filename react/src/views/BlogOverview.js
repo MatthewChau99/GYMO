@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from "prop-types";
-import {Col, Container, Row} from "shards-react";
+import {Col, Container, Row, Card, CardBody} from "shards-react";
 
 import PageTitle from "./../components/common/PageTitle";
 import SmallStats from "./../components/common/SmallStats";
@@ -10,6 +10,8 @@ import BMIOverview from "./../components/blog/BMIOverview";
 import WeightOverview from "./../components/blog/WeightOverview";
 import store from "../states/store";
 import axios from "axios";
+import Tabs from 'react-bootstrap/Tabs';
+import Tab from 'react-bootstrap/Tab';
 
 
 class BlogOverview extends Component {
@@ -174,6 +176,65 @@ class BlogOverview extends Component {
         }
     }
 
+    // render() {
+    //     return (
+    //         <Container fluid className="main-content-container px-4">
+    //             {/* Page Header */}
+    //             <Row noGutters className="page-header py-4">
+    //                 <PageTitle title="User Overview" subtitle="Dashboard" className="text-sm-left mb-3"
+    //                            onClick={this.getBodyInfo.bind(this)}/>
+    //             </Row>
+    //
+    //             {/* Small Stats Blocks */}
+    //             <Row>
+    //                 {this.state.smallStats.map((stats, idx) => (
+    //                     <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
+    //                         <SmallStats
+    //                             id={`small-stats-${idx}`}
+    //                             variation="1"
+    //                             chartData={stats.datasets}
+    //                             chartLabels={stats.chartLabels}
+    //                             label={stats.label}
+    //                             value={stats.value}
+    //                             percentage={stats.percentage}
+    //                             increase={stats.increase}
+    //                             decrease={stats.decrease}
+    //                         />
+    //                     </Col>
+    //                 ))}
+    //             </Row>
+    //
+    //             <Row>
+    //                 {/* Users Overview */}
+    //                 <Col lg="8" md="12" sm="12" className="mb-4">
+    //
+    //                     <BodyfatOverview bodyfat={this.state.bodyfat} date={this.state.date}/>
+    //                 </Col>
+    //
+    //                 {/* Users by Device
+    //                 <Col lg="4" md="6" sm="12" className="mb-4">
+    //                     <UsersByDevice/>
+    //                 </Col> */}
+    //
+    //                 {/* New Draft */}
+    //                 <Col lg="8" md="12" sm="12" className="mb-4">
+    //                     <BMIOverview bmi={this.state.bmi} date={this.state.date}/>
+    //                 </Col>
+    //
+    //                 {/* Discussions */}
+    //                 <Col lg="8" md="12" sm="12" className="mb-4">
+    //                     <WeightOverview weight={this.state.weight} date={this.state.date}/>
+    //                 </Col>
+    //
+    //                 {/* Top Referrals */}
+    //                 {/* <Col lg="3" md="12" sm="12" className="mb-4">
+    //     <TopReferrals />
+    //   </Col> */}
+    //             </Row>
+    //         </Container>
+    //     )
+    // };
+
     render() {
         return (
             <Container fluid className="main-content-container px-4">
@@ -203,35 +264,29 @@ class BlogOverview extends Component {
                 </Row>
 
                 <Row>
-                    {/* Users Overview */}
-                    <Col lg="8" md="12" sm="12" className="mb-4">
+                    <Col lg="12" md="12" sm="12" className="mb-4">
+                        <Card>
+                            <CardBody>
+                                <Tabs defaultActiveKey="home" id="tab">
 
-                        <BodyfatOverview bodyfat={this.state.bodyfat} date={this.state.date}/>
+                                    <Tab eventKey="home" title="Body Fat">
+                                        <BodyfatOverview bodyfat={this.state.bodyfat} date={this.state.date}/>
+                                    </Tab>
+                                    <Tab eventKey="profile" title="Weight">
+                                        <WeightOverview weight={this.state.weight} date={this.state.date}/>
+                                    </Tab>
+                                    <Tab eventKey="contact" title="B.M.I.">
+                                        <BMIOverview bmi={this.state.bmi} date={this.state.date}/>
+                                    </Tab>
+                                </Tabs>
+                            </CardBody>
+                        </Card>
                     </Col>
-
-                    {/* Users by Device
-                    <Col lg="4" md="6" sm="12" className="mb-4">
-                        <UsersByDevice/>
-                    </Col> */}
-
-                    {/* New Draft */}
-                    <Col lg="8" md="12" sm="12" className="mb-4">
-                        <BMIOverview bmi={this.state.bmi} date={this.state.date}/>
-                    </Col>
-
-                    {/* Discussions */}
-                    <Col lg="8" md="12" sm="12" className="mb-4">
-                        <WeightOverview weight={this.state.weight} date={this.state.date}/>
-                    </Col>
-
-                    {/* Top Referrals */}
-                    {/* <Col lg="3" md="12" sm="12" className="mb-4">
-        <TopReferrals />
-      </Col> */}
                 </Row>
             </Container>
         )
     };
+
 }
 
 BlogOverview.propTypes = {

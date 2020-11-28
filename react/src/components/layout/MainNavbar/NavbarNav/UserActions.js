@@ -55,16 +55,8 @@ export default class UserActions extends React.Component {
                     <DropdownItem tag={Link} to={{pathname:"user-profile-lite", state: {userID: this.state.user._id}}}>
                         <i className="material-icons">&#xE7FD;</i> Profile
                     </DropdownItem>
-                    {/* <DropdownItem tag={Link} to="edit-user-profile">
-            <i className="material-icons">&#xE8B8;</i> Edit Profile
-          </DropdownItem> */}
                     <DropdownItem tag={Link} to="add-new-post">
-                        {/* <i className="material-icons">&#xE2C7;</i> Add A New Post */}
                         <i className="material-icons">post_add</i> Add New Post
-                    </DropdownItem>
-                    <DropdownItem divider/>
-                    <DropdownItem tag={Link} to="/" className="text-danger">
-                        <i className="material-icons text-danger">&#xE879;</i> Logout
                     </DropdownItem>
                 </Collapse>
             </NavItem>

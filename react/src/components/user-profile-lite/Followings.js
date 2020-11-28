@@ -34,22 +34,21 @@ class Followings extends Component {
     render() {
         const {follows} = this.state;
         return (
-            follows.map((follow, idx) => (
-                <OverlayTrigger trigger="click" placement="bottom" overlay={
+                <OverlayTrigger trigger="click" placement="bottom-start" overlay={
                     <Popover id="popover-basic" className="text-center">
                         <Popover.Title as="h3" size="lg">Followings</Popover.Title>
-                        <Popover.Content>
-                            <strong>{follow}</strong>
-                            <br/>
-                            <br/>
-                        </Popover.Content>
+                        {follows.map((follow, idx) => (
+                            <Popover.Content>
+                                <strong key={idx}>{follow}</strong>
+                                <br/>
+                                <br/>
+                            </Popover.Content>
+                        ))}
                     </Popover>
                 }>
                     <Button variant="light" className="text-center">Followings</Button>
                 </OverlayTrigger>
-            ))
         )
-
     }
 
 

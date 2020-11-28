@@ -36,7 +36,8 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
                 </Card.Title>
 
                 <Card.Text className="d-inline-block mb-5">
-                    {text}
+                    {/* {text} */}
+                    <div  dangerouslySetInnerHTML={{ __html: text }} ></div>
                 </Card.Text>
 
                 {/* <Button variant="primary" >Go Back</Button> */}

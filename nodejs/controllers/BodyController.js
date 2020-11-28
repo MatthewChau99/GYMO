@@ -67,8 +67,6 @@ const getUserBodyInfo = async (req, res) => {
         }
     }
 
-    console.log(BodyInfos);
-
     res.status(200).json({data: BodyInfos});
 };
 
