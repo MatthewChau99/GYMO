@@ -11,7 +11,10 @@ export default class LogIn extends React.Component {
         return (
             <DropdownItem tag={Link} to="login" className="nav-link-icon center">
                 <Link className="nav-link-icon" to="/login">
-                    <i className="material-icons">account_circle</i> Log In
+                    {/*<i className="material-icons">account_circle</i>*/}
+                    <span>
+                        Log In
+                    </span>
                 </Link>
             </DropdownItem>
         );

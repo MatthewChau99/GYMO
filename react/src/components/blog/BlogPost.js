@@ -117,18 +117,16 @@ class BlogPost extends Component {
                                 </div>
                             </CardBody>
                         </div>
-                        <CardHeader>
-                            <h5 className="card-title">
-                                <a href="#" className="text-fiord-blue">
-                                    {post.title}
-                                </a>
-                            </h5>
-                        </CardHeader>
                         <CardBody tag={Link} to={{
                             pathname: 'blog-details',
                             search: `?postID=${post.postID}`,
                             state: {postID: post.postID}
                         }}>
+                            <h5 className="card-title">
+                                <a href="#" className="text-fiord-blue">
+                                    {post.title}
+                                </a>
+                            </h5>
                             <span className="card-text d-inline-block mb-3">
                                 {post.body}
                                 {/*<div dangerouslySetInnerHTML={{ __html: post.body }}/>*/}
