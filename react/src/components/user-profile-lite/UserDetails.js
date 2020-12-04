@@ -139,8 +139,32 @@ class UserDetails extends Component {
             alt={this.state.user.name}
             width="110"
         />;
+        console.log(store.getState().user);
+        if (this.state.userID === store.getState().user._id){
+            console.log("in");
+            return (
 
-        if (this.state.follow === 0) {
+                <Card small className="mb-4 pt-3">
+                    <CardHeader className="border-bottom text-center">
+                        <div className="mb-3 mx-auto">
+                            {img}
+                        </div>
+                        <h4 className="mb-0">{this.state.user.name}</h4>
+                        <span
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                    </CardHeader>
+                    <ListGroup flush>
+                        <ListGroupItem className="p-4">
+                            <strong className="text-muted d-block mb-2">
+                                Introduction
+                            </strong>
+                            <span>{this.state.user.intro}</span>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Card>
+            );
+        }
+        else if (this.state.follow === 0) {
             return (
 
                 <Card small className="mb-4 pt-3">

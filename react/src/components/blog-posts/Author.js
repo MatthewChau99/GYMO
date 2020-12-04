@@ -139,7 +139,67 @@ class Author extends Component {
     }
 
     render() {
-        if (this.state.follow === 0) {
+      if (store.getState().loginStatus && this.state.userID === store.getState().user._id) {
+        return (
+          <Card small className="mb-3">
+              <CardHeader className="border-bottom">
+                  <h6 className="m-0">{this.state.title}</h6>
+              </CardHeader>
+
+              <CardBody className="p-0">
+                  <ListGroup flush>
+                      <ListGroupItem className="p-3">
+                          <span className="d-flex mb-2">
+                              <div className="card-post__author d-flex">
+                                  <a
+                                      href="#"
+                                      className="card-post__author-avatar card-post__author-avatar--small"
+                                      style={{backgroundImage: `url(${require("../../images/avatars/" + this.state.author[0].toUpperCase() + ".png")})`}}
+                                  >
+                                    Written by {this.state.author}
+                                  </a>
+                              </div>
+                          </span>
+
+                          <span className="d-flex mb-2">
+                              <i className="material-icons mr-1">face</i>
+                              <strong className="mr-1">User Name:</strong>{" "}
+                              <strong className="text-dark">{this.state.author}</strong>{" "}
+                          </span>
+
+                          <span className="d-flex mb-2">
+                              <i className="material-icons mr-1">insert_invitation</i>
+                              <strong className="mr-1">Date Started:</strong>{" "}
+                              <strong
+                                  className="text-warning">{this.state.datestarted.substring(0, 10)}</strong>{" "}
+                          </span>
+
+                          <span className="d-flex mb-2">
+                              <i className="material-icons mr-1">bookmark</i>
+                              <strong className="mr-1">Total Posts:</strong>{" "}
+                              <strong className="text-light">{this.state.tpost}</strong>
+                          </span>
+
+                          <span className="d-flex mb-2">
+                              <i className="material-icons mr-1 mt-2">forward</i>
+                              <strong className="mr-2 mt-2">Main Page:</strong>{" "}
+                              {/*<a className="ml-auto" href={this.state.page}>Enter</a>*/}
+
+                              <Button outline pill theme = "light" tag={Link} to={{
+                                  pathname: 'user-profile-lite',
+                                  search: `?userID=${this.state.userID}`,
+                                  state: {userID: this.state.userID}
+                              }}>
+                                  Enter
+                              </Button>
+                          </span>
+                      </ListGroupItem>
+                  </ListGroup>
+              </CardBody>
+          </Card>
+      );
+      }
+      else if (this.state.follow === 0) {
             return (
                 <Card small className="mb-3">
                     <CardHeader className="border-bottom">
