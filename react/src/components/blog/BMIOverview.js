@@ -4,15 +4,24 @@ import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
 
 import RangeDatePicker from "../common/RangeDatePicker";
 import Chart from "../../utils/chart";
+let BMIChart;
 
 class BMIOverview extends React.Component {
   constructor(props) {
     super(props);
 
     this.canvasRef = React.createRef();
+    console.log(props.bmi);
   }
 
   componentDidMount() {
+    this.buildChart();
+  }
+
+  componentDidUpdate() {
+    this.buildChart();
+  }
+  buildChart = () => {
     const chartOptions = {
       ...{
         responsive: true,
@@ -33,10 +42,12 @@ class BMIOverview extends React.Component {
             {
               gridLines: false,
               ticks: {
-                callback(tick, index) {
-                  // Jump every 7 values on the X axis labels to avoid clutter.
-                  return index % 7 !== 0 ? "" : tick;
-                }
+                padding: 10,
+                autoSkip: true,
+                // callback(tick, index) {
+                //   // Jump every 7 values on the X axis labels to avoid clutter.
+                //   return index % 7 !== 0 ? "" : tick;
+                // }
               }
             }
           ],
@@ -44,6 +55,7 @@ class BMIOverview extends React.Component {
             {
               ticks: {
                 suggestedMax: 45,
+                suggestedMin: 0,
                 callback(tick) {
                   if (tick === 0) {
                     return tick;
@@ -67,26 +79,33 @@ class BMIOverview extends React.Component {
       },
       ...this.props.chartOptions
     };
-
-    const BlogUsersOverview = new Chart(this.canvasRef.current, {
+    const {bmi, date} = this.props;
+    if (typeof BMIChart !== "undefined") BMIChart.destroy();
+    BMIChart = new Chart(this.canvasRef.current, {
       type: "LineWithLine",
-      data: this.props.chartData,
+      data: {
+        labels: date,
+        datasets: [{
+          label: 'BMI',
+          fill: 'start',
+          data: bmi,
+          backgroundColor: "rgba(0,123,255,0.1)",
+          borderColor: "rgba(0,123,255,1)",
+          pointBackgroundColor: "#ffffff",
+          pointHoverBackgroundColor: "rgb(0,123,255)",
+          borderWidth: 1.5,
+          pointRadius: 0,
+          pointHoverRadius: 3
+        }]
+      },
       options: chartOptions
     });
-
-    // They can still be triggered on hover.
-    const buoMeta = BlogUsersOverview.getDatasetMeta(0);
-    buoMeta.data[0]._model.radius = 0;
-    buoMeta.data[
-      this.props.chartData.datasets[0].data.length - 1
-    ]._model.radius = 0;
-
-    // Render the chart.
-    BlogUsersOverview.render();
   }
 
   render() {
-    const { title } = this.props;
+    const title = 'BMI Overview';
+    console.log(this.props.bmi);
+    console.log(this.props.date);
     return (
       <Card small className="h-100">
         <CardHeader className="border-bottom">
@@ -94,17 +113,17 @@ class BMIOverview extends React.Component {
         </CardHeader>
         <CardBody className="pt-0">
           <Row className="border-bottom py-2 bg-light">
-            <Col sm="6" className="d-flex mb-2 mb-sm-0">
+            {/* <Col sm="6" className="d-flex mb-2 mb-sm-0">
               <RangeDatePicker />
-            </Col>
-            <Col>
+            </Col> */}
+            {/* <Col>
               <Button
                 size="sm"
                 className="d-flex btn-white ml-auto mr-auto ml-sm-auto mr-sm-0 mt-3 mt-sm-0"
               >
                 View Full Report &rarr;
               </Button>
-            </Col>
+            </Col> */}
           </Row>
           <canvas
             height="120"
@@ -129,50 +148,31 @@ BMIOverview.propTypes = {
   /**
    * The Chart.js options.
    */
-  chartOptions: PropTypes.object
+  chartOptions: PropTypes.object,
+  bmi: PropTypes.array,
+  date: PropTypes.array
 };
 
-BMIOverview.defaultProps = {
-  title: "BMI Overview",
-  chartData: {
-    labels: Array.from(new Array(20), (_, i) => (i === 0 ? 1 : i)),
-    datasets: [
-      {
-        label: "BMI",
-        fill: "start",
-        data: [
-          20.9,
-          20.4,
-          20.1,
-          19.5,
-          18.8,
-          19.1,
-          18.9,
-          20,
-          20.2,
-          20.5,
-          19.5,
-          21.5,
-          19,
-          19.5,
-          18,
-          18.5,
-          17.2,
-          17.6,
-          18.5,
-          19,
-        ],
-        backgroundColor: "rgba(0,123,255,0.1)",
-        borderColor: "rgba(0,123,255,1)",
-        pointBackgroundColor: "#ffffff",
-        pointHoverBackgroundColor: "rgb(0,123,255)",
-        borderWidth: 1.5,
-        pointRadius: 0,
-        pointHoverRadius: 3
-      },
+// BMIOverview.defaultProps = {
+//   title: "BMI Overview",
+//   chartData: {
+//     labels: [0],
+//     datasets: [
+//       {
+//         label: "BMI",
+//         fill: "start",
+//         data: [0],
+//         backgroundColor: "rgba(0,123,255,0.1)",
+//         borderColor: "rgba(0,123,255,1)",
+//         pointBackgroundColor: "#ffffff",
+//         pointHoverBackgroundColor: "rgb(0,123,255)",
+//         borderWidth: 1.5,
+//         pointRadius: 0,
+//         pointHoverRadius: 3
+//       },
      
-    ]
-  }
-};
+//     ]
+//   }
+// };
 
 export default BMIOverview;

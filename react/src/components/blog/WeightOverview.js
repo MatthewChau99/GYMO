@@ -4,6 +4,7 @@ import { Row, Col, Card, CardHeader, CardBody, Button } from "shards-react";
 
 import RangeDatePicker from "../common/RangeDatePicker";
 import Chart from "../../utils/chart";
+let WeightChart;
 
 class WeightOverview extends React.Component {
   constructor(props) {
@@ -13,6 +14,13 @@ class WeightOverview extends React.Component {
   }
 
   componentDidMount() {
+    this.buildChart();
+  }
+
+  componentDidUpdate() {
+    this.buildChart();
+  }
+  buildChart = () => {
     const chartOptions = {
       ...{
         responsive: true,
@@ -33,17 +41,20 @@ class WeightOverview extends React.Component {
             {
               gridLines: false,
               ticks: {
-                callback(tick, index) {
-                  // Jump every 7 values on the X axis labels to avoid clutter.
-                  return index % 7 !== 0 ? "" : tick;
-                }
+                padding: 10,
+                autoSkip: true,
+                // callback(tick, index) {
+                //   // Jump every 7 values on the X axis labels to avoid clutter.
+                //   return index % 7 !== 0 ? "" : tick;
+                // }
               }
             }
           ],
           yAxes: [
             {
               ticks: {
-                suggestedMax: 45,
+                suggestedMin: 80,
+                suggestedMax: 120,
                 callback(tick) {
                   if (tick === 0) {
                     return tick;
@@ -67,26 +78,31 @@ class WeightOverview extends React.Component {
       },
       ...this.props.chartOptions
     };
-
-    const BlogUsersOverview = new Chart(this.canvasRef.current, {
+    const {weight, date} = this.props;
+    if (typeof WeightChart !== "undefined") WeightChart.destroy();
+    WeightChart = new Chart(this.canvasRef.current, {
       type: "LineWithLine",
-      data: this.props.chartData,
+      data: {
+        labels: date,
+        datasets: [{
+          label: 'Weight',
+          fill: 'start',
+          data: weight,
+          backgroundColor: "rgba(255,65,105,0.1)",
+          borderColor: "rgba(255,65,105,1)",
+          pointBackgroundColor: "#ffffff",
+          pointHoverBackgroundColor: "rgba(255,65,105,1)",
+          borderWidth: 1,
+          pointRadius: 0,
+          pointHoverRadius: 2
+        }]
+      },
       options: chartOptions
     });
-
-    // They can still be triggered on hover.
-    const buoMeta = BlogUsersOverview.getDatasetMeta(0);
-    buoMeta.data[0]._model.radius = 0;
-    buoMeta.data[
-      this.props.chartData.datasets[0].data.length - 1
-    ]._model.radius = 0;
-
-    // Render the chart.
-    BlogUsersOverview.render();
   }
 
   render() {
-    const { title } = this.props;
+    const title = 'Weight Overview';
     return (
       <Card small className="h-100">
         <CardHeader className="border-bottom">
@@ -94,7 +110,7 @@ class WeightOverview extends React.Component {
         </CardHeader>
         <CardBody className="pt-0">
           <Row className="border-bottom py-2 bg-light">
-            <Col sm="6" className="d-flex mb-2 mb-sm-0">
+            {/* <Col sm="6" className="d-flex mb-2 mb-sm-0">
               <RangeDatePicker />
             </Col>
             <Col>
@@ -104,7 +120,7 @@ class WeightOverview extends React.Component {
               >
                 View Full Report &rarr;
               </Button>
-            </Col>
+            </Col> */}
           </Row>
           <canvas
             height="120"
@@ -129,50 +145,31 @@ WeightOverview.propTypes = {
   /**
    * The Chart.js options.
    */
-  chartOptions: PropTypes.object
+  chartOptions: PropTypes.object,
+  weight: PropTypes.array,
+  date: PropTypes.array
 };
 
-WeightOverview.defaultProps = {
-  title: "Weight Overview",
-  chartData: {
-    labels: Array.from(new Array(20), (_, i) => (i === 0 ? 1 : i)),
-    datasets: [
-        {
-            label: "Weight",
-            fill: "start",
-            data: [
-              65,
-              63.5,
-              60,
-              62.5,
-              60,
-              57,
-              56,
-              58,
-              60,
-              59,
-              61,
-              61.5,
-              62,
-              61.5,
-              60,
-              59.5,
-              58,
-              56,
-              57,
-              57.5,
-            ],
-            backgroundColor: "rgba(255,65,105,0.1)",
-            borderColor: "rgba(255,65,105,1)",
-            pointBackgroundColor: "#ffffff",
-            pointHoverBackgroundColor: "rgba(255,65,105,1)",
-            borderWidth: 1,
-            pointRadius: 0,
-            pointHoverRadius: 2
-          }
+// BMIOverview.defaultProps = {
+//   title: "BMI Overview",
+//   chartData: {
+//     labels: [0],
+//     datasets: [
+//       {
+//         label: "BMI",
+//         fill: "start",
+//         data: [0],
+//         backgroundColor: "rgba(0,123,255,0.1)",
+//         borderColor: "rgba(0,123,255,1)",
+//         pointBackgroundColor: "#ffffff",
+//         pointHoverBackgroundColor: "rgb(0,123,255)",
+//         borderWidth: 1.5,
+//         pointRadius: 0,
+//         pointHoverRadius: 3
+//       },
      
-    ]
-  }
-};
+//     ]
+//   }
+// };
 
 export default WeightOverview;

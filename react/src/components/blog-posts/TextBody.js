@@ -14,13 +14,13 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
     return (
         <Card
             className="card-post card-post--1"
-            style={{width: '48rem'}}
+            // style={{width: '48rem'}}
         >
             {/* <div
         className="card-post__image"
         style={{ backgroundImage: `url(${require({backgroundImage})})` }}
       > */}
-            <Card.Img variant="top" src={backgroundImage}/>
+            <img variant="top" src={backgroundImage} alt={"hi"}/>
             <Badge
                 pill
                 className={`card-post__category bg-${"dark"}`}
@@ -36,7 +36,8 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
                 </Card.Title>
 
                 <Card.Text className="d-inline-block mb-5">
-                    {text}
+                    {/* {text} */}
+                    <div  dangerouslySetInnerHTML={{ __html: text }} ></div>
                 </Card.Text>
 
                 {/* <Button variant="primary" >Go Back</Button> */}
@@ -44,7 +45,7 @@ const TextBody = ({backgroundImage, badge, title, text, days, lnum, cnum, addLik
                 <LikesAndComments lnum={lnum} cnum={cnum} addLike={addLike}/>
 
             </CardBody>
-            <Card.Footer className="text-muted">{days}</Card.Footer>
+            <Card.Footer className="text-muted">{days.toString().substring(0, 10) + " " + days.toString().substring(11, 16)}</Card.Footer>
 
         </Card>
     )

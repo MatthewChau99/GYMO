@@ -4,6 +4,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {LoginAction} from "../../states/actions";
 import {withRouter, Redirect} from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 class SignUp extends Component {
     constructor(props) {
@@ -164,7 +165,7 @@ class SignUp extends Component {
                            onChange={(event) => this.updateRepeated(event)}/>
                 </div>
 
-                <button type="submit" onClick={(event) => this.register(event)} className="btn btn-primary btn-block">Sign Up</button>
+                <Button type="submit" onClick={(event) => this.register(event)} size="md" className="btn btn-primary btn-block">Sign Up</Button>
                 <p className="forgot-password text-right">
                     Already registered <a href="login">sign in?</a>
                 </p>

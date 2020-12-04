@@ -1,16 +1,7 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
 
 import React from "react";
-import {
-    Container,
-    Row,
-    Col,
-    Card,
-    CardBody,
-    CardFooter,
-    Badge,
-    Button
-} from "shards-react";
+import {Container, Row} from "shards-react";
 import BlogPost from "../components/blog/BlogPost";
 
 

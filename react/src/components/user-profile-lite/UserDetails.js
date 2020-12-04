@@ -1,3 +1,4 @@
+
 import React, {Component} from "react";
 import PropTypes from "prop-types";
 import {withRouter} from "react-router-dom";
@@ -17,10 +18,9 @@ class UserDetails extends Component {
             userID: this.props.location.state.userID,      // This page's user ID, not the current login user ID
             follow: 0
         };
-
         this.getUser.bind(this);
         this.getUser(this.props.location.state.userID);
-        console.log(this.props.location.state.userID);
+        this.checkFollowState();
     }
 
     getPic(picID) {
@@ -44,7 +44,7 @@ class UserDetails extends Component {
     getUser(userID) {
         let self = this;
         let user_id = userID;
-        axios.get(`/account/${user_id}`,
+        axios.get(`/account/user/${user_id}`,
             {params: {userID: user_id}}
         ).then( async (response) => {
             self.setState({
@@ -67,7 +67,9 @@ class UserDetails extends Component {
                     followID: self.state.userID
                 }
             }).then((response) => {
-                console.log(response.data.message);
+                self.setState({
+                    follow: 1
+                });
             }).catch((error) => {
                 console.log(error);
             })
@@ -88,7 +90,10 @@ class UserDetails extends Component {
                     followID: self.state.userID
                 }
             }).then((response) => {
-                console.log(response.data.message);
+                self.setState({
+                    follow: 0
+                });
+
             }).catch((error) => {
                 console.log(error);
             })
@@ -118,18 +123,15 @@ class UserDetails extends Component {
             }).catch(function (error) {
                 console.log(error);
             })
-        } else {
-            alert("You need to login first.");
         }
     }
 
+
     render() {
-        console.log(this.state.user);
         let initial = 'A';
         if (this.state.user.name) {
             initial = this.state.user.name[0].toUpperCase();
         }
-        // const initial = this.state.user ? this.state.user.name.toUpperCase() : 'A';
 
         let img = <img
             className="rounded-circle"
@@ -138,29 +140,59 @@ class UserDetails extends Component {
             width="110"
         />;
 
-        return (
-            <Card small className="mb-4 pt-3">
-                <CardHeader className="border-bottom text-center">
-                    <div className="mb-3 mx-auto">
-                        {img}
-                    </div>
-                    <h4 className="mb-0">{this.state.user.name}</h4>
-                    <span
-                        className="text-muted d-block mb-2"> <Followers/> : {this.state.user.followers} | <Followings/> : {this.state.user.follows}</span>
-                    <Button pill outline size="sm" className="mb-2" onClick={this.unfollow.bind(this)}>
-                        <i className="material-icons mr-1" >person_add</i> Follow
-                    </Button>
-                </CardHeader>
-                <ListGroup flush>
-                    <ListGroupItem className="p-4">
-                        <strong className="text-muted d-block mb-2">
-                            Introduction
-                        </strong>
-                        <span>{this.state.user.intro}</span>
-                    </ListGroupItem>
-                </ListGroup>
-            </Card>
-        );
+        if (this.state.follow === 0) {
+            return (
+
+                <Card small className="mb-4 pt-3">
+                    <CardHeader className="border-bottom text-center">
+                        <div className="mb-3 mx-auto">
+                            {img}
+                        </div>
+                        <h4 className="mb-0">{this.state.user.name}</h4>
+                        <span
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                        <Button pill outline size="sm" className="mb-2"
+                                onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                            <i className="material-icons mr-1" >person_add</i> Follow
+                        </Button>
+                    </CardHeader>
+                    <ListGroup flush>
+                        <ListGroupItem className="p-4">
+                            <strong className="text-muted d-block mb-2">
+                                Introduction
+                            </strong>
+                            <span>{this.state.user.intro}</span>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Card>
+            );
+        }
+        else {
+            return (
+                <Card small className="mb-4 pt-3">
+                    <CardHeader className="border-bottom text-center">
+                        <div className="mb-3 mx-auto">
+                            {img}
+                        </div>
+                        <h4 className="mb-0">{this.state.user.name}</h4>
+                        <span
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                        <Button pill outline size="sm" className="mb-2"
+                                onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
+                            <i className="material-icons mr-1" >person_add</i> Unfollow
+                        </Button>
+                    </CardHeader>
+                    <ListGroup flush>
+                        <ListGroupItem className="p-4">
+                            <strong className="text-muted d-block mb-2">
+                                Introduction
+                            </strong>
+                            <span>{this.state.user.intro}</span>
+                        </ListGroupItem>
+                    </ListGroup>
+                </Card>
+            );
+        }
     }
 }
 

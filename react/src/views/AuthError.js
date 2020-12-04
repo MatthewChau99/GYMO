@@ -7,7 +7,7 @@ const AuthError = () => (
             <div className="error__content">
                 <h2>401</h2>
                 <h3>You need to login to authorize this page</h3>
-                <Button pill>&larr; Go Back</Button>
+                <Button pill href="/login">&larr; Go to Login</Button>
             </div>
         </div>
     </Container>

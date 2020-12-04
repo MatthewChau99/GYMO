@@ -10,7 +10,10 @@ router.post('/register', AuthController.register);
 
 router.patch('/updateInfo', UserController.updateUserInfo);
 
-router.get('/:userID', UserController.getUserInfo);
+router.get('/user/:userID', UserController.getUserInfo);
+
+router.get('/followers/:userID', UserController.getFollowers);
+router.get('/follows/:userID', UserController.getFollows);
 
 router.post('/addFollower', UserController.follow);
 
