@@ -7,7 +7,6 @@ import Author from "../components/blog-posts/Author";
 import Details from "../components/blog-posts/Details";
 import Comments from "../components/blog-posts/Comments";
 import BlogDetail from "../components/blog/BlogDetail";
-import {Form} from "react-advanced-form";
 import axios from "axios";
 import store from "../states/store";
 
@@ -91,7 +90,6 @@ class BlogDetails extends Component {
                 Array.from(document.querySelectorAll("input")).forEach(
                     input => (input.value = "")
                   );
-                self.form.reset();
             }).catch(function (error) {
                 console.log(error)
             });

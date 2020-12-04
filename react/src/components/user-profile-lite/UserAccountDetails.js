@@ -51,7 +51,6 @@ class UserAccountDetails extends Component {
                 updatedPhone: response.data["user"].phone,
                 updatedIntro: response.data["user"].intro
             });
-            console.log(self);
         }).catch(function (error) {
             console.log(error);
         })

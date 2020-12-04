@@ -62,7 +62,6 @@ class Author extends Component {
     }
 
     follow() {
-        console.log(this.state.userID);
         if (store.getState().loginStatus) {
             const loginUserID = store.getState().user._id;
             const self = this;
@@ -77,8 +76,6 @@ class Author extends Component {
                 self.setState({
                     follow: 1
                 });
-                console.log(this.state.follow);
-                console.log(response.data.message);
             }).catch((error) => {
                 console.log(error);
             })
@@ -89,7 +86,6 @@ class Author extends Component {
     }
 
     unfollow() {
-        console.log(this.state.userID);
         if (store.getState().loginStatus) {
             const loginUserID = store.getState().user._id;
             const self = this;

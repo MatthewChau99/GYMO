@@ -40,16 +40,11 @@ class BlogOverview extends Component {
                     bodyInfo: response.data.data
                 });
 
-                // console.log(self.state.bodyInfo);
                 self.setState({bodyfat: self.state.bodyInfo.map(o=>o.bodyFatPerc)});
-                // console.log(self.state.bodyfat);
                 self.setState({bmi: self.state.bodyInfo.map(o=>o.bmi)});
-                // console.log(self.state.bmi);
                 self.setState({weight: self.state.bodyInfo.map(o=>o.weight)});
                 self.setState({height: self.state.bodyInfo.map(o=>o.height)});
-                // console.log(self.state.weight);
                 self.setState({date: self.state.bodyInfo.map(o=>o.date)});
-                // console.log(self.state.date);
             }).catch((error) => {
                 console.log(error);
             })
@@ -134,8 +129,8 @@ class BlogOverview extends Component {
                     }
                 ]
             }
-        ]
-        console.log(this.state.weight.slice(0, this.state.weight.length));
+        ];
+
         return (
             <Container fluid className="main-content-container px-4">
                 {/* Page Header */}

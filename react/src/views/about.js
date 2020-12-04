@@ -31,8 +31,9 @@ const about = () => (
                 alt="First slide"
                 />
                 <Carousel.Caption>
-                <h3>First slide label</h3>
-                <p>Our mission is to organize the world’s information and make it universally accessible and useful.</p>
+                <h3 style={{"color": 'white'}}>About us</h3>
+                <p>Gymo is a student-made, innovative social network platform aiming to connect young people who love workout. We hope to build an online community for everyone who enjoys workout, want to give it a try or improve personal skills. Coaches, peers, workout plans, diet recipes… no matter what you are looking for about workout, we are more than happy to provide you with any information to achieve your goal.
+                </p>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -43,8 +44,9 @@ const about = () => (
                 />
 
                 <Carousel.Caption>
-                <h3>Second slide label</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <h3 style={{"color": 'white'}}>About us</h3>
+                <p>We gathered our thoughts among student body and noticed that it is especially difficult to meet workout needs during this current global pandemic. So we had this idea to build a social network app for workout lovers to connect with each other and share their thoughts momentarily. Small helper features are incorporated to better facilitate user’s workout plan including mini calorie calculator, body stats analysis etc.
+                </p>
                 </Carousel.Caption>
             </Carousel.Item>
             <Carousel.Item>
@@ -55,8 +57,9 @@ const about = () => (
                 />
 
                 <Carousel.Caption>
-                <h3>Third slide label</h3>
-                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                <h3 style={{"color": 'black'}}>About us</h3>
+                <p style={{"color": 'black'}}>Gymo is aiming to motivate users to work out more by doing so with friends. We want to make workout a more enjoyable and convenient experience and empower the larger workout community.
+                    The one and only wish we have in building this app is to encourage more people to keep or start working out and stay healthy at this terrible time. We really do need each others’ support more than ever.</p>
                 </Carousel.Caption>
         </Carousel.Item>
         </Carousel>
@@ -70,34 +73,34 @@ const about = () => (
     <Col lg="12" md="12">
         <CardDeck>
             <Card>
-                <Card.Img variant="top" src={require("../images/avatars/1.jpg")} />
+                <Card.Img variant="top" src={require("../images/team-members/Rita.png")} />
                 <Card.Body>
-                    <Card.Title > Rita Xu</Card.Title>
-                    <Card.Text> product owner</Card.Text>
-                </Card.Body>
-            </Card> 
-
-            <Card>
-                <Card.Img variant="top" src={require("../images/avatars/0.jpg")} />
-                <Card.Body>
-                    <Card.Title > Xinman Zhang</Card.Title>
-                    <Card.Text> product owner</Card.Text>
+                    <Card.Title >Rita Xu</Card.Title>
+                    <Card.Text>Scrum Master</Card.Text>
                 </Card.Body>
             </Card>
 
             <Card>
-                <Card.Img variant="top" src={require("../images/avatars/2.jpg")} /> 
+                <Card.Img variant="top" src={require("../images/team-members/Xinman.jpeg")} />
                 <Card.Body>
-                    <Card.Title > Matthew Chau</Card.Title>
-                    <Card.Text> team member</Card.Text>
+                    <Card.Title >Xinman Zhang</Card.Title>
+                    <Card.Text>Product Owner</Card.Text>
                 </Card.Body>
             </Card>
 
             <Card>
-                <Card.Img variant="top" src={require("../images/avatars/3.jpg")} /> 
+                <Card.Img variant="top" src={require("../images/team-members/Matthew.png")} />
                 <Card.Body>
-                    <Card.Title > Isaac Ling</Card.Title>
-                    <Card.Text> team member</Card.Text>
+                    <Card.Title >Matthew Chau</Card.Title>
+                    <Card.Text>Team Member</Card.Text>
+                </Card.Body>
+            </Card>
+
+            <Card>
+                <Card.Img variant="top" src={require("../images/team-members/Isaac.png")} />
+                <Card.Body>
+                    <Card.Title >Isaac Ling</Card.Title>
+                    <Card.Text>Team Member</Card.Text>
                 </Card.Body>
             </Card>
         </CardDeck>

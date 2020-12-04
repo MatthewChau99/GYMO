@@ -28,7 +28,6 @@ class AddNewPost extends Component {
         this.updatePostTitle = this.updatePostTitle.bind(this);
         this.updatePostContent = this.updatePostContent.bind(this);
         this.uploadPost = this.uploadPost.bind(this);
-        console.log(this.state.user);
     }
 
     updatePostTitle(event) {

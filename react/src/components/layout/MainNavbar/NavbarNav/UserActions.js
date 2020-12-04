@@ -1,10 +1,10 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import store from "../../../../states/store";
 import {Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink} from "shards-react";
 import axios from "axios";
 
-export default class UserActions extends React.Component {
+class UserActions extends React.Component {
     constructor(props) {
         super(props);
 
@@ -37,6 +37,17 @@ export default class UserActions extends React.Component {
         });
     }
 
+    redirectToUserProfile() {
+        console.log("redirecting");
+        console.log(this.state.user._id);
+        this.props.history.push({
+            pathname:"user-profile-lite",
+            state: {
+                userID: this.state.user._id
+            }
+        });
+    }
+
     render() {
         if (!this.state.getPic) {
             this.getPic();
@@ -52,7 +63,7 @@ export default class UserActions extends React.Component {
                     <span className="d-none d-md-inline-block">{this.state.user.name}</span>
                 </DropdownToggle>
                 <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-                    <DropdownItem tag={Link} to={{pathname:"user-profile-lite", state: {userID: this.state.user._id}}}>
+                    <DropdownItem onClick={this.redirectToUserProfile.bind(this)}>
                         <i className="material-icons">&#xE7FD;</i> Profile
                     </DropdownItem>
                     <DropdownItem tag={Link} to="add-new-post">
@@ -63,3 +74,5 @@ export default class UserActions extends React.Component {
         );
     }
 }
+
+export default withRouter(UserActions);

@@ -25,6 +25,7 @@ class UserProfileLite extends Component {
 
 
     render() {
+        console.log(this.props.location.state.userID);
         if (store.getState().loginStatus) {
             return (
                 <Container fluid className="main-content-container px-4">
@@ -33,11 +34,11 @@ class UserProfileLite extends Component {
                     </Row>
                     <Row>
                         <Col lg="4">
-                            <UserDetails userID={this.state.userID}/>
-                            {this.state.userID === this.state.user._id ? <UserAccountDetails userID={this.state.userID}/> : ""}
+                            <UserDetails userID={this.props.location.state.userID}/>
+                            {this.state.userID === this.state.user._id ? <UserAccountDetails userID={this.props.location.state.userID}/> : ""}
                         </Col>
                         <Col lg="8">
-                            <BlogViews userID={this.state.userID}/>
+                            <BlogViews userID={this.props.location.state.userID}/>
                         </Col>
                     </Row>
                 </Container>

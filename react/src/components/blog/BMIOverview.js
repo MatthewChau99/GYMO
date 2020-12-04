@@ -9,9 +9,7 @@ let BMIChart;
 class BMIOverview extends React.Component {
   constructor(props) {
     super(props);
-
     this.canvasRef = React.createRef();
-    console.log(props.bmi);
   }
 
   componentDidMount() {
@@ -104,8 +102,6 @@ class BMIOverview extends React.Component {
 
   render() {
     const title = 'BMI Overview';
-    console.log(this.props.bmi);
-    console.log(this.props.date);
     return (
       <Card small className="h-100">
         <CardHeader className="border-bottom">
@@ -170,7 +166,7 @@ BMIOverview.propTypes = {
 //         pointRadius: 0,
 //         pointHoverRadius: 3
 //       },
-     
+
 //     ]
 //   }
 // };

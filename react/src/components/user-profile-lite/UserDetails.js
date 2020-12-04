@@ -15,16 +15,18 @@ class UserDetails extends Component {
         this.state = {
             user: "user",
             userAvatar: require("../../cache/default.jpg"),
-            userID: this.props.location.state.userID,      // This page's user ID, not the current login user ID
+            userID: this.props.userID,      // This page's user ID, not the current login user ID
             follow: 0,
             followers: [],
             followings: []
         };
+        console.log(this.props.userID);
+        console.log(this.props.location.state.userID);
         this.getUser.bind(this);
-        this.getUser(this.props.location.state.userID);
+        this.getUser(this.props.userID);
         this.checkFollowState();
-        this.getFollowers(this.props.location.state.userID);
-        this.getFollowings(this.props.location.state.userID);
+        this.getFollowers(this.props.userID);
+        this.getFollowings(this.props.userID);
     }
 
     getPic(picID) {

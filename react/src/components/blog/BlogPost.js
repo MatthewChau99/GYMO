@@ -39,6 +39,8 @@ class BlogPost extends Component {
                             .replace(/<\/h2>/g, "\n").replace(/<\/h3>/g, "\n").replace(/<\/u>/g, "\n").replace(/<\/em>/g, "\n")
                             .replace(/<\/u>/g, "\n").replace(/<\/ol>/g, "").replace(/<\/strong>/g, "").replace(/<br>/g, "\n")
                             .replace(/<blockquote>/g, "").replace(/<\/blockquote>/g, "").replace(/<s>/g, "").replace(/<\/s>/g, "")
+                            .replace(/<li>/g, "").replace(/<\/li>/g, "").replace(/<ul>/g, "").replace(/<\/ul>/g, "")
+                            .replace(/<li class="ql-indent-1">/g, "")
                             .replace(post.content.substring(post.content.indexOf('<img'),(post.content.indexOf('>',post.content.indexOf('<img')))+1), "[image]")
                             .replace(post.content.substring(post.content.indexOf('<img',(post.content.indexOf('>',post.content.indexOf('<img')))+1),
                                 (post.content.indexOf('>',(post.content.indexOf('<img',(post.content.indexOf('>',post.content.indexOf('<img')))+2))))),"[image]"),
@@ -70,6 +72,8 @@ class BlogPost extends Component {
                     .replace(/<\/h2>/g, "\n").replace(/<\/h3>/g, "\n").replace(/<\/u>/g, "\n").replace(/<\/em>/g, "\n")
                     .replace(/<\/u>/g, "\n").replace(/<\/ol>/g, "").replace(/<\/strong>/g, "").replace(/<br>/g, "\n")
                     .replace(/<blockquote>/g, "").replace(/<\/blockquote>/g, "").replace(/<s>/g, "").replace(/<\/s>/g, "")
+                    .replace(/<li>/g, "").replace(/<\/li>/g, "").replace(/<ul>/g, "").replace(/<\/ul>/g, "")
+                    .replace(/<li class="ql-indent-1">/g, "")
                     .replace(post.content.substring(post.content.indexOf('<img'),(post.content.indexOf('>',post.content.indexOf('<img')))+1), "[image]")
                     .replace(post.content.substring(post.content.indexOf('<img',(post.content.indexOf('>',post.content.indexOf('<img')))+1),
                         (post.content.indexOf('>',(post.content.indexOf('<img',(post.content.indexOf('>',post.content.indexOf('<img')))+2))))),"[image]"),
