@@ -9,30 +9,15 @@ class Followings extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            follows: [],
             user: "user",
             userID: this.props.location.state.userID,
         };
-        this.getFollowings(this.props.location.state.userID);
-        console.log(this.props.location.state.userID);
     }
 
-    getFollowings(userID) {
-        let self = this;
-        let user_id = userID;
-        axios.get(`/account/follows/${user_id}`,
-            {params: {userID: user_id}}
-        ).then(async (response) => {
-            self.setState({
-                follows: response.data["follows"]
-            });
-        }).catch(function (error) {
-            console.log(error);
-        })
-    }
+
 
     render() {
-        const {follows} = this.state;
+        const follows = this.props.followings;
         return (
                 <OverlayTrigger trigger="click" placement="bottom-start" overlay={
                     <Popover id="popover-basic" className="text-center">

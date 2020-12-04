@@ -16,11 +16,15 @@ class UserDetails extends Component {
             user: "user",
             userAvatar: require("../../cache/default.jpg"),
             userID: this.props.location.state.userID,      // This page's user ID, not the current login user ID
-            follow: 0
+            follow: 0,
+            followers: [],
+            followings: []
         };
         this.getUser.bind(this);
         this.getUser(this.props.location.state.userID);
         this.checkFollowState();
+        this.getFollowers(this.props.location.state.userID);
+        this.getFollowings(this.props.location.state.userID);
     }
 
     getPic(picID) {
@@ -70,6 +74,7 @@ class UserDetails extends Component {
                 self.setState({
                     follow: 1
                 });
+                self.getFollowers(self.state.userID);
             }).catch((error) => {
                 console.log(error);
             })
@@ -93,6 +98,7 @@ class UserDetails extends Component {
                 self.setState({
                     follow: 0
                 });
+                self.getFollowers(self.state.userID);
 
             }).catch((error) => {
                 console.log(error);
@@ -126,24 +132,47 @@ class UserDetails extends Component {
         }
     }
 
+    getFollowers(userID) {
+        let self = this;
+        let user_id = userID;
+        axios.get(`/account/followers/${user_id}`,
+            {params: {userID: user_id}}
+        ).then(async (response) => {
+            self.setState({
+                followers: response.data["followers"]
+            });
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
+
+    getFollowings(userID) {
+        let self = this;
+        let user_id = userID;
+        axios.get(`/account/follows/${user_id}`,
+            {params: {userID: user_id}}
+        ).then(async (response) => {
+            self.setState({
+                followings: response.data["follows"]
+            });
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
 
     render() {
         let initial = 'A';
         if (this.state.user.name) {
             initial = this.state.user.name[0].toUpperCase();
         }
-
         let img = <img
             className="rounded-circle"
             src={require("./../../images/avatars/" + initial + ".png")}
             alt={this.state.user.name}
             width="110"
         />;
-        console.log(store.getState().user);
         if (this.state.userID === store.getState().user._id){
-            console.log("in");
             return (
-
                 <Card small className="mb-4 pt-3">
                     <CardHeader className="border-bottom text-center">
                         <div className="mb-3 mx-auto">
@@ -151,7 +180,7 @@ class UserDetails extends Component {
                         </div>
                         <h4 className="mb-0">{this.state.user.name}</h4>
                         <span
-                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} followers={this.state.followers}/>| <Followings userID={this.state.userID} followings={this.state.followings}/></span>
                     </CardHeader>
                     <ListGroup flush>
                         <ListGroupItem className="p-4">
@@ -166,7 +195,6 @@ class UserDetails extends Component {
         }
         else if (this.state.follow === 0) {
             return (
-
                 <Card small className="mb-4 pt-3">
                     <CardHeader className="border-bottom text-center">
                         <div className="mb-3 mx-auto">
@@ -174,7 +202,7 @@ class UserDetails extends Component {
                         </div>
                         <h4 className="mb-0">{this.state.user.name}</h4>
                         <span
-                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} followers={this.state.followers}/>| <Followings userID={this.state.userID} followings={this.state.followings}/></span>
                         <Button pill outline size="sm" className="mb-2"
                                 onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
                             <i className="material-icons mr-1" >person_add</i> Follow
@@ -200,7 +228,7 @@ class UserDetails extends Component {
                         </div>
                         <h4 className="mb-0">{this.state.user.name}</h4>
                         <span
-                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} />| <Followings userID={this.state.userID}/></span>
+                            className="text-muted d-block mb-2"> <Followers userID={this.state.userID} followers={this.state.followers}/>| <Followings userID={this.state.userID} followings={this.state.followings}/></span>
                         <Button pill outline size="sm" className="mb-2"
                                 onClick={this.state.follow === 0 ? this.follow.bind(this) : this.unfollow.bind(this)}>
                             <i className="material-icons mr-1" >person_add</i> Unfollow

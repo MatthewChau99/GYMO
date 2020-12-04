@@ -14,7 +14,7 @@ const MainNavbar = ({stickyTop}) => {
 
     return (
         <div className={classes}>
-            <Navbar type="light" className="d-flex flex-row-reverse flex-md-nowrap p-1">
+            <Navbar type="light" className="ad-flex flex-row-reverse p-0">
                 {/*<NavbarSearch />*/}
                 <NavbarNav/>
                 <NavbarToggle/>
