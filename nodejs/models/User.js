@@ -25,15 +25,6 @@ const userSchema = new Schema({
         required: true,
         minlength: 5,
         maxlength: 1024
-    },
-    bodyInfo: [],
-    followers: [],
-    follows: [],
-    posts: [],
-    intro: "",
-    pictureID: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Pic'
     }
 }, {timestamps: true});
 

@@ -1,196 +1,173 @@
-import React, {Component} from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import {Col, Container, Row, Card, CardBody} from "shards-react";
+import { Container, Row, Col } from "shards-react";
 
 import PageTitle from "./../components/common/PageTitle";
 import SmallStats from "./../components/common/SmallStats";
-import BodyfatOverview from "../components/blog/BodyfatOverview";
+import UsersOverview from "./../components/blog/UsersOverview";
 import UsersByDevice from "./../components/blog/UsersByDevice";
-import BMIOverview from "./../components/blog/BMIOverview";
-import WeightOverview from "./../components/blog/WeightOverview";
-import store from "../states/store";
-import axios from "axios";
-import Tabs from 'react-bootstrap/Tabs';
-import Tab from 'react-bootstrap/Tab';
+import NewDraft from "./../components/blog/NewDraft";
+import Discussions from "./../components/blog/Discussions";
+import TopReferrals from "./../components/common/TopReferrals";
 
+const BlogOverview = ({ smallStats }) => (
+  <Container fluid className="main-content-container px-4">
+    {/* Page Header */}
+    <Row noGutters className="page-header py-4">
+      <PageTitle title="Blog Overview" subtitle="Dashboard" className="text-sm-left mb-3" />
+    </Row>
 
-class BlogOverview extends Component {
-    constructor(props) {
-        super(props);
-        this.getBodyInfo();
-        this.state = {
-            bodyInfo: [],
-            bodyfat: [],
-            bmi: [],
-            weight: [],
-            height: [],
-            date: []
-        };
-    }
+    {/* Small Stats Blocks */}
+    <Row>
+      {smallStats.map((stats, idx) => (
+        <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
+          <SmallStats
+            id={`small-stats-${idx}`}
+            variation="1"
+            chartData={stats.datasets}
+            chartLabels={stats.chartLabels}
+            label={stats.label}
+            value={stats.value}
+            percentage={stats.percentage}
+            increase={stats.increase}
+            decrease={stats.decrease}
+          />
+        </Col>
+      ))}
+    </Row>
 
-    getBodyInfo() {
-        const self = this;
-        if (store.getState().loginStatus) {
-            axios.get(`/account/getBodyInfo/${store.getState().user._id}`, {
-                params: {
-                    userID: store.getState().user._id
-                }
-            }).then((response) => {
-                self.setState({
-                    bodyInfo: response.data.data
-                });
+    <Row>
+      {/* Users Overview */}
+      <Col lg="8" md="12" sm="12" className="mb-4">
+        <UsersOverview />
+      </Col>
 
-                self.setState({bodyfat: self.state.bodyInfo.map(o=>o.bodyFatPerc)});
-                self.setState({bmi: self.state.bodyInfo.map(o=>o.bmi)});
-                self.setState({weight: self.state.bodyInfo.map(o=>o.weight)});
-                self.setState({height: self.state.bodyInfo.map(o=>o.height)});
-                self.setState({date: self.state.bodyInfo.map(o=>o.date)});
-            }).catch((error) => {
-                console.log(error);
-            })
-        }
-    }
+      {/* Users by Device */}
+      <Col lg="4" md="6" sm="12" className="mb-4">
+        <UsersByDevice />
+      </Col>
 
-    render() {
-        const smallStats = [
-            {
-                label: "Height",
-                value: this.state.height.length==0? 'N/A' : this.state.height[this.state.height.length-1] + ' cm',
-                percentage: this.state.height.length<2 ? '0%' : ((this.state.height[this.state.height.length-1]-this.state.height[this.state.height.length-2])/this.state.height[this.state.height.length-2]*100).toFixed(2) + '%',
-                increase: this.state.height.length<2 ? true : (this.state.height[this.state.height.length-1]-this.state.height[this.state.height.length-2]>=0? true: false),
-                decrease: this.state.height.length<2 ? false : (this.state.height[this.state.height.length-1]-this.state.height[this.state.height.length-2]>=0? false: true),
-                // chartLabels: [null, null, null, null, null, null, null],
-                attrs: {md: "6", sm: "6"},
-                datasets: [
-                    {
-                        label: "Today",
-                        fill: "start",
-                        borderWidth: 1.5,
-                        backgroundColor: "rgba(0, 184, 216, 0.1)",
-                        borderColor: "rgb(0, 184, 216)",
-                        data: this.state.height,
-                    }
-                ]
-            },
-            {
-                label: "Weight",
-                value: this.state.weight.length==0? 'N/A' : this.state.weight[this.state.weight.length-1] + ' kg',
-                percentage: this.state.weight.length<2 ? '0%' : ((this.state.weight[this.state.weight.length-1]-this.state.weight[this.state.weight.length-2])/this.state.weight[this.state.weight.length-2]*100).toFixed(2) + '%',
-                increase: this.state.weight.length<2 ? true : (this.state.weight[this.state.weight.length-1]-this.state.weight[this.state.weight.length-2]>=0? true: false),
-                decrease: this.state.weight.length<2 ? false : (this.state.weight[this.state.weight.length-1]-this.state.weight[this.state.weight.length-2]>=0? false: true),
-                // chartLabels: [null, null, null, null, null, null, null],
-                attrs: {md: "6", sm: "6"},
-                datasets: [
-                    {
-                        label: "Today",
-                        fill: "start",
-                        borderWidth: 1.5,
-                        backgroundColor: "rgba(23,198,113,0.1)",
-                        borderColor: "rgb(23,198,113)",
-                        data: this.state.weight,
-                    }
-                ]
-            },
-            {
-                label: "Body Fat Percent",
-                value: this.state.bodyfat.length==0? 'N/A' : this.state.bodyfat[this.state.bodyfat.length-1] + '%',
-                percentage: this.state.bodyfat.length<2 ? '0%' : ((this.state.bodyfat[this.state.bodyfat.length-1]-this.state.bodyfat[this.state.bodyfat.length-2])/this.state.bodyfat[this.state.bodyfat.length-2]*100).toFixed(2) + '%',
-                increase: this.state.bodyfat.length<2 ? true : (this.state.bodyfat[this.state.bodyfat.length-1]-this.state.bodyfat[this.state.bodyfat.length-2]>=0? true: false),
-                decrease: this.state.bodyfat.length<2 ? false : (this.state.bodyfat[this.state.bodyfat.length-1]-this.state.bodyfat[this.state.bodyfat.length-2]>=0? false: true),
-                // chartLabels: [null, null, null, null, null, null, null],
-                attrs: {md: "4", sm: "6"},
-                datasets: [
-                    {
-                        label: "Today",
-                        fill: "start",
-                        borderWidth: 1.5,
-                        backgroundColor: "rgba(255,180,0,0.1)",
-                        borderColor: "rgb(255,180,0)",
-                        data: this.state.bodyfat,
-                    }
-                ]
-            },
-            {
-                label: "B.M.I.",
-                value: this.state.bmi.length==0? 'N/A' : this.state.bmi[this.state.bmi.length-1],
-                percentage: this.state.bmi.length<2 ? '0%' : ((this.state.bmi[this.state.bmi.length-1]-this.state.bmi[this.state.bmi.length-2])/this.state.bmi[this.state.bmi.length-2]*100).toFixed(2) + '%',
-                increase: this.state.bmi.length<2 ? true : (this.state.bmi[this.state.bmi.length-1]-this.state.bmi[this.state.bmi.length-2]>=0? true: false),
-                decrease: this.state.bmi.length<2 ? false : (this.state.bmi[this.state.bmi.length-1]-this.state.bmi[this.state.bmi.length-2]>=0? false: true),
-                // chartLabels: [null, null, null, null, null, null, null],
-                attrs: {md: "4", sm: "6"},
-                datasets: [
-                    {
-                        label: "Today",
-                        fill: "start",
-                        borderWidth: 1.5,
-                        backgroundColor: "rgba(255,65,105,0.1)",
-                        borderColor: "rgb(255,65,105)",
-                        data: this.state.bmi,
-                    }
-                ]
-            }
-        ];
+      {/* New Draft */}
+      <Col lg="4" md="6" sm="12" className="mb-4">
+        <NewDraft />
+      </Col>
 
-        return (
-            <Container fluid className="main-content-container px-4">
-                {/* Page Header */}
-                <Row noGutters className="page-header py-4">
-                    <PageTitle title="User Overview" subtitle="Dashboard" className="text-sm-left mb-3"
-                               onClick={this.getBodyInfo.bind(this)}/>
-                </Row>
+      {/* Discussions */}
+      <Col lg="5" md="12" sm="12" className="mb-4">
+        <Discussions />
+      </Col>
 
-                {/* Small Stats Blocks */}
-                <Row>
-                    {smallStats.map((stats, idx) => (
-                        <Col className="col-lg mb-4" key={idx} {...stats.attrs}>
-                            <SmallStats
-                                id={`small-stats-${idx}`}
-                                variation="1"
-                                chartData={stats.datasets}
-                                chartLabels={stats.chartLabels}
-                                label={stats.label}
-                                value={stats.value}
-                                percentage={stats.percentage}
-                                increase={stats.increase}
-                                decrease={stats.decrease}
-                            />
-                        </Col>
-                    ))}
-                </Row>
-
-                <Row>
-                    <Col lg="12" md="12" sm="12" className="mb-4">
-                        <Card>
-                            <CardBody>
-                                <Tabs defaultActiveKey="home" id="tab">
-
-                                    <Tab eventKey="home" title="Body Fat">
-                                        <BodyfatOverview bodyfat={this.state.bodyfat} date={this.state.date}/>
-                                    </Tab>
-                                    <Tab eventKey="profile" title="Weight">
-                                        <WeightOverview weight={this.state.weight} date={this.state.date}/>
-                                    </Tab>
-                                    <Tab eventKey="contact" title="B.M.I.">
-                                        <BMIOverview bmi={this.state.bmi} date={this.state.date}/>
-                                    </Tab>
-                                </Tabs>
-                            </CardBody>
-                        </Card>
-                    </Col>
-                </Row>
-            </Container>
-        )
-    };
-
-}
+      {/* Top Referrals */}
+      <Col lg="3" md="12" sm="12" className="mb-4">
+        <TopReferrals />
+      </Col>
+    </Row>
+  </Container>
+);
 
 BlogOverview.propTypes = {
-    /**
-     * The small stats dataset.
-     */
-    smallStats: PropTypes.array
+  /**
+   * The small stats dataset.
+   */
+  smallStats: PropTypes.array
 };
 
-BlogOverview.defaultProps = {};
+BlogOverview.defaultProps = {
+  smallStats: [
+    {
+      label: "Posts",
+      value: "2,390",
+      percentage: "4.7%",
+      increase: true,
+      chartLabels: [null, null, null, null, null, null, null],
+      attrs: { md: "6", sm: "6" },
+      datasets: [
+        {
+          label: "Today",
+          fill: "start",
+          borderWidth: 1.5,
+          backgroundColor: "rgba(0, 184, 216, 0.1)",
+          borderColor: "rgb(0, 184, 216)",
+          data: [1, 2, 1, 3, 5, 4, 7]
+        }
+      ]
+    },
+    {
+      label: "Pages",
+      value: "182",
+      percentage: "12.4",
+      increase: true,
+      chartLabels: [null, null, null, null, null, null, null],
+      attrs: { md: "6", sm: "6" },
+      datasets: [
+        {
+          label: "Today",
+          fill: "start",
+          borderWidth: 1.5,
+          backgroundColor: "rgba(23,198,113,0.1)",
+          borderColor: "rgb(23,198,113)",
+          data: [1, 2, 3, 3, 3, 4, 4]
+        }
+      ]
+    },
+    {
+      label: "Comments",
+      value: "8,147",
+      percentage: "3.8%",
+      increase: false,
+      decrease: true,
+      chartLabels: [null, null, null, null, null, null, null],
+      attrs: { md: "4", sm: "6" },
+      datasets: [
+        {
+          label: "Today",
+          fill: "start",
+          borderWidth: 1.5,
+          backgroundColor: "rgba(255,180,0,0.1)",
+          borderColor: "rgb(255,180,0)",
+          data: [2, 3, 3, 3, 4, 3, 3]
+        }
+      ]
+    },
+    {
+      label: "New Customers",
+      value: "29",
+      percentage: "2.71%",
+      increase: false,
+      decrease: true,
+      chartLabels: [null, null, null, null, null, null, null],
+      attrs: { md: "4", sm: "6" },
+      datasets: [
+        {
+          label: "Today",
+          fill: "start",
+          borderWidth: 1.5,
+          backgroundColor: "rgba(255,65,105,0.1)",
+          borderColor: "rgb(255,65,105)",
+          data: [1, 7, 1, 3, 1, 4, 8]
+        }
+      ]
+    },
+    {
+      label: "Subscribers",
+      value: "17,281",
+      percentage: "2.4%",
+      increase: false,
+      decrease: true,
+      chartLabels: [null, null, null, null, null, null, null],
+      attrs: { md: "4", sm: "6" },
+      datasets: [
+        {
+          label: "Today",
+          fill: "start",
+          borderWidth: 1.5,
+          backgroundColor: "rgb(0,123,255,0.1)",
+          borderColor: "rgb(0,123,255)",
+          data: [3, 2, 3, 2, 4, 5, 4]
+        }
+      ]
+    }
+  ]
+};
 
 export default BlogOverview;
