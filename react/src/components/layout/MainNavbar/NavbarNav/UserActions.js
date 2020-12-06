@@ -1,66 +1,78 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import {
-  Dropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  Collapse,
-  NavItem,
-  NavLink
-} from "shards-react";
+import {Link, withRouter} from "react-router-dom";
+import store from "../../../../states/store";
+import {Collapse, Dropdown, DropdownItem, DropdownMenu, DropdownToggle, NavItem, NavLink} from "shards-react";
+import axios from "axios";
 
-export default class UserActions extends React.Component {
-  constructor(props) {
-    super(props);
+class UserActions extends React.Component {
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      visible: false
+        this.state = {
+            user: store.getState().user,
+            userAvatar: '',
+            visible: false,
+            getPic: false
+        };
+
+        this.toggleUserActions = this.toggleUserActions.bind(this);
+    }
+
+    toggleUserActions() {
+
+        this.setState({
+            visible: !this.state.visible
+        });
+    }
+
+    myChangeHandler = (event) => {
+        this.setState({username: event.target.value})
     };
 
-    this.toggleUserActions = this.toggleUserActions.bind(this);
-  }
+    getPic() {
+        const self = this;
+        self.setState({
+            userAvatar: require("../../../../images/avatars/" + self.state.user.name[0].toUpperCase() + ".png"),
+            getPic: true
+        });
+    }
 
-  toggleUserActions() {
-    this.setState({
-      visible: !this.state.visible
-    });
-  }
+    redirectToUserProfile() {
+        console.log("redirecting");
+        console.log(this.state.user._id);
+        this.props.history.push({
+            pathname:"user-profile-lite",
+            state: {
+                userID: this.state.user._id
+            }
+        });
+    }
 
-  render() {
-    return (
-      <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
-        <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
-          <img
-            className="user-avatar rounded-circle mr-2"
-            src={require("./../../../../images/avatars/0.jpg")}
-            alt="User Avatar"
-          />{" "}
-          <span className="d-none d-md-inline-block">Xinman Zhang</span>
-        </DropdownToggle>
-        <Collapse tag={DropdownMenu} right small open={this.state.visible}>
-          <DropdownItem tag={Link} to="user-profile">
-            <i className="material-icons">&#xE7FD;</i> Edit Profile
-          </DropdownItem>
-          {/* <DropdownItem tag={Link} to="edit-user-profile">
-            <i className="material-icons">&#xE8B8;</i> Edit Profile
-          </DropdownItem> */}
-          <DropdownItem tag={Link} to="components-overview">
-          <i class="material-icons">&#xea5f;</i> Calorie Burned
-          </DropdownItem>
-          <DropdownItem tag={Link} to="add-new-post">
-            {/* <i className="material-icons">&#xE2C7;</i> Add A New Post */}
-            <i className="material-icons">post_add</i> Add New Post
-          </DropdownItem>
-          <DropdownItem tag={Link} to="transaction-history">
-            <i className="material-icons">&#xE896;</i> Transactions
-          </DropdownItem>
-          <DropdownItem divider />
-          <DropdownItem tag={Link} to="/" className="text-danger">
-            <i className="material-icons text-danger">&#xE879;</i> Logout
-          </DropdownItem>
-        </Collapse>
-      </NavItem>
-    );
-  }
+    render() {
+        if (!this.state.getPic) {
+            this.getPic();
+        }
+        return (
+            <NavItem tag={Dropdown} caret toggle={this.toggleUserActions}>
+                <DropdownToggle caret tag={NavLink} className="text-nowrap px-3">
+                    <img
+                        className="user-avatar rounded-circle mr-2"
+                        src={this.state.userAvatar}
+                        alt="User Avatar"
+                    />{" "}
+                    <span className="d-none d-md-inline-block">{this.state.user.name}</span>
+                </DropdownToggle>
+                <Collapse tag={DropdownMenu} right small open={this.state.visible}>
+                    <DropdownItem onClick={this.redirectToUserProfile.bind(this)}>
+                        <i className="material-icons">&#xE7FD;</i> Profile
+                    </DropdownItem>
+                    <DropdownItem tag={Link} to="add-new-post">
+                        <i className="material-icons">post_add</i> Add New Post
+                    </DropdownItem>
+                </Collapse>
+            </NavItem>
+        );
+    }
 }
+
+export default withRouter(UserActions);
