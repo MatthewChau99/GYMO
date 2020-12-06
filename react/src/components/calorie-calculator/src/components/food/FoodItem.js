@@ -9,7 +9,6 @@ const FoodItem = ({food, handleAddFood}) => {
   // static propTypes = {
   //   food: PropTypes.object.isRequired
   // };
-  console.log('!!!')
   const [sfood, setFood] = useState({});
   const [isShowing, setShowing] = useState(false);
   const getFood = async id => {
