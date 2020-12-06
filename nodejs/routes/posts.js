@@ -1,61 +1,38 @@
 const express = require('express');
 const router = express.Router();
-//const Post = require('../models/Posts');
-
-//get all the posts
-router.get('/', async (req, res) => {
-    // try{
-    //     const posts = await Post.find();
-    //     res.json(posts);
-    // } catch(err) {
-    //     res.json({message: err});
-    // }
-    res.send('We are on posts');
-});
+const PostController = require('../controllers/PostController');
+const CommentController = require('../controllers/CommentController');
 
 //submit a post
-// router.post('/', async (req, res) => {
-//    const post = new Post({
-//        title: req.body.title,
-//        description: req.body.description
-//    });
-//    try{
-//         const savedPost = await post.save();
-//         res.json(savedPost);
-//    } catch(err) {
-//        res.json({message: err});
-//    }
-// });
+router.post('/submitPost', PostController.uploadPost);
 
-// //get a specific post
-// router.get('/:postID', async (req, res) => {
-//     try{
-//         const post = await Post.findById(req.params.postID);
-//         res.json(post);
-//     } catch(err){
-//         res.json({message: err});
-//     }
-// });
+//get a specific post
+router.get('/getAllPosts', PostController.getAllPosts);
+router.get('/:postID', PostController.getPostById);
+router.get('/user/:userID', PostController.getPostsByUser);
 
-// //delete a specific post
-// router.delete('/:postID', async (req, res) => {
-//     try{
-//     const removedPost = await Post.remove({_id: req.params.postID});
-//     res.json(removedPost);
-//     } catch(err) {
-//         res.json({message:err});
-//     }
-// });
+router.get('/getUserByPost/:postID', PostController.getUserByPost);
+router.get('/getPostCount/:postID', PostController.getPostCount);
+router.get('/getPostDate/:postID', PostController.getPostDate);
+router.get('/checkFollowState/:userID/:postID', PostController.checkFollowState);
+router.get('/getPostsFromFollows/:userID', PostController.getPostsFromFollows);
 
-// //update a specific post
-// router.patch('/:postID', async(req, res) => {
-//     try{
-//     const updatedPost = await Post.updateOne({_id: req.params.postID}, {$set: {title: req.body.title,
-//     description:req.body.description}});
-//     res.json(updatedPost);
-//     } catch(err){
-//         res.json({message: err});
-//     }
-// });
+//delete a specific post
+router.delete('/:postID', PostController.deletePost);
+
+//update a specific post
+router.patch('/:postID', PostController.updatePost);
+
+//submit a comment
+router.post('/comment/:postID', CommentController.uploadComment);
+
+//load all comment for a post
+router.get('/comment/:postID', CommentController.getCommentsForPost);
+
+//delete a comment
+router.delete('/:postID/:commentID', CommentController.deleteComment);
+
+//add a like to post
+router.post('/addLike', PostController.addLikeToPost);
 
 module.exports = router;
