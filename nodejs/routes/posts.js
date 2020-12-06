@@ -15,8 +15,7 @@ router.get('/getUserByPost/:postID', PostController.getUserByPost);
 router.get('/getPostCount/:postID', PostController.getPostCount);
 router.get('/getPostDate/:postID', PostController.getPostDate);
 router.get('/checkFollowState/:userID/:postID', PostController.checkFollowState);
-
-
+router.get('/getPostsFromFollows/:userID', PostController.getPostsFromFollows);
 
 //delete a specific post
 router.delete('/:postID', PostController.deletePost);

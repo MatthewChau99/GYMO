@@ -51,6 +51,38 @@ const getAllPosts = async (req, res) => {
     }
 };
 
+const getPostsFromFollows = async (req, res) => {
+    try {
+        let my_user = await User.findById(req.params.userID);
+        let follows = my_user.follows;
+        console.log(follows);
+        let posts = await Post.find({}).sort({date: -1});
+        let returnPosts = [];
+        for (let i = 0; i < posts.length; i++) {
+            let user = await User.findById(posts[i].userID).lean();
+            console.log("1", follows.indexOf(user._id) > -1);
+            console.log("2", user._id.equals(req.params.userID));
+            if (user && (follows.indexOf(user._id) > -1 || user._id.equals(req.params.userID))) { 
+                console.log("in");
+                let returnPost = {
+                    title: posts[i].title,
+                    content: posts[i].content,
+                    userID: posts[i].userID,
+                    postID: posts[i]._id,
+                    userName: user.name,
+                    pictureID: posts[i].pictureID,
+                    date: new Date(posts[i].date).toISOString().substring(0, 10),
+                    likes: posts[i].likes
+                };
+                returnPosts.push(returnPost);
+            }
+        }
+        res.status(200).json({posts: returnPosts});
+    } catch (err) {
+        res.status(404).json({message: err});
+    }
+};
+
 const getPostById = async (req, res) => {
     try {
         let returnPosts = [];
@@ -229,5 +261,6 @@ module.exports = {
     getUserByPost,
     getPostCount,
     checkFollowState,
-    getPostDate
+    getPostDate,
+    getPostsFromFollows
 };
