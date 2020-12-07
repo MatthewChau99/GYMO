@@ -30,7 +30,8 @@ start the frontend by `npm start`
 Then it should run on localhost:3000
 
 ### Database
-Download MongoDB and connect it with localhost:27017. Recommend using Studio 3T or Robot 3T to get access to MongoDB.
+Download MongoDB and connect it with localhost:27017. Here is the link on how to download MongoDB on your local enviornment.
+https://docs.mongodb.com/manual/administration/install-community/
 
 # Play with GYMO 
 Here is the user guide to GYMO. You can find the detailed instructions there. https://drive.google.com/file/d/1z-ZlfDVjtsQ4_w2A4TYIiq9vzYugPyoO/view?usp=sharing
