@@ -38,5 +38,5 @@ Here is the user guide to GYMO. You can find the detailed instructions there. ht
 
 Here is the technical document to GYMO. https://drive.google.com/file/d/1aWdKovPdWmf0AVi615UUjAtXxxOrqRQC/view?usp=sharing
 
-
+Here is our demo to GYMO. https://emory.zoom.us/rec/play/I6F_5F7EtHLt_Td_ZK2Z3meQ0JcWyleBzQKwUXLt9btGWeQ7uyDTs2pMgEE12turIwuaL3gL1cJydHXU.l3Gsctmq1jts35y8?startTime=1606624209000
 
